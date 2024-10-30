@@ -1,9 +1,6 @@
 import React from 'react';
-import axios from 'axios';
 import { useRouter } from 'next/router';
-import { usePokemonDetail } from '../../hooks/use-pokemon-detail';
-import { GetStaticPaths, GetStaticProps } from 'next';
-import { QueryClient, dehydrate } from '@tanstack/react-query';
+import { usePokemonDetail } from '@/hooks/use-pokemon-detail';
 
 const PokemonDetailPage = () => {
   const router = useRouter();
@@ -15,40 +12,24 @@ const PokemonDetailPage = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">{pokemon?.name}</h1>
-      <img src={pokemon?.sprites.front_default} alt={pokemon?.name} className="mx-auto" />
-      <div className="text-lg">
-        <p>Height: {pokemon?.height}</p>
-        <p>Weight: {pokemon?.weight}</p>
+      <h1 className="text-2xl font-bold mb-4 capitalize">{pokemon?.name}</h1>
+      <img src={pokemon?.sprites.front_default} alt={pokemon?.name} className="mx-auto h-48" />
+      <div className="text-lg mt-4">
+        <p>Height: {pokemon?.height ?? 1 / 10} m</p>
+        <p>Weight: {pokemon?.weight ?? 1 / 10} kg</p>
+      </div>
+      <div className="mt-4">
+        <h3 className="text-lg font-medium">Types:</h3>
+        <div className="flex flex-wrap">
+          {pokemon?.types.map(({ type }) => (
+            <span key={type.name} className="inline-block bg-gray-200 text-gray-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
+              {type.name}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=20');
-  const paths = response.data.results.map((pokemon: { name: string }) => ({
-    params: { id: pokemon.name },
-  }));
-
-  return { paths, fallback: 'blocking' };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const queryClient = new QueryClient();
-  const id = params?.id as string;
-
-  await queryClient.prefetchQuery(['pokemonDetail', id], async () => {
-    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
-    return response.data;
-  });
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-    revalidate: 60,
-  };
 };
 
 export default PokemonDetailPage;

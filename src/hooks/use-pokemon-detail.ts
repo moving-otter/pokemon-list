@@ -7,6 +7,11 @@ const pokemonDetailSchema = z.object({
   name: z.string(),
   height: z.number(),
   weight: z.number(),
+  types: z.array(z.object({
+    type: z.object({
+      name: z.string(),
+    }),
+  })),
   sprites: z.object({
     front_default: z.string().url(),
   }),
