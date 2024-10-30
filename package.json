@@ -1,8 +1,6 @@
 {
   "name": "pokemon-list",
-  "version": "1.0.1",
-  "private": false,
-  "type": "module",
+  "version": "1.0.1",  
   "scripts": {
     "dev": "next dev",
     "build": "next build",
