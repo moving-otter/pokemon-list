@@ -25,8 +25,11 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ name, number, height, weight,
           <h3 className="text-sm font-medium">Types:</h3>
           <div className="flex flex-wrap">
             {types.map((type) => (
-              <span key={type} className="inline-block bg-gray-200 text-gray-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
-                {type}
+              <span
+                key={type}
+                className={`inline-block text-xs font-semibold mr-2 px-2.5 py-0.5 rounded type-${type}`}
+              >
+                {type.charAt(0).toUpperCase() + type.slice(1)} {/* Capitalize the first letter */}
               </span>
             ))}
           </div>
