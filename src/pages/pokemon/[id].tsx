@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { usePokemonDetail } from '../../hooks/usePokemonDetail';
+import { usePokemonDetail } from '../../hooks/use-pokemon-detail';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 

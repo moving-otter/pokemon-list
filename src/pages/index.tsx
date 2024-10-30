@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { usePokemonList } from '../hooks/usePokemonList';
+import { usePokemonList } from '../hooks/use-pokemon-list';
 
 const PokemonListPage = () => {
   const { data: pokemonList, isLoading, error } = usePokemonList();
