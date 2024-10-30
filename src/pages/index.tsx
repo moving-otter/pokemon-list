@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
-import PokemonCard from '../components/PokemonCard';
-import Pagination from '../components/Pagination';
-import usePokemonListWithDetails from '../hooks/usePokemonListWithDetails';
-import { usePokemonStore } from '../store/pokemonStore';
+import React, { useState } from "react";
+import PokemonCard from "../components/PokemonCard";
+import Pagination from "../components/Pagination";
+import usePokemonListWithDetails from "../hooks/usePokemonListWithDetails";
+import { usePokemonStore } from "../store/pokemonStore";
 
 const PokemonListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 20;
-  const { pokemonList, isLoading, error } = usePokemonListWithDetails(currentPage, limit);
+  const { pokemonList, isLoading, error } = usePokemonListWithDetails(
+    currentPage,
+    limit
+  );
   const totalPages = usePokemonStore((state) => state.totalPages);
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (error) return <div>API Error...</div>;
 
   return (
     <div className="container mx-auto p-4">
