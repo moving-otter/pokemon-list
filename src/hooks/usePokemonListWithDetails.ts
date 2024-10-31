@@ -1,38 +1,58 @@
 import axios from "axios";
 import { usePokemonStore } from "@/store/pokemonStore";
 import { useQuery, useQueries } from "@tanstack/react-query";
+import { z } from "zod";
 
-interface PokemonDetails {
-  name: string;
-  number: number;
-  imageUrl: string;
-  height: number;
-  weight: number;
-  types: string[];
-}
+// Define Zod schemas for validation
+const PokemonDetailsSchema = z.object({
+  name: z.string(),
+  id: z.number(),
+  height: z.number(),
+  weight: z.number(),
+  types: z.array(
+    z.object({
+      type: z.object({ name: z.string() }),
+    })
+  ),
+  sprites: z.object({
+    front_default: z.string().url().nullable(),
+  }),
+});
+
+const PokemonListSchema = z.object({
+  count: z.number(),
+  results: z.array(z.object({ url: z.string().url() })),
+});
+
+// Define TypeScript interfaces from Zod schemas
+type PokemonDetails = z.infer<typeof PokemonDetailsSchema>;
+type PokemonList = z.infer<typeof PokemonListSchema>;
 
 // Fetching function for Pokémon list
-const fetchPokemonList = async (page: number, limit: number) => {
+const fetchPokemonList = async (
+  page: number,
+  limit: number
+): Promise<PokemonList> => {
   const response = await axios.get(
     `https://pokeapi.co/api/v2/pokemon?offset=${
       (page - 1) * limit
     }&limit=${limit}`
   );
-  return response.data; // Return the full response to use the count
+  return PokemonListSchema.parse(response.data); // Validate using Zod
 };
 
 // Fetching function for individual Pokémon details
 const fetchPokemonDetails = async (url: string) => {
   const response = await axios.get(url);
-  const { id, height, weight, types, sprites } = response.data;
+  const validatedData = PokemonDetailsSchema.parse(response.data); // Validate using Zod
 
   return {
-    name: response.data.name,
-    number: id,
-    height,
-    weight,
-    types: types.map((type: { type: { name: string } }) => type.type.name),
-    imageUrl: sprites.front_default,
+    name: validatedData.name,
+    number: validatedData.id,
+    height: validatedData.height,
+    weight: validatedData.weight,
+    types: validatedData.types.map((type) => type.type.name),
+    imageUrl: validatedData.sprites.front_default || "", // Handle nullable image
   };
 };
 
@@ -61,11 +81,12 @@ const usePokemonListWithDetails = (page: number, limit: number) => {
   // Fetch details for each Pokémon using useQueries
   const pokemonDetailsQueries = useQueries({
     queries:
-      pokemonListData?.results?.map((pokemon: { url: string }) => ({
+      pokemonListData?.results?.map((pokemon) => ({
         queryKey: ["pokemonDetails", pokemon.url],
         queryFn: () => fetchPokemonDetails(pokemon.url),
         enabled: !!pokemonListData, // Only run if the pokemonListData is available
         staleTime: 5 * 60 * 1000, // Cache data for 5 minutes for each Pokémon
+        cacheTime: 30 * 60 * 1000, // Keep data in cache for 30 minutes after last use
       })) || [],
   });
 

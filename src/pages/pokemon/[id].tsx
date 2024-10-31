@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { usePokemonDetail } from "@/hooks/usePokemonDetail";
 
@@ -14,7 +14,7 @@ const PokemonDetailPage = () => {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4 capitalize">{pokemon.name}</h1>
       <img
-        src={pokemon.sprites.front_default}
+        src={pokemon.sprites.front_default ?? undefined}
         alt={pokemon.name}
         className="mx-auto h-48"
       />

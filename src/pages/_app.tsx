@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Head>
-        <title>포켓몬 도감</title>
+        <title>Poke</title>
         <link rel="icon" href="/favicon/monsterball-312x320.png" />
       </Head>
 
