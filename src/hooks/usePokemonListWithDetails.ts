@@ -2,6 +2,7 @@ import axios from "axios";
 import { usePokemonStore } from "@/store/pokemonStore";
 import { useQuery, useQueries } from "@tanstack/react-query";
 import { z } from "zod";
+import { REACT_QUERY_OPTION } from "@/utils/constants";
 
 // Define Zod schemas for validation
 const PokemonDetailsSchema = z.object({
@@ -69,12 +70,17 @@ const usePokemonListWithDetails = (page: number, limit: number) => {
     ["pokemonList", page, limit],
     () => fetchPokemonList(page, limit),
     {
+      enabled:
+        typeof page === "number" &&
+        !isNaN(page) &&
+        typeof limit === "number" &&
+        !isNaN(limit), // page와 limit이 숫자일 경우에만 쿼리 실행
       onSuccess: (data) => {
         const totalPages = Math.ceil(data.count / limit);
         setTotalPages(totalPages); // Update zustand state with the total pages
       },
-      staleTime: 5 * 60 * 1000, // Cache data for 5 minutes
-      cacheTime: 30 * 60 * 1000, // Keep data in cache for 30 minutes after last use
+      staleTime: REACT_QUERY_OPTION.staleTime,
+      cacheTime: REACT_QUERY_OPTION.cacheTime,
     }
   );
 
@@ -85,8 +91,8 @@ const usePokemonListWithDetails = (page: number, limit: number) => {
         queryKey: ["pokemonDetails", pokemon.url],
         queryFn: () => fetchPokemonDetails(pokemon.url),
         enabled: !!pokemonListData, // Only run if the pokemonListData is available
-        staleTime: 5 * 60 * 1000, // Cache data for 5 minutes for each Pokémon
-        cacheTime: 30 * 60 * 1000, // Keep data in cache for 30 minutes after last use
+        staleTime: REACT_QUERY_OPTION.staleTime,
+        cacheTime: REACT_QUERY_OPTION.cacheTime,
       })) || [],
   });
 
