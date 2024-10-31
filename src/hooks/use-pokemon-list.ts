@@ -46,7 +46,7 @@ const usePokemonListWithDetails = (page: number, limit: number) => {
       const response = await axios.get(
         `${POKEMON_API_V2}/pokemon?offset=${(page - 1) * limit}&limit=${limit}`
       );
-      
+
       return PokemonListSchema.parse(response.data);
     },
     {
@@ -103,7 +103,7 @@ const usePokemonListWithDetails = (page: number, limit: number) => {
   }, [pokemonDetailsQueries, setPokemonList]);
 
   return {
-    pokemonList: pokemonList.length === limit ? pokemonList : [],
+    pokemonList: pokemonList,
     isLoading:
       isListLoading || pokemonDetailsQueries.some((query) => query.isLoading),
     error:
