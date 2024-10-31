@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueries } from "@tanstack/react-query";
 import axios from "axios";
 import { usePokemonStore } from "../store/pokemonStore";
 
@@ -11,57 +11,74 @@ interface PokemonDetails {
   types: string[];
 }
 
-// Fetching function for Pokémon data
-const fetchPokemonListWithDetails = async (page: number, limit: number) => {
+// Fetching function for Pokémon list
+const fetchPokemonList = async (page: number, limit: number) => {
   const response = await axios.get(
     `https://pokeapi.co/api/v2/pokemon?offset=${
       (page - 1) * limit
     }&limit=${limit}`
   );
-  const results = response.data.results;
-  const count = response.data.count;
+  return response.data; // Return the full response to use the count
+};
 
-  const detailedData = await Promise.all(
-    results.map(async (pokemon: { name: string; url: string }) => {
-      const pokemonDetail = await axios.get(pokemon.url);
-      const { id, height, weight, types, sprites } = pokemonDetail.data;
+// Fetching function for individual Pokémon details
+const fetchPokemonDetails = async (url: string) => {
+  const response = await axios.get(url);
+  const { id, height, weight, types, sprites } = response.data;
 
-      return {
-        name: pokemon.name,
-        number: id,
-        height,
-        weight,
-        types: types.map((type: { type: { name: string } }) => type.type.name),
-        imageUrl: sprites.front_default,
-      };
-    })
-  );
-
-  return { detailedData, count };
+  return {
+    name: response.data.name,
+    number: id,
+    height,
+    weight,
+    types: types.map((type: { type: { name: string } }) => type.type.name),
+    imageUrl: sprites.front_default,
+  };
 };
 
 // Custom hook using react-query to fetch Pokémon data
 const usePokemonListWithDetails = (page: number, limit: number) => {
   const setTotalPages = usePokemonStore((state) => state.setTotalPages);
 
-  const { data, isLoading, error } = useQuery(
+  // Fetch the Pokémon list to get the count and the URLs for details
+  const {
+    data: pokemonListData,
+    isLoading: isListLoading,
+    error: listError,
+  } = useQuery(
     ["pokemonList", page, limit],
-    () => fetchPokemonListWithDetails(page, limit),
+    () => fetchPokemonList(page, limit),
     {
       onSuccess: (data) => {
         const totalPages = Math.ceil(data.count / limit);
         setTotalPages(totalPages); // Update zustand state with the total pages
       },
-      keepPreviousData: true,
       staleTime: 5 * 60 * 1000, // Cache data for 5 minutes
       cacheTime: 30 * 60 * 1000, // Keep data in cache for 30 minutes after last use
     }
   );
 
+  // Fetch details for each Pokémon using useQueries
+  const pokemonDetailsQueries = useQueries({
+    queries:
+      pokemonListData?.results?.map((pokemon: { url: string }) => ({
+        queryKey: ["pokemonDetails", pokemon.url],
+        queryFn: () => fetchPokemonDetails(pokemon.url),
+        enabled: !!pokemonListData, // Only run if the pokemonListData is available
+        staleTime: 5 * 60 * 1000, // Cache data for 5 minutes for each Pokémon
+      })) || [],
+  });
+
+  const pokemonList = pokemonDetailsQueries
+    .map((query) => query.data)
+    .filter((data) => data); // Filter out any undefined data
+
   return {
-    pokemonList: data?.detailedData || [],
-    isLoading,
-    error,
+    pokemonList,
+    isLoading:
+      isListLoading || pokemonDetailsQueries.some((query) => query.isLoading), // Loading if either the list or any of the details are loading
+    error:
+      listError || pokemonDetailsQueries.find((query) => query.error)?.error, // Combine any errors
   };
 };
 
