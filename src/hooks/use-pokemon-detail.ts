@@ -1,9 +1,10 @@
 import axios from "axios";
 import { z } from "zod";
 import { useQuery } from "@tanstack/react-query";
+import { REACT_QUERY_OPTION, POKEMON_API_V2 } from "@/utils/constants";
 
 // Define the Zod schema for Pokémon details
-const pokemonDetailSchema = z.object({
+const PokemonDetailSchema = z.object({
   name: z.string(),
   id: z.number(),
   height: z.number(),
@@ -18,21 +19,23 @@ const pokemonDetailSchema = z.object({
   }),
 });
 
+// Define TypeScript interfaces from Zod schema
+type TPokemonDetailType = z.infer<typeof PokemonDetailSchema>;
+
 // Define the hook for fetching Pokémon details
 export const usePokemonDetail = (id: string | undefined) => {
-  return useQuery(
+  return useQuery<TPokemonDetailType>(
     ["pokemonDetail", id],
     async () => {
-      const response = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon/${id}`
-      );
-      return pokemonDetailSchema.parse(response.data);
+      const response = await axios.get(`${POKEMON_API_V2}/pokemon/${id}`);
+      
+      return PokemonDetailSchema.parse(response.data);
     },
     {
-      staleTime: 5 * 60 * 1000, // 5 minutes
-      cacheTime: 30 * 60 * 1000, // 30 minutes
-      refetchOnWindowFocus: false, // Optional: prevent refetch when the window regains focus
       enabled: !!id, // Only run the query if id is defined
+      refetchOnWindowFocus: false, // Optional: prevent refetch when the window regains focus
+      staleTime: REACT_QUERY_OPTION.staleTime,
+      cacheTime: REACT_QUERY_OPTION.cacheTime,
     }
   );
 };
