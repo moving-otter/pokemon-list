@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
 import { z } from "zod";
+import { useQuery } from "@tanstack/react-query";
 
 // Define the Zod schema for Pokémon details
 const pokemonDetailSchema = z.object({

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { usePokemonDetail } from "@/hooks/usePokemonDetail";
+import { usePokemonDetail } from "@/hooks/use-pokemon-detail";
 
 const PokemonDetailPage = () => {
   const router = useRouter();
@@ -30,8 +30,8 @@ const PokemonDetailPage = () => {
               key={type.name}
               className={`inline-block text-xs font-semibold mr-2 px-2.5 py-0.5 rounded type-${type.name}`}
             >
-              {type.name.charAt(0).toUpperCase() + type.name.slice(1)}{" "}
               {/* Capitalize the first letter */}
+              {type.name.charAt(0).toUpperCase() + type.name.slice(1)}{" "}
             </span>
           ))}
         </div>

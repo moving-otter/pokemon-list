@@ -1,8 +1,9 @@
 import axios from "axios";
-import { usePokemonStore } from "@/store/pokemonStore";
-import { useQuery, useQueries } from "@tanstack/react-query";
 import { z } from "zod";
+import { useEffect } from "react";
+import { usePokemonStore } from "@/store/pokemon-store";
 import { REACT_QUERY_OPTION } from "@/utils/constants";
+import { useQuery, useQueries } from "@tanstack/react-query";
 
 // Define Zod schemas for validation
 const PokemonDetailsSchema = z.object({
@@ -60,6 +61,7 @@ const fetchPokemonDetails = async (url: string) => {
 // Custom hook using react-query to fetch Pokémon data
 const usePokemonListWithDetails = (page: number, limit: number) => {
   const setTotalPages = usePokemonStore((state) => state.setTotalPages);
+  const setPokemonList = usePokemonStore((state) => state.setPokemonList);
 
   // Fetch the Pokémon list to get the count and the URLs for details
   const {
@@ -98,10 +100,20 @@ const usePokemonListWithDetails = (page: number, limit: number) => {
 
   const pokemonList = pokemonDetailsQueries
     .map((query) => query.data)
-    .filter((data) => data); // Filter out any undefined data
+    .filter((data) => data);
+
+  // 모든 쿼리가 성공적으로 완료되었을 때 zustand에 리스트를 저장
+  useEffect(() => {
+    const allQueriesSuccessful = pokemonDetailsQueries.every(
+      (query) => query.isSuccess
+    );
+    if (allQueriesSuccessful) {
+      setPokemonList(pokemonList);
+    }
+  }, [pokemonDetailsQueries, setPokemonList]);
 
   return {
-    pokemonList,
+    pokemonList: pokemonList.length === limit ? pokemonList : [],
     isLoading:
       isListLoading || pokemonDetailsQueries.some((query) => query.isLoading), // Loading if either the list or any of the details are loading
     error:

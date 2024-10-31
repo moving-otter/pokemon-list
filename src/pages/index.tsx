@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import Pagination from "@/components/Pagination";
-import PokemonCard from "@/components/PokemonCard";
-import usePokemonListWithDetails from "@/hooks/usePokemonListWithDetails";
-import { usePokemonStore } from "@/store/pokemonStore";
+import React, { useEffect, useState } from "react";
+import Pagination from "@/components/pokemon-pagination";
+import PokemonCard from "@/components/pokemon-card";
+import usePokemonListWithDetails from "@/hooks/use-pokemon-list";
+import { usePokemonStore } from "@/store/pokemon-store";
 
 const PokemonListPage = () => {
+  const setPokemonList = usePokemonStore((state) => state.setPokemonList);
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 20;
   const { pokemonList, isLoading, error } = usePokemonListWithDetails(
