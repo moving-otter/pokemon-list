@@ -13,8 +13,10 @@ const Pagination: React.FC<PaginationProps> = ({
 }) => {
   const renderPageNumbers = () => {
     const pageNumbers = [];
-    const startPage = Math.max(1, currentPage - 2); // 현재 페이지 기준으로 시작 페이지 계산
-    const endPage = Math.min(totalPages, startPage + 4); // 현재 페이지 기준으로 끝 페이지 계산
+    // 현재 페이지 기준으로 시작 페이지 계산
+    const startPage = Math.max(1, currentPage - 2);
+    // 현재 페이지 기준으로 끝 페이지 계산
+    const endPage = Math.min(totalPages, startPage + 4);
 
     // 필요한 페이지 번호만 생성
     for (let i = startPage; i <= endPage; i++) {

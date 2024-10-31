@@ -3,7 +3,7 @@ import { z } from "zod";
 import { useQuery } from "@tanstack/react-query";
 import { REACT_QUERY_OPTION, POKEMON_API_V2 } from "@/utils/constants";
 
-// Define the Zod schema for Pokémon details
+// 포켓몬 상세 정보에 대한 Zod 스키마 정의
 const PokemonDetailSchema = z.object({
   name: z.string(),
   id: z.number(),
@@ -19,21 +19,23 @@ const PokemonDetailSchema = z.object({
   }),
 });
 
-// Define TypeScript interfaces from Zod schema
+// Zod 스키마로부터 TypeScript 인터페이스 정의
 type TPokemonDetailType = z.infer<typeof PokemonDetailSchema>;
 
-// Define the hook for fetching Pokémon details
+// 포켓몬 상세 정보를 가져오는 훅 정의
 export const usePokemonDetail = (id: string | undefined) => {
   return useQuery<TPokemonDetailType>(
     ["pokemonDetail", id],
     async () => {
       const response = await axios.get(`${POKEMON_API_V2}/pokemon/${id}`);
-      
+
       return PokemonDetailSchema.parse(response.data);
     },
     {
-      enabled: !!id, // Only run the query if id is defined
-      refetchOnWindowFocus: false, // Optional: prevent refetch when the window regains focus
+      // id가 정의된 경우에만 쿼리를 실행
+      enabled: !!id,
+      // 선택 사항: 창이 다시 포커스를 얻을 때 데이터를 새로 고침하지 않음
+      refetchOnWindowFocus: false,
       staleTime: REACT_QUERY_OPTION.staleTime,
       cacheTime: REACT_QUERY_OPTION.cacheTime,
     }
