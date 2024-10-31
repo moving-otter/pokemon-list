@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import PokemonCard from "../components/PokemonCard";
-import Pagination from "../components/Pagination";
-import usePokemonListWithDetails from "../hooks/usePokemonListWithDetails";
-import { usePokemonStore } from "../store/pokemonStore";
+import Pagination from "@/components/Pagination";
+import PokemonCard from "@/components/PokemonCard";
+import usePokemonListWithDetails from "@/hooks/usePokemonListWithDetails";
+import { usePokemonStore } from "@/store/pokemonStore";
 
 const PokemonListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,7 +20,7 @@ const PokemonListPage = () => {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Pokémon List</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {pokemonList.map((pokemon) => (
+        {pokemonList.map((pokemon: any) => (
           <PokemonCard
             key={pokemon.name}
             name={pokemon.name}

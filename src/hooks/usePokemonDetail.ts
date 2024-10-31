@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { z } from "zod";
+import { useQuery } from "@tanstack/react-query";
 
 const pokemonDetailSchema = z.object({
   id: z.number(),

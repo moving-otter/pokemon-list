@@ -2,6 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
+/* <pokemon-label-color> */
+.type-fire {
+  background-color: #fca311;
+  color: white;
+}
+.type-water {
+  background-color: #0077b6;
+  color: white;
+}
+.type-grass {
+  background-color: #2a9d8f;
+  color: white;
+}
+.type-electric {
+  background-color: #f9c74f;
+  color: black;
+}
+.type-ice {
+  background-color: #90e0ef;
+  color: black;
+}
+.type-fighting {
+  background-color: #e63946;
+  color: white;
+}
+.type-poison {
+  background-color: #6a0572;
+  color: white;
+}
+.type-ground {
+  background-color: #e9c46a;
+  color: black;
+}
+.type-flying {
+  background-color: #4d4c7d;
+  color: white;
+}
+.type-psychic {
+  background-color: #ff6f61;
+  color: white;
+}
+.type-bug {
+  background-color: #6f9e72;
+  color: white;
+}
+.type-rock {
+  background-color: #8d99ae;
+  color: black;
+}
+.type-ghost {
+  background-color: #6a0572;
+  color: white;
+}
+.type-steel {
+  background-color: #8d99ae;
+  color: black;
+}
+.type-fairy {
+  background-color: #ff8e8e;
+  color: white;
+}
+.type-dark {
+  background-color: #333;
+  color: white;
+}
+.type-normal {
+  background-color: gray;
+  color: white;
+}
+/* </pokemon-label-color> */
+
 :root {
   /* #region  /**=========== Primary Color =========== */
   /* !STARTERCONF Customize these variable, copy and paste from /styles/colors.css for list of colors */
@@ -116,74 +187,3 @@
     background-size: 0 2px, 100% 2px;
   }
 }
-
-/* <pokemon-label-color> */
-.type-fire {
-  background-color: #fca311;
-  color: white;
-}
-.type-water {
-  background-color: #0077b6;
-  color: white;
-}
-.type-grass {
-  background-color: #2a9d8f;
-  color: white;
-}
-.type-electric {
-  background-color: #f9c74f;
-  color: black;
-}
-.type-ice {
-  background-color: #90e0ef;
-  color: black;
-}
-.type-fighting {
-  background-color: #e63946;
-  color: white;
-}
-.type-poison {
-  background-color: #6a0572;
-  color: white;
-}
-.type-ground {
-  background-color: #e9c46a;
-  color: black;
-}
-.type-flying {
-  background-color: #4d4c7d;
-  color: white;
-}
-.type-psychic {
-  background-color: #ff6f61;
-  color: white;
-}
-.type-bug {
-  background-color: #6f9e72;
-  color: white;
-}
-.type-rock {
-  background-color: #8d99ae;
-  color: black;
-}
-.type-ghost {
-  background-color: #6a0572;
-  color: white;
-}
-.type-steel {
-  background-color: #8d99ae;
-  color: black;
-}
-.type-fairy {
-  background-color: #ff8e8e;
-  color: white;
-}
-.type-dark {
-  background-color: #333;
-  color: white;
-}
-.type-normal {
-  background-color: gray;
-  color: white;
-}
-/* </pokemon-label-color> */

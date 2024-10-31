@@ -1,6 +1,6 @@
-import { useQuery, useQueries } from "@tanstack/react-query";
 import axios from "axios";
-import { usePokemonStore } from "../store/pokemonStore";
+import { usePokemonStore } from "@/store/pokemonStore";
+import { useQuery, useQueries } from "@tanstack/react-query";
 
 interface PokemonDetails {
   name: string;
