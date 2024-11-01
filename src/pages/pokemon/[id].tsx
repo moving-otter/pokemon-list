@@ -27,8 +27,6 @@ export default function PokemonDetailPage() {
         <p>Weight: {pokemon?.weight / 10} kg</p>
       </div>
       <div className="mt-4">
-        <h3 className="text-lg font-medium">Types:</h3>
-
         <div className="flex flex-wrap">
           {pokemon?.types.map((type) => (
             <span

@@ -17,9 +17,15 @@ export default function PokemonCard(props: PokemonCardProps) {
     <Link
       href={`/pokemon/${number}`}
       className="
-      block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200"
+        block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200"
     >
-      <img src={imageUrl} alt={name} className="w-full h-40 object-cover" />
+      <div className="w-full h-40 overflow-hidden">
+        <img
+          src={imageUrl}
+          alt={name}
+          className="w-full h-full object-contain transform scale-95"
+        />
+      </div>
       <div className="p-4">
         <h2 className="text-lg font-bold capitalize">{name}</h2>
         <p className="text-gray-600"># {number}</p>
@@ -29,7 +35,6 @@ export default function PokemonCard(props: PokemonCardProps) {
           <span className="text-sm font-medium">Weight: {weight / 10} kg</span>
         </div>
         <div className="mt-2">
-          <h3 className="text-sm font-medium">Types:</h3>
           <div className="flex flex-wrap">
             {types.map((type) => (
               <span
