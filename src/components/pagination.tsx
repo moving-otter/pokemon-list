@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface PaginationProps {
   currentPage: number;
@@ -7,7 +7,7 @@ interface PaginationProps {
 }
 
 export default function Pagination(props: PaginationProps) {
-  const { currentPage, totalPages, onPageChange } = props;
+  const {currentPage, totalPages, onPageChange} = props;
 
   const renderPageNumbers = () => {
     const pageNumbers = [];
@@ -24,9 +24,7 @@ export default function Pagination(props: PaginationProps) {
             key={i}
             onClick={() => onPageChange(i)}
             className={`mx-1 px-3 py-1 rounded ${
-              currentPage === i
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-800"
+              currentPage === i ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'
             }`}
           >
             {i}

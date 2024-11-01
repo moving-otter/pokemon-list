@@ -1,5 +1,5 @@
-import React from "react";
-import Link from "next/link";
+import React from 'react';
+import Link from 'next/link';
 
 interface PokemonCardProps {
   name: string;
@@ -11,11 +11,11 @@ interface PokemonCardProps {
 }
 
 export default function PokemonCard(props: PokemonCardProps) {
-  const { name, number, height, weight, types, imageUrl } = props;
+  const {name, number, height, weight, types, imageUrl} = props;
 
   return (
     <Link
-      href={`/pokemon/${name}`}
+      href={`/pokemon/${number}`}
       className="
       block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200"
     >
@@ -36,7 +36,7 @@ export default function PokemonCard(props: PokemonCardProps) {
                 key={type}
                 className={`inline-block text-xs font-semibold mr-2 px-2.5 py-0.5 rounded type-${type}`}
               >
-                {type.charAt(0).toUpperCase() + type.slice(1)}{" "}
+                {type.charAt(0).toUpperCase() + type.slice(1)}{' '}
               </span>
             ))}
           </div>

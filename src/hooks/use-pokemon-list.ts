@@ -1,9 +1,9 @@
-import axios from "axios";
-import { z } from "zod";
-import { useEffect } from "react";
-import { usePokemonStore } from "@/store/pokemon-store";
-import { useQuery, useQueries } from "@tanstack/react-query";
-import { REACT_QUERY_OPTION, POKEMON_API_V2 } from "@/utils/constants";
+import axios from 'axios';
+import {z} from 'zod';
+import {useEffect} from 'react';
+import {usePokemonStore} from '@/store/pokemon-store';
+import {useQuery, useQueries} from '@tanstack/react-query';
+import {reactQueryOption, pokemonApiV2} from '@/utils/constants';
 
 // 유효성 검사를 위한 Zod 스키마 정의
 const pokemonDetailsSchema = z.object({
@@ -13,7 +13,7 @@ const pokemonDetailsSchema = z.object({
   weight: z.number(),
   types: z.array(
     z.object({
-      type: z.object({ name: z.string() }),
+      type: z.object({name: z.string()}),
     })
   ),
   sprites: z.object({
@@ -23,7 +23,7 @@ const pokemonDetailsSchema = z.object({
 
 const pokemonListSchema = z.object({
   count: z.number(),
-  results: z.array(z.object({ url: z.string().url() })),
+  results: z.array(z.object({url: z.string().url()})),
 });
 
 // Zod 스키마로부터 TypeScript 인터페이스 정의
@@ -41,27 +41,24 @@ const usePokemonListWithDetails = (page: number, limit: number) => {
     isLoading: isListLoading,
     error: listError,
   } = useQuery<PokemonListSchema>(
-    ["pokemonList", page, limit],
+    ['pokemonList', page, limit],
     async () => {
       const response = await axios.get(
-        `${POKEMON_API_V2}/pokemon?offset=${(page - 1) * limit}&limit=${limit}`
+        `${pokemonApiV2}/pokemon?offset=${(page - 1) * limit}&limit=${limit}`
       );
 
       return pokemonListSchema.parse(response.data);
     },
     {
       enabled:
-        typeof page === "number" &&
-        !isNaN(page) &&
-        typeof limit === "number" &&
-        !isNaN(limit), // page와 limit이 숫자인 경우에만 쿼리 실행
+        typeof page === 'number' && !isNaN(page) && typeof limit === 'number' && !isNaN(limit), // page와 limit이 숫자인 경우에만 쿼리 실행
       onSuccess: (data) => {
         const totalPages = Math.ceil(data.count / limit);
         // 전체 페이지 수를 zustand 상태로 업데이트
         setTotalPages(totalPages);
       },
-      staleTime: REACT_QUERY_OPTION.staleTime,
-      cacheTime: REACT_QUERY_OPTION.cacheTime,
+      staleTime: reactQueryOption.staleTime,
+      cacheTime: reactQueryOption.cacheTime,
     }
   );
 
@@ -69,7 +66,7 @@ const usePokemonListWithDetails = (page: number, limit: number) => {
   const pokemonDetailsQueries = useQueries<PokemonDetailsSchema[]>({
     queries:
       pokemonListData?.results?.map((pokemon) => ({
-        queryKey: ["pokemonDetails", pokemon.url],
+        queryKey: ['pokemonDetails', pokemon.url],
         queryFn: async () => {
           const response = await axios.get(pokemon.url);
           const validatedData = pokemonDetailsSchema.parse(response.data);
@@ -80,25 +77,21 @@ const usePokemonListWithDetails = (page: number, limit: number) => {
             height: validatedData.height,
             weight: validatedData.weight,
             types: validatedData.types.map((type: any) => type.type.name),
-            imageUrl: validatedData.sprites.front_default || "",
+            imageUrl: validatedData.sprites.front_default || '',
           };
         },
         // pokemonListData가 존재할 경우에만 실행
         enabled: !!pokemonListData,
-        staleTime: REACT_QUERY_OPTION.staleTime,
-        cacheTime: REACT_QUERY_OPTION.cacheTime,
+        staleTime: reactQueryOption.staleTime,
+        cacheTime: reactQueryOption.cacheTime,
       })) || [],
   });
 
-  const pokemonList = pokemonDetailsQueries
-    .map((query) => query.data)
-    .filter((data) => data);
+  const pokemonList = pokemonDetailsQueries.map((query) => query.data).filter((data) => data);
 
   // 모든 쿼리가 성공적으로 완료되었을 때 zustand에 리스트를 저장
   useEffect(() => {
-    const allQueriesSuccessful = pokemonDetailsQueries.every(
-      (query) => query.isSuccess
-    );
+    const allQueriesSuccessful = pokemonDetailsQueries.every((query) => query.isSuccess);
     if (allQueriesSuccessful) {
       setPokemonList(pokemonList);
     }
@@ -107,11 +100,9 @@ const usePokemonListWithDetails = (page: number, limit: number) => {
   return {
     pokemonList: pokemonList,
     // 목록 또는 세부 정보 중 하나라도 로딩 중일 때 true
-    isLoading:
-      isListLoading || pokemonDetailsQueries.some((query) => query.isLoading),
+    isLoading: isListLoading || pokemonDetailsQueries.some((query) => query.isLoading),
     // 오류를 결합하여 반환
-    error:
-      listError || pokemonDetailsQueries.find((query) => query.error)?.error,
+    error: listError || pokemonDetailsQueries.find((query) => query.error)?.error,
   };
 };
 

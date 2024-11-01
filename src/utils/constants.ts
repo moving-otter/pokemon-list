@@ -10,9 +10,14 @@
 - 서버에 new data를 요청한다. 
 - new data를 수신하면 current data가 다시 선정되고 새로운 데이터 관리 주기가 시작된다.  
 */
-export const REACT_QUERY_OPTION = {
+export const reactQueryOption = {
   staleTime: 30 * 60 * 1000, // 30분
   cacheTime: 60 * 60 * 1000, // 60분
 };
 
-export const POKEMON_API_V2 = "https://pokeapi.co/api/v2";
+export const pokemonApiBaseUrl = 'https://pokeapi.co/api/v2';
+
+export const initialListParams = {
+  page: 1,
+  limit: 20,
+};
