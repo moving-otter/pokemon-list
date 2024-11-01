@@ -10,13 +10,12 @@ export const pokemonQueryService = {
       queryFn: () => getPokemonList(params),
     }),
   getById: (params: PokemonDetailParams) => {
-    const splitted = params?.url.split('/');
-    const pocketmonId = splitted[splitted.length - 1];
+    const {id} = params;
 
     return queryOptions({
-      queryKey: pokemonKeys.detail(params.url),
+      queryKey: pokemonKeys.detail(id),
       queryFn: () => getPokemonDetail(params),
-      enabled: pocketmonId !== 'undefined',
+      enabled: id !== '',
     });
   },
 };

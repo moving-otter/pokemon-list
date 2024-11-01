@@ -1,15 +1,18 @@
 import React from 'react';
+import {useQuery, useQueryClient} from '@tanstack/react-query';
 import {useRouter} from 'next/router';
+import {usePokemonStore} from '@/store/pokemon-store';
 import {pokemonQueryService} from '@/services/pokemon/query';
-import {useQuery} from '@tanstack/react-query';
-import {pokemonApiBaseUrl} from '@/utils/constants';
 
 export default function PokemonDetailPage() {
+  const queryClient = useQueryClient();
+  const pokemonDetailList = usePokemonStore((state) => state.pokemonDetailList);
   const router = useRouter();
   const {id} = router.query;
+  const pokemonId = typeof id === 'string' ? id : '';
   const {data: pokemon, isPending: isDetailLoading} = useQuery(
     pokemonQueryService.getById({
-      url: `${pokemonApiBaseUrl}/pokemon/${id}`,
+      id: pokemonId,
     })
   );
 
@@ -32,7 +35,6 @@ export default function PokemonDetailPage() {
               key={type}
               className={`inline-block text-xs font-semibold mr-2 px-2.5 py-0.5 rounded type-${type}`}
             >
-              {/* Capitalize the first letter */}
               {type.charAt(0).toUpperCase() + type.slice(1)}{' '}
             </span>
           ))}

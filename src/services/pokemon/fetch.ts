@@ -26,9 +26,9 @@ export async function getPokemonList(params: PokemonListParam) {
  * @description 포켓몬의 개별 상세정보를 가져오는 API.
  */
 export async function getPokemonDetail(params: PokemonDetailParams) {
-  const {url} = params;
+  const {id} = params;
 
-  const response = await axios.get(url);
+  const response = await axios.get(`${pokemonApiBaseUrl}/pokemon/${id}`);
   const validatedData = pokemonDetailSchema.parse(response.data);
 
   return {

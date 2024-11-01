@@ -26,7 +26,7 @@ export const pokemonDetailSchema = z.object({
 });
 
 export const pokemonDetailParamsSchema = z.object({
-  url: z.string(),
+  id: z.string(),
 });
 
 export type PokemonListSchema = z.infer<typeof pokemonListSchema>;

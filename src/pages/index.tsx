@@ -6,6 +6,7 @@ import {PokemonListParam} from '@/services/pokemon/types';
 import {initialListParams} from '@/utils/constants';
 import {pokemonQueryService} from '@/services/pokemon/query';
 import {useQuery, useQueries} from '@tanstack/react-query';
+import {parsePocketmonId} from '@/utils/helper';
 
 export default function PokemonListPage() {
   const setPokemonDetailList = usePokemonStore((state) => state.setPokemonDetailList);
@@ -15,11 +16,14 @@ export default function PokemonListPage() {
   const {data: pokemonList, isPending: isListPending} = useQuery(
     pokemonQueryService.getList({...listParams})
   );
+  const [loading, setLoading] = useState(false);
 
   // 포켓몬 리스트를 통해 세부 정보를 가져옴
   const getPokemonDetailListQueries = useQueries({
     queries:
-      pokemonList?.results.map((pokemon) => pokemonQueryService.getById({url: pokemon.url})) || [],
+      pokemonList?.results.map((pokemon) =>
+        pokemonQueryService.getById({id: parsePocketmonId(pokemon.url)})
+      ) || [],
   });
 
   // 총 페이지 수 설정
@@ -41,12 +45,17 @@ export default function PokemonListPage() {
   useEffect(() => {
     const allQueriesSuccessful = getPokemonDetailListQueries.every((query) => query.isSuccess);
     if (allQueriesSuccessful) {
+      setLoading(false);
       const pokemonDetailList = getPokemonDetailListQueries
         .map((query) => query.data)
         .filter((data) => data); // undefined 결과 필터링
       setPokemonDetailList(pokemonDetailList);
     }
   }, [getPokemonDetailListQueries, setPokemonDetailList]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="container mx-auto p-4">
@@ -57,7 +66,7 @@ export default function PokemonListPage() {
             getPokemonDetailListQueries[index] || {};
 
           if (isDetailPending || isListPending || details === undefined) {
-            return <div key={pokemon.name}>Loading details...</div>;
+            return <></>;
           }
 
           return (
