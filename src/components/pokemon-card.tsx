@@ -10,14 +10,9 @@ interface PokemonCardProps {
   imageUrl: string;
 }
 
-const PokemonCard: React.FC<PokemonCardProps> = ({
-  name,
-  number,
-  height,
-  weight,
-  types,
-  imageUrl,
-}) => {
+export default function PokemonCard(props: PokemonCardProps) {
+  const { name, number, height, weight, types, imageUrl } = props;
+
   return (
     <Link
       href={`/pokemon/${name}`}
@@ -42,7 +37,6 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
                 className={`inline-block text-xs font-semibold mr-2 px-2.5 py-0.5 rounded type-${type}`}
               >
                 {type.charAt(0).toUpperCase() + type.slice(1)}{" "}
-                {/* Capitalize the first letter */}
               </span>
             ))}
           </div>
@@ -50,6 +44,4 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
       </div>
     </Link>
   );
-};
-
-export default PokemonCard;
+}

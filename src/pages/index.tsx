@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Pagination from "@/components/pokemon-pagination";
+import Pagination from "@/components/pagination";
 import PokemonCard from "@/components/pokemon-card";
 import usePokemonList from "@/hooks/use-pokemon-list";
 import { usePokemonStore } from "@/store/pokemon-store";
 
-const PokemonListPage = () => {
+export default function PokemonListPage() {
   const limit = 20;
   const totalPages = usePokemonStore((state) => state.totalPages);
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,6 +40,4 @@ const PokemonListPage = () => {
       />
     </div>
   );
-};
-
-export default PokemonListPage;
+}

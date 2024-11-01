@@ -6,11 +6,9 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({
-  currentPage,
-  totalPages,
-  onPageChange,
-}) => {
+export default function Pagination(props: PaginationProps) {
+  const { currentPage, totalPages, onPageChange } = props;
+
   const renderPageNumbers = () => {
     const pageNumbers = [];
     // 현재 페이지 기준으로 시작 페이지 계산
@@ -72,6 +70,4 @@ const Pagination: React.FC<PaginationProps> = ({
       </button>
     </div>
   );
-};
-
-export default Pagination;
+}

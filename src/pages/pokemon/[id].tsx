@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useRouter } from "next/router";
 import { usePokemonDetail } from "@/hooks/use-pokemon-detail";
 
-const PokemonDetailPage = () => {
+export default function PokemonDetailPage() {
   const router = useRouter();
   const { id } = router.query;
   const { data: pokemon, isLoading, error } = usePokemonDetail(id as string);
@@ -38,6 +38,4 @@ const PokemonDetailPage = () => {
       </div>
     </div>
   );
-};
-
-export default PokemonDetailPage;
+}

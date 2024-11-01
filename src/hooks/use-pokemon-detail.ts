@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { REACT_QUERY_OPTION, POKEMON_API_V2 } from "@/utils/constants";
 
 // 포켓몬 상세 정보에 대한 Zod 스키마 정의
-const PokemonDetailSchema = z.object({
+const pokemonDetailSchema = z.object({
   name: z.string(),
   id: z.number(),
   height: z.number(),
@@ -20,16 +20,16 @@ const PokemonDetailSchema = z.object({
 });
 
 // Zod 스키마로부터 TypeScript 인터페이스 정의
-type TPokemonDetailType = z.infer<typeof PokemonDetailSchema>;
+type PokemonDetailType = z.infer<typeof pokemonDetailSchema>;
 
 // 포켓몬 상세 정보를 가져오는 훅 정의
 export const usePokemonDetail = (id: string | undefined) => {
-  return useQuery<TPokemonDetailType>(
+  return useQuery<PokemonDetailType>(
     ["pokemonDetail", id],
     async () => {
       const response = await axios.get(`${POKEMON_API_V2}/pokemon/${id}`);
 
-      return PokemonDetailSchema.parse(response.data);
+      return pokemonDetailSchema.parse(response.data);
     },
     {
       // id가 정의된 경우에만 쿼리를 실행
