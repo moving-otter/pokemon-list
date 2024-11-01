@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useMemo} from 'react';
 import {useRouter} from 'next/router';
 import PokemonPagination from '@/components/pokemon-pagination';
 import PokemonCard from '@/components/pokemon-card';
@@ -81,6 +81,29 @@ export default function PokemonListPage() {
     });
   };
 
+  // Memoize the PokemonCard components to avoid unnecessary re-renders
+  const pokemonCards = useMemo(() => {
+    return pokemonList?.results.map((pokemon: any, index) => {
+      const {data: details, isPending: isDetailPending} = getPokemonDetailListQueries[index] || {};
+
+      if (isDetailPending || details === undefined) {
+        return <></>; // Optionally render a loading state
+      }
+
+      return (
+        <PokemonCard
+          key={pokemon.name}
+          name={details?.name}
+          number={details?.number}
+          height={details?.height}
+          weight={details?.weight}
+          types={details?.types}
+          imageUrl={details?.imageUrl}
+        />
+      );
+    });
+  }, [pokemonList, getPokemonDetailListQueries]); // Dependencies to watch for changes
+
   if (isListPending) {
     return <div>Loading...</div>;
   }
@@ -89,30 +112,11 @@ export default function PokemonListPage() {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Pokémon List</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {pokemonList?.results.map((pokemon: any, index) => {
-          const {data: details, isPending: isDetailPending} =
-            getPokemonDetailListQueries[index] || {};
-
-          if (isDetailPending || details === undefined) {
-            return <></>;
-          }
-
-          return (
-            <PokemonCard
-              key={pokemon.name}
-              name={details?.name}
-              number={details?.number}
-              height={details?.height}
-              weight={details?.weight}
-              types={details?.types}
-              imageUrl={details?.imageUrl}
-            />
-          );
-        })}
+        {pokemonCards}
       </div>
 
       {/* Center the pagination and add padding */}
-      <div className="flex justify-center mt-6 mb-4">
+      <div className="flex justify-center mt-4 mb-4">
         <PokemonPagination
           currentPage={currentPage}
           totalPages={totalPages}
