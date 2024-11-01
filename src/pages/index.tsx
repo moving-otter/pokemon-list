@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import Pagination from '@/components/pagination';
+import {useRouter} from 'next/router';
+import PokemonPagination from '@/components/pokemon-pagination';
 import PokemonCard from '@/components/pokemon-card';
 import {usePokemonStore} from '@/store/pokemon-store';
 import {PokemonListParam} from '@/services/pokemon/types';
@@ -9,6 +10,7 @@ import {useQuery, useQueries} from '@tanstack/react-query';
 import {parsePocketmonId} from '@/utils/helper';
 
 export default function PokemonListPage() {
+  const router = useRouter(); // Get the router instance
   const setPokemonDetailList = usePokemonStore((state) => state.setPokemonDetailList);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,9 +18,7 @@ export default function PokemonListPage() {
   const {data: pokemonList, isPending: isListPending} = useQuery(
     pokemonQueryService.getList({...listParams})
   );
-  const [loading, setLoading] = useState(false);
 
-  // 포켓몬 리스트를 통해 세부 정보를 가져옴
   const getPokemonDetailListQueries = useQueries({
     queries:
       pokemonList?.results.map((pokemon) =>
@@ -26,34 +26,62 @@ export default function PokemonListPage() {
       ) || [],
   });
 
-  // 총 페이지 수 설정
   useEffect(() => {
     if (pokemonList) {
       setTotalPages(Math.ceil(pokemonList.count / listParams.limit));
     }
   }, [pokemonList]);
 
-  // 페이지 변경 시 리스트 파라미터 업데이트
   useEffect(() => {
+    const page = Number(router.query.page) || 1;
+    setCurrentPage(page);
     setListParams({
-      page: currentPage,
+      page,
       limit: 20,
     });
-  }, [currentPage]);
+  }, [router.query.page]);
 
-  // 모든 세부 정보 쿼리 데이터가 성공적으로 완료되었을 때 zustand에 저장
   useEffect(() => {
     const allQueriesSuccessful = getPokemonDetailListQueries.every((query) => query.isSuccess);
     if (allQueriesSuccessful) {
-      setLoading(false);
       const pokemonDetailList = getPokemonDetailListQueries
         .map((query) => query.data)
-        .filter((data) => data); // undefined 결과 필터링
+        .filter((data) => data);
       setPokemonDetailList(pokemonDetailList);
     }
   }, [getPokemonDetailListQueries, setPokemonDetailList]);
 
-  if (loading) {
+  // Save scroll position before navigating away
+  useEffect(() => {
+    const handleRouteChange = () => {
+      const scrollPosition = window.scrollY;
+      sessionStorage.setItem('scrollPosition', JSON.stringify(scrollPosition));
+    };
+
+    router.events.on('routeChangeStart', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    };
+  }, [router.events]);
+
+  // Restore scroll position when returning to this page
+  useEffect(() => {
+    const scrollPosition = sessionStorage.getItem('scrollPosition');
+    if (scrollPosition) {
+      window.scrollTo(0, JSON.parse(scrollPosition));
+      sessionStorage.removeItem('scrollPosition'); // Clear the stored position after restoring
+    }
+  }, []);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    router.push({
+      pathname: router.pathname,
+      query: {...router.query, page},
+    });
+  };
+
+  if (isListPending) {
     return <div>Loading...</div>;
   }
 
@@ -65,7 +93,7 @@ export default function PokemonListPage() {
           const {data: details, isPending: isDetailPending} =
             getPokemonDetailListQueries[index] || {};
 
-          if (isDetailPending || isListPending || details === undefined) {
+          if (isDetailPending || details === undefined) {
             return <></>;
           }
 
@@ -82,11 +110,15 @@ export default function PokemonListPage() {
           );
         })}
       </div>
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={(page) => setCurrentPage(page)}
-      />
+
+      {/* Center the pagination and add padding */}
+      <div className="flex justify-center mt-6 mb-4">
+        <PokemonPagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </div>
   );
 }
