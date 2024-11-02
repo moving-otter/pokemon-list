@@ -16,7 +16,7 @@ export default function PokemonCard(props: PokemonCardProps) {
   return (
     <Link
       href={`/pokemon/${number}`}
-      className="
+      className={`
         flex 
         bg-white 
         rounded-lg 
@@ -32,14 +32,15 @@ export default function PokemonCard(props: PokemonCardProps) {
         border-transparent 
         relative  
         mx-1
-        mb-2  // Added bottom margin for spacing between cards
-      "
+        mb-2 
+        ${!imageUrl ? 'pb-3' : ''}
+      `}
     >
       <div className="flex flex-col w-full p-2">
         {/* Header with number and name */}
         <div className="flex flex-col items-start">
-          <div className="text-gray-600 text-xs font-semibold"># {number}</div>
-          <h2 className="text-sm font-bold capitalize break-words">{name}</h2>
+          <div className="text-gray-600 text-md font-semibold"># {number}</div>
+          <div className="text-gray-600 text-md font-bold capitalize break-words">{name}</div>
         </div>
 
         <div className="flex">
@@ -52,25 +53,25 @@ export default function PokemonCard(props: PokemonCardProps) {
                 className="w-full h-30 object-cover" // Set fixed height and cover to prevent overflow
               />
             ) : (
-              <div className="flex items-center justify-center w-full h-full bg-gray-50 text-gray-500 rounded-lg">
-                <span>No image</span>
+              <div className="flex items-center mt-4 justify-center w-full h-full bg-gray-50 text-gray-500 rounded-lg">
+                <span className="mb-4">No image</span>
               </div>
             )}
           </div>
 
           {/* Right side: Details */}
-          <div className="w-2/5 pl-3 flex flex-col justify-start">
-            <div className="text-sm font-medium text-gray-700 mb-1">
+          <div className="w-2/5 pl-3 pr-1 pt-3 flex flex-col justify-start">
+            <div className="text-base font-medium text-gray-700 mb-1">
               {(height / 10).toFixed(1)}m
             </div>
-            <div className="text-sm font-medium text-gray-700 mb-1">
+            <div className="text-base font-medium text-gray-700 mb-1">
               {(weight / 10).toFixed(1)}kg
             </div>
             <div className="flex flex-col space-y-1">
               {types.map((type) => (
                 <div
                   key={type}
-                  className={`break-words text-xs font-semibold px-1 py-0.5 rounded type-${type}`}
+                  className={`break-words text-sm font-semibold px-1 py-0.5 rounded type-${type}`}
                 >
                   {type.charAt(0).toUpperCase() + type.slice(1)}
                 </div>

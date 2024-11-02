@@ -1,12 +1,9 @@
 import {AppBar, Toolbar, Typography, Button} from '@mui/material';
 import React, {useState} from 'react';
+import TestAPIComponent from './test-api-component';
 
 export default function PokemonHeader() {
   const [searchQuery, setSearchQuery] = useState('');
-
-  const handleButtonClick = () => {
-    console.log('check/test'); // Log "test" to the console when the button is clicked
-  };
 
   const handleTitleClick = () => {
     window.location.reload(); // Refresh the page when "Pokedex" is clicked
@@ -22,13 +19,13 @@ export default function PokemonHeader() {
           Pokedex
         </h3>
 
-        <div className="relative w-full max-w-md mt-2 md:mt-0 md:ml-4">
+        <div className="relative w-full max-w-lg">
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Please enter Pokemon number, name or type for searching."
-            className="block w-full pl-10 pr-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-transparent focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out placeholder:text-gray-400"
+            className="block w-full pl-10 text-md text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-transparent focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out placeholder:text-gray-400"
           />
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg
@@ -48,10 +45,7 @@ export default function PokemonHeader() {
           </div>
         </div>
 
-        {/* Search button */}
-        <Button variant="contained" color="primary" onClick={handleButtonClick} className="ml-2">
-          Search
-        </Button>
+        <TestAPIComponent />
       </Toolbar>
     </AppBar>
   );
