@@ -36,6 +36,7 @@ export default function CustomPagination({currentPage, totalPages, onPageChange}
             typography: 'body1', // You can change this to any variant you prefer
             fontSize: '0.9rem', // Adjust the font size as needed
             minWidth: '36px', // Optional: ensure a minimum width for the items
+            backgroundColor: '',
           }}
         />
       )}

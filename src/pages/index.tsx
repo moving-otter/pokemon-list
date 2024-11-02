@@ -1,6 +1,7 @@
 // Other imports remain the same
 import React, {useEffect, useState} from 'react';
 import PokemonCard from '@/components/pokemon-card';
+import PokemonHeader from '@/components/pokemon-header';
 import PokemonPagination from '@/components/pokemon-pagination';
 import {useRouter} from 'next/router';
 import {usePokemonStore} from '@/store/pokemon-store';
@@ -9,8 +10,7 @@ import {PokemonListParam} from '@/services/pokemon/types';
 import {initialListParams} from '@/utils/constants';
 import {pokemonQueryService} from '@/services/pokemon/query';
 import {useQuery, useQueries} from '@tanstack/react-query';
-import {AppBar, Toolbar, Typography} from '@mui/material';
-import PokemonHeader from '@/components/pokemon-header';
+import {Toolbar} from '@mui/material';
 
 export default function PokemonListPage() {
   const router = useRouter();

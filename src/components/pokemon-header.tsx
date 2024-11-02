@@ -1,19 +1,26 @@
-import {AppBar, Toolbar, Typography} from '@mui/material';
+import {AppBar, Toolbar, Typography, Button} from '@mui/material';
 import React, {useState} from 'react';
 
 export default function PokemonHeader() {
   const [searchQuery, setSearchQuery] = useState('');
 
+  const handleButtonClick = () => {
+    console.log('check/test'); // Log "test" to the console when the button is clicked
+  };
+
+  const handleTitleClick = () => {
+    window.location.reload(); // Refresh the page when "Pokedex" is clicked
+  };
+
   return (
     <AppBar position="fixed" sx={{bgcolor: '#f9fafb'}}>
       <Toolbar className="flex flex-col md:flex-row justify-between items-center">
-        <Typography
-          variant="h6"
-          component="div"
-          className="font-bold text-[#36454F] tracking-wider py-1"
+        <h3
+          className="font-bold text-[#36454F] tracking-wider py-1 cursor-pointer" // Change cursor to pointer
+          onClick={handleTitleClick} // Attach click handler
         >
           Pokedex
-        </Typography>
+        </h3>
 
         <div className="relative w-full max-w-md mt-2 md:mt-0 md:ml-4">
           <input
@@ -40,6 +47,11 @@ export default function PokemonHeader() {
             </svg>
           </div>
         </div>
+
+        {/* Search button */}
+        <Button variant="contained" color="primary" onClick={handleButtonClick} className="ml-2">
+          Search
+        </Button>
       </Toolbar>
     </AppBar>
   );
