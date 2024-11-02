@@ -10,7 +10,6 @@ import {PokemonListParam} from '@/services/pokemon/types';
 import {initialListParams} from '@/utils/constants';
 import {pokemonQueryService} from '@/services/pokemon/query';
 import {useQuery, useQueries} from '@tanstack/react-query';
-import {Toolbar} from '@mui/material';
 
 export default function PokemonListPage() {
   const router = useRouter();
@@ -122,7 +121,7 @@ export default function PokemonListPage() {
     <div className="mx-auto flex flex-col h-screen">
       <PokemonHeader />
 
-      <Toolbar />
+      
 
       <div className="flex-grow overflow-y-auto p-4">
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2">

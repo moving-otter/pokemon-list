@@ -1,6 +1,7 @@
 // import {Button} from '@mui/material';
 import React from 'react';
-import {Button} from 'semantic-ui-react';
+import {Button, Dimmer, Loader, Segment, Image} from 'semantic-ui-react';
+import {useQuery} from '@tanstack/react-query';
 
 export default function TestAPIComponent() {
   const handleButtonClick = () => {
@@ -10,7 +11,7 @@ export default function TestAPIComponent() {
   return (
     <div>
       <Button basic color="black">
-        Black
+        Test API
       </Button>
     </div>
   );
