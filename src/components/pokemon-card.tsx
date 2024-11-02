@@ -17,56 +17,65 @@ export default function PokemonCard(props: PokemonCardProps) {
     <Link
       href={`/pokemon/${number}`}
       className="
-      block 
-      bg-white 
-      rounded-lg 
-      shadow-md 
-      overflow-hidden 
-      transition-transform 
-      duration-200 
-      ease-in-out 
-      transform 
-      hover:scale-105 
-      hover:bg-blue-50 
-      hover:z-10  
-      border-transparent 
-      relative  
-      flex-col       
+        flex 
+        bg-white 
+        rounded-lg 
+        shadow-md 
+        overflow-hidden 
+        transition-transform 
+        duration-200 
+        ease-in-out 
+        transform 
+        hover:scale-105 
+        hover:bg-blue-50 
+        hover:z-10 
+        border-transparent 
+        relative  
+        mx-1
+        mb-2  // Added bottom margin for spacing between cards
       "
     >
-      <div className="relative w-full aspect-[2/1] overflow-hidden flex-grow p-1 pt-2">
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt={name}
-            className="w-full h-full object-contain transform scale-85"
-          />
-        ) : (
-          <div className="flex items-center justify-center w-full h-full bg-gray-50 text-gray-500 rounded-lg ">
-            <span>No image</span>
-          </div>
-        )}
-      </div>
-      <div className="px-3 pb-3">
-        <div className="flex">
+      <div className="flex flex-col w-full p-2">
+        {/* Header with number and name */}
+        <div className="flex flex-col items-start">
           <div className="text-gray-600 text-xs font-semibold"># {number}</div>
+          <h2 className="text-sm font-bold capitalize break-words">{name}</h2>
         </div>
-        <div className="flex justify-between">
-          <h2 className="text-base font-bold capitalize">{name}</h2>
-        </div>
-        <div className="text-xs font-medium pt-2">
-          Physique: {height / 10}m / {weight / 10}kg
-        </div>
-        <div className="mt-1 mb-1">
-          <div className="flex flex-wrap">
-            {types.map((type) => (
-              <span
-                key={type}
-                className={`inline-block text-xs font-semibold mr-1 px-1 py-0.5 rounded type-${type}`}
-              >
-                {type.charAt(0).toUpperCase() + type.slice(1)}
-              </span>
-            ))}
+
+        <div className="flex">
+          {/* Left side: Image */}
+          <div className="w-3/5 overflow-hidden">
+            {imageUrl ? (
+              <img
+                src={imageUrl}
+                alt={name}
+                className="w-full h-30 object-cover" // Set fixed height and cover to prevent overflow
+              />
+            ) : (
+              <div className="flex items-center justify-center w-full h-full bg-gray-50 text-gray-500 rounded-lg">
+                <span>No image</span>
+              </div>
+            )}
+          </div>
+
+          {/* Right side: Details */}
+          <div className="w-2/5 pl-3 flex flex-col justify-start">
+            <div className="text-sm font-medium text-gray-700 mb-1">
+              {(height / 10).toFixed(1)}m
+            </div>
+            <div className="text-sm font-medium text-gray-700 mb-1">
+              {(weight / 10).toFixed(1)}kg
+            </div>
+            <div className="flex flex-col space-y-1">
+              {types.map((type) => (
+                <div
+                  key={type}
+                  className={`break-words text-xs font-semibold px-1 py-0.5 rounded type-${type}`}
+                >
+                  {type.charAt(0).toUpperCase() + type.slice(1)}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

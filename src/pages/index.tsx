@@ -10,6 +10,7 @@ import {initialListParams} from '@/utils/constants';
 import {pokemonQueryService} from '@/services/pokemon/query';
 import {useQuery, useQueries} from '@tanstack/react-query';
 import {AppBar, Toolbar, Typography} from '@mui/material';
+import PokemonHeader from '@/components/pokemon-header';
 
 export default function PokemonListPage() {
   const router = useRouter();
@@ -17,7 +18,6 @@ export default function PokemonListPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [listParams, setListParams] = useState<PokemonListParam>(initialListParams);
-  const [searchQuery, setSearchQuery] = useState('');
 
   const {data: pokemonList, isPending: isListPending} = useQuery(
     pokemonQueryService.getList({...listParams})
@@ -120,48 +120,12 @@ export default function PokemonListPage() {
 
   return (
     <div className="mx-auto flex flex-col h-screen">
-      <AppBar position="fixed" sx={{bgcolor: '#f9fafb'}}>
-        <Toolbar className="flex flex-col md:flex-row justify-between items-center">
-          <Typography
-            variant="h6"
-            component="div"
-            className="font-bold text-[#36454F] tracking-wider py-1"
-          >
-            Pokedex
-          </Typography>
-
-          <div className="relative w-full max-w-md mt-2 md:mt-0 md:ml-4">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Please enter Pokemon number, name or type for searching."
-              className="block w-full pl-10 pr-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-transparent focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out placeholder:text-gray-400"
-            />
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <svg
-                className="w-5 h-5 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M21 21l-4.35-4.35M17 10a7 7 0 10-14 0 7 7 0 0014 0z"
-                  stroke="currentColor"
-                />
-              </svg>
-            </div>
-          </div>
-        </Toolbar>
-      </AppBar>
+      <PokemonHeader />
 
       <Toolbar />
 
       <div className="flex-grow overflow-y-auto p-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2">
           {renderPokemonCards()}
         </div>
       </div>
