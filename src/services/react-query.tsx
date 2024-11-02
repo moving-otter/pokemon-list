@@ -1,6 +1,6 @@
 'use client';
 
-import {handleApiError, transformApiError} from '@/utils/error/error-define';
+import {handleApiError, transformApiError} from '@/utils/error-define';
 import {QueryCache, QueryClient, MutationCache, QueryClientConfig} from '@tanstack/react-query';
 
 // csr client & default config
