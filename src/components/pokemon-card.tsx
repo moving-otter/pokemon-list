@@ -54,9 +54,8 @@ export default function PokemonCard(props: PokemonCardProps) {
         <div className="flex justify-between">
           <h2 className="text-base font-bold capitalize">{name}</h2>
         </div>
-        <div>
-          <span className="text-xs font-medium">Height: {height / 10} m</span> :
-          <span className="text-xs font-medium"> Weight: {weight / 10} kg</span>
+        <div className="text-xs font-medium pt-2">
+          Physique: {height / 10}m / {weight / 10}kg
         </div>
         <div className="mt-1 mb-1">
           <div className="flex flex-wrap">
