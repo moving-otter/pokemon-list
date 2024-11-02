@@ -1,20 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useQuery, useQueryClient} from '@tanstack/react-query';
 import {useRouter} from 'next/router';
 import {usePokemonStore} from '@/store/pokemon-store';
 import {pokemonQueryService} from '@/services/pokemon/query';
+import {pokemonKeys} from '@/services/pokemon/keys';
 
 export default function PokemonDetailPage() {
   const queryClient = useQueryClient();
   const pokemonDetailList = usePokemonStore((state) => state.pokemonDetailList);
   const router = useRouter();
   const {id} = router.query;
-  const pokemonId = typeof id === 'string' ? id : '';
+  const validatedId = typeof id === 'string' ? id : 'undefined';
+
   const {data: pokemon, isPending: isDetailLoading} = useQuery(
     pokemonQueryService.getById({
-      id: pokemonId,
+      id: validatedId,
     })
   );
+
+  useEffect(() => {
+    const data = queryClient.getQueryData(pokemonKeys.detail(validatedId));
+    // console.log('check/cachedata', data);
+  }, []);
 
   if (isDetailLoading || pokemon === undefined) return <div>Loading...</div>;
 
