@@ -1,17 +1,23 @@
-import create from "zustand";
+import create from 'zustand';
 
 interface PokemonStore {
   totalPages: number;
-  pokemonList: any[];
-
   setTotalPages: (pages: number) => void;
+
+  pokemonList: any[];
   setPokemonList: (list: any[]) => void;
+
+  pokemonDetailList: any[];
+  setPokemonDetailList: (list: any[]) => void;
 }
 
 export const usePokemonStore = create<PokemonStore>((set) => ({
   totalPages: 0,
-  pokemonList: [],
+  setTotalPages: (pages) => set({totalPages: pages}),
 
-  setTotalPages: (pages) => set({ totalPages: pages }),
-  setPokemonList: (list) => set({ pokemonList: list }),
+  pokemonList: [],
+  setPokemonList: (list) => set({pokemonList: list}),
+
+  pokemonDetailList: [],
+  setPokemonDetailList: (list) => set({pokemonDetailList: list}),
 }));

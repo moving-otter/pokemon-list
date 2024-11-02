@@ -1,4 +1,7 @@
-import React from "react";
+import React from 'react';
+import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
+import {useRouter} from 'next/router';
 
 interface PaginationProps {
   currentPage: number;
@@ -6,72 +9,39 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({
-  currentPage,
-  totalPages,
-  onPageChange,
-}) => {
-  const renderPageNumbers = () => {
-    const pageNumbers = [];
-    // 현재 페이지 기준으로 시작 페이지 계산
-    const startPage = Math.max(1, currentPage - 2);
-    // 현재 페이지 기준으로 끝 페이지 계산
-    const endPage = Math.min(totalPages, startPage + 4);
+export default function CustomPagination({currentPage, totalPages, onPageChange}: PaginationProps) {
+  const router = useRouter();
 
-    // 필요한 페이지 번호만 생성
-    for (let i = startPage; i <= endPage; i++) {
-      if (i <= totalPages) {
-        pageNumbers.push(
-          <button
-            key={i}
-            onClick={() => onPageChange(i)}
-            className={`mx-1 px-3 py-1 rounded ${
-              currentPage === i
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-800"
-            }`}
-          >
-            {i}
-          </button>
-        );
-      }
-    }
-    return pageNumbers;
+  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+    onPageChange(page);
+    updateURL(page);
+  };
+
+  const updateURL = (page: number) => {
+    router.push({
+      pathname: router.pathname,
+      query: {...router.query, page},
+    });
   };
 
   return (
-    <div className="flex justify-center items-center mt-4">
-      <button
-        className="mx-2 px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-        onClick={() => onPageChange(1)}
-        disabled={currentPage === 1}
-      >
-        &lt;&lt;
-      </button>
-      <button
-        className="mx-2 px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-        onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-      >
-        &lt;
-      </button>
-      {renderPageNumbers()}
-      <button
-        className="mx-2 px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-        onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-      >
-        &gt;
-      </button>
-      <button
-        className="mx-2 px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-        onClick={() => onPageChange(totalPages)}
-        disabled={currentPage === totalPages}
-      >
-        &gt;&gt;
-      </button>
-    </div>
+    <Pagination
+      count={totalPages}
+      page={currentPage}
+      onChange={handlePageChange}
+      renderItem={(item) => (
+        <PaginationItem
+          {...item}
+          sx={{
+            typography: 'body1', // You can change this to any variant you prefer
+            fontSize: '0.9rem', // Adjust the font size as needed
+            minWidth: '36px', // Optional: ensure a minimum width for the items
+          }}
+        />
+      )}
+      siblingCount={1} // Number of sibling pages to show
+      boundaryCount={1} // Number of boundary pages to show
+      color="primary"
+    />
   );
-};
-
-export default Pagination;
+}

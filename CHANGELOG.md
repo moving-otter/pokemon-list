@@ -50,7 +50,7 @@ This changelog is manually generated and not accurate with the package.json, onl
   You can directly import SVG like
 
   ```tsx
-  import Vercel from "~/svg/Vercel.svg";
+  import Vercel from '~/svg/Vercel.svg';
 
   <Vercel className="text-5xl" />;
   ```
@@ -318,8 +318,8 @@ File inside `src/pages` will be the webpage route, there are 2 things that need 
 Snippets: `np`
 
 ```tsx
-import * as React from "react";
-import Seo from "@/components/Seo";
+import * as React from 'react';
+import Seo from '@/components/Seo';
 export default function TestPage() {
   return (
     <>
@@ -341,7 +341,7 @@ To make a new component, It is encouraged to use `export default function`. Beca
 Snippets: `rc`
 
 ```tsx
-import * as React from "react";
+import * as React from 'react';
 export default function Component() {
   return <div></div>;
 }
@@ -352,7 +352,7 @@ export default function Component() {
 Snippets: `ir`
 
 ```tsx
-import * as React from "react";
+import * as React from 'react';
 ```
 
 #### Import Next Image
@@ -360,7 +360,7 @@ import * as React from "react";
 Snippets: `imimg`
 
 ```tsx
-import Image from "next/image";
+import Image from 'next/image';
 ```
 
 #### Import Next Link
@@ -368,7 +368,7 @@ import Image from "next/image";
 Snippets: `iml`
 
 ```tsx
-import Link from "next/link";
+import Link from 'next/link';
 ```
 
 #### useState Hook
