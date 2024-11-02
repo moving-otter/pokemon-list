@@ -1,3 +1,4 @@
+// Other imports remain the same
 import React, {useEffect, useState} from 'react';
 import PokemonCard from '@/components/pokemon-card';
 import PokemonPagination from '@/components/pokemon-pagination';
@@ -8,7 +9,7 @@ import {PokemonListParam} from '@/services/pokemon/types';
 import {initialListParams} from '@/utils/constants';
 import {pokemonQueryService} from '@/services/pokemon/query';
 import {useQuery, useQueries} from '@tanstack/react-query';
-import {AppBar, TextField, Toolbar, Typography} from '@mui/material';
+import {AppBar, Toolbar, Typography} from '@mui/material';
 
 export default function PokemonListPage() {
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function PokemonListPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [listParams, setListParams] = useState<PokemonListParam>(initialListParams);
-  const [searchQuery, setSearchQuery] = useState(''); // Add search state
+  const [searchQuery, setSearchQuery] = useState('');
 
   const {data: pokemonList, isPending: isListPending} = useQuery(
     pokemonQueryService.getList({...listParams})
@@ -45,7 +46,6 @@ export default function PokemonListPage() {
       limit,
     });
 
-    // Ensure the page and limit parameters are in the URL on initial load
     if (!router.query.page || !router.query.limit) {
       router.replace({
         pathname: router.pathname,
@@ -119,8 +119,8 @@ export default function PokemonListPage() {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <AppBar position="fixed" sx={{bgcolor: '#eff6ff'}}>
+    <div className="mx-auto flex flex-col h-screen">
+      <AppBar position="fixed" sx={{bgcolor: '#f9fafb'}}>
         <Toolbar className="flex flex-col md:flex-row justify-between items-center">
           <Typography
             variant="h6"
@@ -131,14 +131,12 @@ export default function PokemonListPage() {
           </Typography>
 
           <div className="relative w-full max-w-md mt-2 md:mt-0 md:ml-4">
-            {' '}
-            {/* Added md:ml-4 for horizontal spacing */}
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Please enter Pokémon number, name or type for searching."
-              className="block w-full pl-10 pr-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-transparent focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out placeholder:text-gray-400" // Adjusted placeholder color
+              placeholder="Please enter Pokemon number, name or type for searching."
+              className="block w-full pl-10 pr-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-transparent focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out placeholder:text-gray-400"
             />
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <svg
@@ -160,14 +158,18 @@ export default function PokemonListPage() {
         </Toolbar>
       </AppBar>
 
-      {/* Add spacing for the AppBar */}
       <Toolbar />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
-        {renderPokemonCards()}
+      <div className="flex-grow overflow-y-auto p-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+          {renderPokemonCards()}
+        </div>
       </div>
 
-      <div className="flex justify-center mt-4 mb-4">
+      <div className="flex justify-center z-10 py-4 relative bg-gray-50">
+        {/* Shadow Effect Above Pagination */}
+        <div className="absolute inset-x-0 -top-2 h-2 bg-white shadow-md" />
+
         <PokemonPagination
           currentPage={currentPage}
           totalPages={totalPages}

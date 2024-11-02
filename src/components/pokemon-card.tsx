@@ -17,11 +17,24 @@ export default function PokemonCard(props: PokemonCardProps) {
     <Link
       href={`/pokemon/${number}`}
       className="
-        block 
+      block 
       bg-white 
-        rounded-lg shadow-md overflow-hidden transition-transform duration-200 ease-in-out transform hover:scale-105 hover:bg-blue-50  border-transparent relative flex flex-col mx-1" // Add hover background color
+      rounded-lg 
+      shadow-md 
+      overflow-hidden 
+      transition-transform 
+      duration-200 
+      ease-in-out 
+      transform 
+      hover:scale-105 
+      hover:bg-blue-50 
+      hover:z-10  
+      border-transparent 
+      relative  
+      flex-col       
+      "
     >
-      <div className="relative w-full aspect-[5/2] overflow-hidden flex-grow p-1 pt-2">
+      <div className="relative w-full aspect-[2/1] overflow-hidden flex-grow p-1 pt-2">
         {imageUrl ? (
           <img
             src={imageUrl}

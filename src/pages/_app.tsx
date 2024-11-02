@@ -9,7 +9,7 @@ import {QueryClientProvider} from '@tanstack/react-query';
 export default function MyApp({Component, pageProps}: AppProps) {
   return (
     <QueryClientProvider client={csrClient}>
-      <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
+      {/* <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" /> */}
 
       <Head>
         <title>Pokedex</title>
