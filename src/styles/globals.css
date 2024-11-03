@@ -2,6 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
+[data-testid='region-filter'] div .menu {
+  left: revert-layer !important;
+  right: -2px !important;
+}
+
+[data-testid='sort-option'] div .menu {
+  left: revert-layer !important;
+  right: -2px !important;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-out {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite; /* 계속 회전 */
+}
+
+.spin-out {
+  animation: linear 0.5s forwards; /* 0.5초 동안 제자리로 돌아오는 애니메이션 */
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.spin-out {
+  animation: spin-out 1s forwards;
+}
+
+.animate-spin {
+  animation: spin 2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
 /* <pokemon-label-color> */
 .type-fire {
   background-color: #fca311;
@@ -28,7 +76,7 @@
   color: white;
 }
 .type-poison {
-  background-color: #6a0572;
+  background-color: #a105ac;
   color: white;
 }
 .type-ground {
@@ -77,6 +125,16 @@
 }
 /* </pokemon-label-color> */
 
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+.scrollbar-thumb-blue-500 {
+  background-color: #3b82f6; /* Tailwind's blue-500 */
+}
+.scrollbar-track-blue-200 {
+  background-color: #bfdbfe; /* Tailwind's blue-200 */
+}
+
 :root {
   /* #region  /**=========== Primary Color =========== */
   /* !STARTERCONF Customize these variable, copy and paste from /styles/colors.css for list of colors */
@@ -111,13 +169,16 @@
     font-weight: 100 900;
     font-display: block;
     src: url('/fonts/inter-var-latin.woff2') format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-      U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
-      U+2215, U+FEFF, U+FFFD;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+      U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
   }
 
   .cursor-newtab {
     cursor: url('/images/new-tab.png') 10 10, pointer;
+  }
+
+  html {
+    overflow: hidden;
   }
 
   /* #region  /**=========== Typography =========== */
@@ -170,11 +231,7 @@
 @layer utilities {
   .animated-underline {
     background-image: linear-gradient(#33333300, #33333300),
-      linear-gradient(
-        to right,
-        var(--color-primary-400),
-        var(--color-primary-500)
-      );
+      linear-gradient(to right, var(--color-primary-400), var(--color-primary-500));
     background-size: 100% 2px, 0 2px;
     background-position: 100% 100%, 0 100%;
     background-repeat: no-repeat;
@@ -182,8 +239,7 @@
   @media (prefers-reduced-motion: no-preference) {
     .animated-underline {
       transition: 0.3s ease;
-      transition-property: background-size, color, background-color,
-        border-color;
+      transition-property: background-size, color, background-color, border-color;
     }
   }
   .animated-underline:hover,

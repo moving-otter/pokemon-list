@@ -8,6 +8,7 @@ export const pokemonListSchema = z.object({
 export const pokemonListParamsSchema = z.object({
   page: z.number(),
   limit: z.number(),
+  enabled: z.boolean().optional(),
 });
 
 export const pokemonDetailSchema = z.object({
