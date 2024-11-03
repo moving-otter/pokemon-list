@@ -3,6 +3,7 @@ import {Finders} from '@/components/organism';
 import {parsePocketmonId} from '@/utils/helper';
 import {pokemonQueryService} from '@/services/pokemon/query';
 import {useQuery, useQueries} from '@tanstack/react-query';
+import {SlideLoading} from '@/components/atom';
 
 export default function Header() {
   const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +32,7 @@ export default function Header() {
       setIsLoading(true);
     }
     if (allQueriesSuccessful) {
-      setIsLoading(false); // Also handle the case where all queries are successful
+      setIsLoading(false);
     }
   }, [isPendingList, allQueriesSuccessful]);
 
@@ -39,35 +40,10 @@ export default function Header() {
     window.location.reload();
   };
 
-  //   return (
-  //     <>
-  //       <div className="bg-gray-50 py-2 px-5 flex items-center select-none">
-  //         <img
-  //           src="/favicon/monsterball-312x320.png"
-  //           alt="Pokedex Icon"
-  //           className={`w-6 h-6 mr-2`} // Add spin class only if isLoading
-  //         />
-  //         <div
-  //           className="text-xl font-bold cursor-pointer"
-  //           style={{width: 'fit-content'}}
-  //           onClick={handleTitleClick}
-  //         >
-  //           Pokedex
-  //         </div>
-  //       </div>
-  //
-  //       {!isLoading && !isPendingList && allQueriesSuccessful && <Finders />}
-  //     </>
-  //   );
-
   return (
     <>
       <div className="bg-gray-50 py-2 px-5 flex items-center select-none">
-        <img
-          src="/favicon/monsterball-312x320.png"
-          alt="Pokedex Icon"
-          className={`w-6 h-6 mr-2`} // Add spin class only if isLoading
-        />
+        <img src="/favicon/monsterball-312x320.png" alt="Pokedex Icon" className="w-6 h-6 mr-2" />
         <div
           className="text-xl font-bold cursor-pointer"
           style={{width: 'fit-content'}}
@@ -77,8 +53,15 @@ export default function Header() {
         </div>
       </div>
 
-      {/* {!isLoading && !isPendingList && allQueriesSuccessful ? ( */}
-      <Finders />
+      <div className="border-b-2 border-gray-200 bg-gray-50 relative" style={{minHeight: '50px'}}>
+        {isLoading || isPendingList || !allQueriesSuccessful ? (
+          <div className="absolute bottom-0 w-full">
+            <SlideLoading />
+          </div>
+        ) : (
+          <Finders />
+        )}
+      </div>
     </>
   );
 }

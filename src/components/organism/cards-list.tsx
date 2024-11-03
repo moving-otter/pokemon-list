@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Loading} from '@/components/atom';
+import {LargeLoading} from '@/components/atom';
 import {useRouter} from 'next/router';
 import {usePokemonStore} from '@/store/pokemon-store';
 import {Card, Pagination} from '@/components/molecule';
@@ -108,7 +108,7 @@ export default function CardsList() {
   return (
     <>
       {isPendingList || !allQueriesSuccessful ? (
-        <Loading />
+        <LargeLoading />
       ) : (
         <>
           <div className="flex-grow overflow-y-auto p-4">
