@@ -19,12 +19,14 @@ export default function CardsList() {
   const {data: pokemonList, isPending: isPendingList} = useQuery(
     pokemonQueryService.getList({...listParams})
   );
+
   const getPokemonDetailListQueries = useQueries({
     queries:
       pokemonList?.results.map((pokemon) =>
         pokemonQueryService.getById({id: parsePocketmonId(pokemon.url)})
       ) || [],
   });
+
   const allQueriesSuccessful = getPokemonDetailListQueries.every((query) => query.isSuccess);
 
   useEffect(() => {
@@ -35,7 +37,7 @@ export default function CardsList() {
 
   useEffect(() => {
     const page = Number(router.query.page) || 1;
-    const limit = Number(router.query.limit) || 20;
+    const limit = Number(router.query.limit) || 50;
 
     setCurrentPage(page);
     setListParams({
@@ -68,6 +70,18 @@ export default function CardsList() {
     });
   };
 
+  const handleLimitChange = (e: any, {value}: {value: number}) => {
+    setListParams((prev) => ({
+      ...prev,
+      limit: value,
+    }));
+    setCurrentPage(1); // Reset to the first page
+    router.push({
+      pathname: router.pathname,
+      query: {...router.query, page: 1, limit: value}, // Update the limit in the URL
+    });
+  };
+
   const renderCardsList = () => {
     return pokemonList?.results.map((pokemon: any, index) => {
       const {data: details, isPending: isPendingDetailList} =
@@ -96,18 +110,23 @@ export default function CardsList() {
       {isPendingList || !allQueriesSuccessful ? (
         <Loading />
       ) : (
-        <div className="flex-grow overflow-y-auto p-4">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-2">
-            {isPendingList || !allQueriesSuccessful ? <Loading /> : <>{renderCardsList()}</>}
+        <>
+          <div className="flex-grow overflow-y-auto p-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-2">
+              {renderCardsList()}
+            </div>
           </div>
-        </div>
-      )}
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            listParams={listParams}
+            setListParams={setListParams}
+            setCurrentPage={setCurrentPage}
+          />
+        </>
+      )}
     </>
   );
 }

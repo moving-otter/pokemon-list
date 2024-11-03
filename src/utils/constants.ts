@@ -19,5 +19,5 @@ export const pokemonApiBaseUrl = 'https://pokeapi.co/api/v2';
 
 export const initialListParams = {
   page: 1,
-  limit: 20,
+  limit: 50,
 };
