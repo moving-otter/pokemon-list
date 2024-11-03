@@ -1,8 +1,8 @@
 import React from 'react';
 import {Detail} from '@/components/template';
-import {Loading} from '@/components/atom';
 import {useQuery} from '@tanstack/react-query';
 import {useRouter} from 'next/router';
+import {LargeLoading} from '@/components/atom';
 import {pokemonQueryService} from '@/services/pokemon/query';
 
 export default function DetailPage() {
@@ -16,5 +16,5 @@ export default function DetailPage() {
     })
   );
 
-  return <>{isPending ? <Loading /> : <Detail pokemon={pokemon} />}</>;
+  return <>{isPending ? <LargeLoading /> : <Detail pokemon={pokemon} />}</>;
 }

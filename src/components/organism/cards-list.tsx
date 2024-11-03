@@ -70,18 +70,6 @@ export default function CardsList() {
     });
   };
 
-  const handleLimitChange = (e: any, {value}: {value: number}) => {
-    setListParams((prev) => ({
-      ...prev,
-      limit: value,
-    }));
-    setCurrentPage(1); // Reset to the first page
-    router.push({
-      pathname: router.pathname,
-      query: {...router.query, page: 1, limit: value}, // Update the limit in the URL
-    });
-  };
-
   const renderCardsList = () => {
     return pokemonList?.results.map((pokemon: any, index) => {
       const {data: details, isPending: isPendingDetailList} =
