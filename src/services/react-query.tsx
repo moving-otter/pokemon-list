@@ -9,7 +9,11 @@ export const queryConfig: QueryClientConfig = {
     queries: {
       refetchOnWindowFocus: false,
       retry: 0,
-      staleTime: 60000, // Data will be fresh for 60 seconds
+      // refetchOnMount: true,
+
+      // Data will be fresh for 60 seconds
+      staleTime: 60000,
+      // staleTime: 2000,
       throwOnError: (error) => transformApiError(error) === null,
     },
     mutations: {

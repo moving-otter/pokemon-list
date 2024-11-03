@@ -1,7 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
+import {TypeLabel} from '@/components/atom';
 
-interface PokemonCardProps {
+interface CardProps {
   name: string;
   number: number;
   height: number;
@@ -10,7 +11,7 @@ interface PokemonCardProps {
   imageUrl: string | null; // Allow imageUrl to be null
 }
 
-export default function PokemonCard(props: PokemonCardProps) {
+export default function Card(props: CardProps) {
   const {name, number, height, weight, types, imageUrl} = props;
 
   return (
@@ -28,7 +29,7 @@ export default function PokemonCard(props: PokemonCardProps) {
         transform 
         hover:scale-105 
         hover:bg-blue-50 
-        hover:z-10 
+        
         border-transparent 
         relative  
         mx-1
@@ -60,21 +61,16 @@ export default function PokemonCard(props: PokemonCardProps) {
           </div>
 
           {/* Right side: Details */}
-          <div className="w-2/5 pl-3 pr-1 pt-3 flex flex-col justify-start">
+          <div className="w-2/5 pl-3 pr-1 pt-1 flex flex-col justify-start">
             <div className="text-base font-medium text-gray-700 mb-1">
               {(height / 10).toFixed(1)}m
             </div>
             <div className="text-base font-medium text-gray-700 mb-1">
               {(weight / 10).toFixed(1)}kg
             </div>
-            <div className="flex flex-col space-y-1">
+            <div className="space-y-1.5">
               {types.map((type) => (
-                <div
-                  key={type}
-                  className={`break-words text-sm font-semibold px-1 py-0.5 rounded type-${type}`}
-                >
-                  {type.charAt(0).toUpperCase() + type.slice(1)}
-                </div>
+                <TypeLabel type={type} />
               ))}
             </div>
           </div>

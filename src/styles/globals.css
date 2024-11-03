@@ -2,6 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
+[data-testid='region-filter'] div .menu {
+  left: revert-layer !important;
+  right: -2px !important;
+}
+
+[data-testid='sort-option'] div .menu {
+  left: revert-layer !important;
+  right: -2px !important;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-out {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite; /* 계속 회전 */
+}
+
+.spin-out {
+  animation: linear 0.5s forwards; /* 0.5초 동안 제자리로 돌아오는 애니메이션 */
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.spin-out {
+  animation: spin-out 1s forwards;
+}
+
+.animate-spin {
+  animation: spin 2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
 /* <pokemon-label-color> */
 .type-fire {
   background-color: #fca311;
@@ -28,7 +76,7 @@
   color: white;
 }
 .type-poison {
-  background-color: #6a0572;
+  background-color: #a105ac;
   color: white;
 }
 .type-ground {
