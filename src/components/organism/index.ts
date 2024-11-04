@@ -1,7 +1,7 @@
 import Card from './card';
-import MultipleSearch from './multiple-search';
+import Search from './search';
 import Pagination from './pagination';
-import RegionFilter from './region-filter';
 import SortOption from './sort-option';
+import RegionFilter from './region-filter';
 
-export {Card, MultipleSearch, Pagination, RegionFilter, SortOption};
+export {Card, Search, Pagination, RegionFilter, SortOption};

@@ -94,6 +94,7 @@ export default function FinderContainer() {
     <div className="border-b-2 border-gray-200 bg-gray-50 relative">
       <FindersTemplate enableCondition={enableCondition} />
 
+      {!enableCondition && <SlideLoading />}
     </div>
   );
 }

@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import {useRouter} from 'next/router';
+import {getParsedId} from '@/utils/helper';
 import {LargeLoading} from '@/components/atom';
 import {DetailTemplate} from '@/components/template';
 
 import {pokemonQueryService} from '@/services/pokemon/query';
 import {pokemonSpeciesQueryService} from '@/services/pokemon-species/query';
 import {evolutionChainQueryService} from '@/services/evolution-chain/query';
-import {getParsedId} from '@/utils/helper';
 
 export default function DetailContainer() {
   const router = useRouter();
