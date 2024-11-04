@@ -1,4 +1,8 @@
-import Detail from './detail';
-import Main from './main';
+// 메인페이지
+import CardsListTemplate from './cards-list-template';
+import FindersTemplate from './finders-template';
 
-export {Detail, Main};
+// 상세페이지
+import DetailTemplate from './detail-template';
+
+export {CardsListTemplate, FindersTemplate, DetailTemplate};

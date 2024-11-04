@@ -1,9 +1,9 @@
 import React from 'react';
-import {MultipleSearch, RegionFilter, SortOption} from '@/components/molecule';
+import {MultipleSearch, RegionFilter, SortOption} from '@/components/organism';
 
-export default function Finders() {
+export default function FindersTemplate() {
   return (
-    <div className="flex flex-wrap px-5 justify-between border-b-2 border-gray-200 bg-gray-50">
+    <div className="flex flex-wrap px-5 justify-between">
       <div className="pb-2 w-full md:min-w-[45%] md:max-w-[60%] lg:min-w-[50%] lg:max-w-[50%]">
         <MultipleSearch />
       </div>

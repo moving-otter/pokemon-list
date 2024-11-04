@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@media (max-width: 957px) {
+  [data-testid='slide-loading-wrapper'] [data-testid='slide-loading'] {
+    margin-top: 27px;
+  }
+}
+
 [data-testid='region-filter'] div .menu {
   left: revert-layer !important;
   right: -2px !important;
@@ -12,42 +18,15 @@
   right: -2px !important;
 }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+[data-testid='pagination'] .ui.selection.dropdown {
+  min-width: 90px !important;
+  min-height: 42px !important;
 }
 
-@keyframes spin-out {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin {
-  animation: spin 1s linear infinite; /* 계속 회전 */
-}
-
-.spin-out {
-  animation: linear 0.5s forwards; /* 0.5초 동안 제자리로 돌아오는 애니메이션 */
-}
-
-.animate-spin {
-  animation: spin 1s linear infinite;
-}
-
-.spin-out {
-  animation: spin-out 1s forwards;
-}
-
-.animate-spin {
-  animation: spin 2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+[data-testid='pagination'] .ui.selection.dropdown i {
+  transform: rotate(180deg) !important;
+  margin-right: -12px !important;
+  margin-top: -7px !important;
 }
 
 /* <pokemon-label-color> */
