@@ -19,18 +19,21 @@ export default function CardsListContainer() {
   const [listParams, setListParams] = useState<PokemonsListParam>(initialListParams);
   const [loading, setLoading] = useState(true);
 
+  // pokemon 목록 가져오기
   const {data: pokemonsList, isPending: isPendingList} = useQuery(
     pokemonQueryService.getList({...listParams})
   );
 
-  const getPokemonDetailListQueries = useQueries({
+  // 각 pokemon 상세 정보 가져오기
+  const getPokemonByIdQueries = useQueries({
     queries:
       pokemonsList?.results.map((pokemon) =>
         pokemonQueryService.getById({id: getParsedId(pokemon.url) ?? 'undefined'})
       ) || [],
   });
 
-  const allQueriesSuccessful = getPokemonDetailListQueries.every((query) => query.isSuccess);
+  // 모든 `pokemonById` 쿼리가 성공했는지 확인
+  const allPokemonByIdQueriesSuccessful = getPokemonByIdQueries.every((query) => query.isSuccess);
 
   useEffect(() => {
     if (pokemonsList) {
@@ -57,15 +60,15 @@ export default function CardsListContainer() {
   }, [router.query.page, router.query.limit]);
 
   useEffect(() => {
-    if (allQueriesSuccessful) {
-      const pokemonDetailList = getPokemonDetailListQueries
+    if (allPokemonByIdQueriesSuccessful) {
+      const pokemonDetailList = getPokemonByIdQueries
         .map((query) => query.data)
         .filter((data) => data); // 유효한 데이터만 필터링
 
       setPokemonDetailList(pokemonDetailList);
       setLoading(false);
     }
-  }, [getPokemonDetailListQueries, setPokemonDetailList, allQueriesSuccessful]);
+  }, [getPokemonByIdQueries, setPokemonDetailList, allPokemonByIdQueriesSuccessful]);
 
   // 디테일에서 메인페이지로 라우터 변경 시 CardsList의 엘리먼트 동기화를 기다리기 위함
   useEffect(() => {
@@ -92,8 +95,7 @@ export default function CardsListContainer() {
 
   const consolidatedData = pokemonsList?.results
     .map((pokemon: any, index) => {
-      const {data: details, isPending: isPendingDetailList} =
-        getPokemonDetailListQueries[index] || {};
+      const {data: details, isPending: isPendingDetailList} = getPokemonByIdQueries[index] || {};
 
       if (isPendingDetailList || details === undefined) {
         return null; // 데이터를 아직 받지 못한 경우 null로 처리
@@ -111,12 +113,14 @@ export default function CardsListContainer() {
     })
     .filter(Boolean); // null 값 제거
 
+  const enableCondition = !loading && !isPendingList && allPokemonByIdQueriesSuccessful;
+
   return (
     <>
-      {loading || isPendingList || !allQueriesSuccessful ? (
-        <LargeLoading />
-      ) : (
+      {enableCondition ? (
         <CardsListTemplate consolidatedData={consolidatedData} />
+      ) : (
+        <LargeLoading />
       )}
 
       <Pagination

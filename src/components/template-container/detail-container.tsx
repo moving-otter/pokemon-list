@@ -11,11 +11,14 @@ export default function DetailContainer() {
   const {id} = router.query;
   const validatedId = typeof id === 'string' ? id : 'undefined';
 
+  // pokemon 상세정보 가져오기
   const {data: pokemon, isPending} = useQuery(
     pokemonQueryService.getById({
       id: validatedId,
     })
   );
 
-  return <>{isPending ? <LargeLoading /> : <DetailTemplate pokemon={pokemon} />}</>;
+  const enableCondition = !isPending;
+
+  return <>{enableCondition ? <DetailTemplate pokemon={pokemon} /> : <LargeLoading />}</>;
 }
