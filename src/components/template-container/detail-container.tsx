@@ -3,6 +3,7 @@ import {useQuery} from '@tanstack/react-query';
 import {useRouter} from 'next/router';
 import {LargeLoading} from '@/components/atom';
 import {DetailTemplate} from '@/components/template';
+
 import {pokemonQueryService} from '@/services/pokemon/query';
 
 export default function DetailContainer() {

@@ -66,8 +66,8 @@ export default function Card(props: CardProps) {
               {(weight / 10).toFixed(1)}kg
             </div>
             <div className="space-y-1.5">
-              {types.map((type) => (
-                <TypeLabel type={type} />
+              {types.map((type, index) => (
+                <TypeLabel key={index} type={type} />
               ))}
             </div>
           </div>
