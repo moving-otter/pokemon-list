@@ -5,7 +5,9 @@ import {LargeLoading} from '@/components/atom';
 import {DetailTemplate} from '@/components/template';
 
 import {pokemonQueryService} from '@/services/pokemon/query';
-import {speciesQueryService} from '@/services/species/query';
+import {pokemonSpeciesQueryService} from '@/services/pokemon-species/query';
+import {evolutionChainQueryService} from '@/services/evolution-chain/query';
+import {getParsedId} from '@/utils/helper';
 
 export default function DetailContainer() {
   const router = useRouter();
@@ -13,17 +15,24 @@ export default function DetailContainer() {
   const validatedId = typeof id === 'string' ? id : 'undefined';
   const [explanation, setExplanation] = useState('');
 
-  // pokemon 상세정보 가져오기
+  // [API] pokemon 상세정보 가져오기
   const {data: pokemon, isPending: isPendingPokemon} = useQuery(
     pokemonQueryService.getById({
       id: validatedId,
     })
   );
 
-  // species 상세정보 가져오기
-  const {data: species, isPending: isPendingSpecies} = useQuery(
-    speciesQueryService.getById({
+  // [API] species 상세정보 가져오기
+  const {data: pokemonSpecies, isPending: isPendingPokemonSpecies} = useQuery(
+    pokemonSpeciesQueryService.getById({
       id: validatedId,
+    })
+  );
+
+  // [API] evoluation chain 상세정보 가져오기
+  const {data: evolutionChain, isPending: isPendingEvolutionChain} = useQuery(
+    evolutionChainQueryService.getById({
+      id: getParsedId(pokemonSpecies?.evolution_chain?.url ?? 'undefined') ?? 'undefined',
     })
   );
 
@@ -31,10 +40,14 @@ export default function DetailContainer() {
     // console.log('check/explanation', explanation);
   }
 
+  if (evolutionChain !== undefined) {
+    // console.log('check/evolutionChain', evolutionChain);
+  }
+
   // species에서 가장 긴 영문 설명을 추출
   useEffect(() => {
-    if (species !== undefined) {
-      const englishFlavorTexts = species.flavor_text_entries.filter(
+    if (pokemonSpecies !== undefined) {
+      const englishFlavorTexts = pokemonSpecies.flavor_text_entries.filter(
         (entry) => entry.language.name === 'en'
       );
       const longestFlavorText = englishFlavorTexts.reduce((longest, entry) =>
@@ -43,9 +56,9 @@ export default function DetailContainer() {
 
       setExplanation(longestFlavorText?.flavor_text);
     }
-  }, [species]);
+  }, [pokemonSpecies]);
 
-  const enableCondition = !isPendingPokemon && !isPendingSpecies;
+  const enableCondition = !isPendingPokemon && !isPendingPokemonSpecies && !isPendingEvolutionChain;
 
   return <>{enableCondition ? <DetailTemplate pokemon={pokemon} /> : <LargeLoading />}</>;
 }

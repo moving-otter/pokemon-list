@@ -14,12 +14,12 @@ export default function FinderContainer() {
     limit: -1,
   };
 
-  // 모든 pokemon 목록 가져오기
+  // [API] 모든 pokemon 목록 가져오기
   const {data: pokemonsList, isPending: isPendingList} = useQuery({
     ...pokemonQueryService.getList({...listParams}),
   });
 
-  // 여러개의 pokemon 상세 정보 가져오기
+  // [API] 여러개의 pokemon 상세 정보 가져오기
   const getPokemonByIdQueries = useQueries({
     queries:
       pokemonsList?.results.map((pokemon) =>
@@ -27,10 +27,10 @@ export default function FinderContainer() {
       ) || [],
   });
 
-  // region 목록 가져오기
+  // [API] region 목록 가져오기
   const {data: regionsList, isPending: isPendingRegions} = useQuery(regionQueryService.getList());
 
-  // 여러개의 region 상세정보 가져오기
+  // [API] 여러개의 region 상세정보 가져오기
   const regionByIdQueries = useQueries({
     queries:
       regionsList?.results.map((region) =>

@@ -19,12 +19,12 @@ export default function CardsListContainer() {
   const [listParams, setListParams] = useState<PokemonsListParam>(initialListParams);
   const [loading, setLoading] = useState(true);
 
-  // pokemon 목록 가져오기
+  // [API] pokemon 목록 가져오기
   const {data: pokemonsList, isPending: isPendingList} = useQuery(
     pokemonQueryService.getList({...listParams})
   );
 
-  // 여러개의 pokemon 상세 정보 가져오기
+  // [API] 여러개의 pokemon 상세 정보 가져오기
   const getPokemonByIdQueries = useQueries({
     queries:
       pokemonsList?.results.map((pokemon) =>
@@ -32,7 +32,7 @@ export default function CardsListContainer() {
       ) || [],
   });
 
-  // 모든 `pokemonById` 쿼리가 성공했는지 확인
+  // [API] 모든 `pokemonById` 쿼리가 성공했는지 확인
   const allPokemonByIdQueriesSuccessful = getPokemonByIdQueries.every((query) => query.isSuccess);
 
   useEffect(() => {
