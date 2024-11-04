@@ -35,7 +35,7 @@ export default function RegionFilter() {
             clipRule="evenodd"
           />
         </svg>
-        <label className="text-gray-700 mr-2">Filter by</label>
+        {/* <label className="text-gray-700 mr-2">Filter by</label> */}
       </div>
 
       <Dropdown

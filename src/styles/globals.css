@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@media (max-width: 957px) {
+@media (max-width: 768px) {
   [data-testid='slide-loading-wrapper'] [data-testid='slide-loading'] {
     margin-top: 27px;
   }

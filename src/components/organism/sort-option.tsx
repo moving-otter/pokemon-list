@@ -39,7 +39,7 @@ export default function SortOption() {
       >
         <path d="M8 9l4-4 4 4M12 5v14M8 15l4 4 4-4" />
       </svg>
-      <label className="text-gray-700 mr-2">Sort by</label>
+      {/* <label className="text-gray-700 mr-2">Sort by</label> */}
       <Dropdown inline options={friendOptions} defaultValue={friendOptions[0].value} />
     </div>
   );

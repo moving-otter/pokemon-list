@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Logo() {
+export default function Header() {
   const handleTitleClick = () => {
     window.location.reload();
   };
