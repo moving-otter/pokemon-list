@@ -1,11 +1,11 @@
 import React, {useEffect, useState, useRef} from 'react';
-import {Finders} from '@/components/organism';
+import {SlideLoading} from '@/components/atom';
+import {FindersTemplate} from '@/components/template';
 import {parsePocketmonId} from '@/utils/helper';
 import {pokemonQueryService} from '@/services/pokemon/query';
 import {useQuery, useQueries} from '@tanstack/react-query';
-import {SlideLoading} from '@/components/atom';
 
-export default function Header() {
+export default function FinderContainer() {
   const [isLoading, setIsLoading] = useState(false);
   const hasLoaded = useRef(false); // Track if data has loaded
   const listParams = {
@@ -36,32 +36,15 @@ export default function Header() {
     }
   }, [isPendingList, allQueriesSuccessful]);
 
-  const handleTitleClick = () => {
-    window.location.reload();
-  };
-
   return (
-    <>
-      <div className="bg-gray-50 py-2 px-5 flex items-center select-none">
-        <img src="/favicon/monsterball-312x320.png" alt="Pokedex Icon" className="w-6 h-6 mr-2" />
-        <div
-          className="text-xl font-bold cursor-pointer"
-          style={{width: 'fit-content'}}
-          onClick={handleTitleClick}
-        >
-          Pokedex
+    <div className="border-b-2 border-gray-200 bg-gray-50 relative">
+      {isLoading || isPendingList || !allQueriesSuccessful ? (
+        <div className="bottom-0 w-full pt-12">
+          <SlideLoading />
         </div>
-      </div>
-
-      <div className="border-b-2 border-gray-200 bg-gray-50 relative" style={{minHeight: '50px'}}>
-        {isLoading || isPendingList || !allQueriesSuccessful ? (
-          <div className="absolute bottom-0 w-full">
-            <SlideLoading />
-          </div>
-        ) : (
-          <Finders />
-        )}
-      </div>
-    </>
+      ) : (
+        <FindersTemplate />
+      )}
+    </div>
   );
 }

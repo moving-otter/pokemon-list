@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {LargeLoading} from '@/components/atom';
 import {useRouter} from 'next/router';
+import {LargeLoading} from '@/components/atom';
 import {usePokemonStore} from '@/store/pokemon-store';
-import {Card, Pagination} from '@/components/molecule';
 import {parsePocketmonId} from '@/utils/helper';
 import {PokemonListParam} from '@/services/pokemon/types';
 import {initialListParams} from '@/utils/constants';
+import {CardsListTemplate} from '@/components/template';
 import {pokemonQueryService} from '@/services/pokemon/query';
 import {useQuery, useQueries} from '@tanstack/react-query';
 
-export default function CardsList() {
+export default function CardsListContainer() {
   const router = useRouter();
   const setPokemonDetailList = usePokemonStore((state) => state.setPokemonDetailList);
   const [totalPages, setTotalPages] = useState(1);
@@ -70,50 +70,42 @@ export default function CardsList() {
     });
   };
 
-  const renderCardsList = () => {
-    return pokemonList?.results.map((pokemon: any, index) => {
+  const consolidatedData = pokemonList?.results
+    .map((pokemon: any, index) => {
       const {data: details, isPending: isPendingDetailList} =
         getPokemonDetailListQueries[index] || {};
 
       if (isPendingDetailList || details === undefined) {
-        return <></>;
+        return null; // 데이터를 아직 받지 못한 경우 null로 처리
       }
 
-      return (
-        <Card
-          key={pokemon.name}
-          name={details?.name}
-          number={details?.number}
-          height={details?.height}
-          weight={details?.weight}
-          types={details?.types}
-          imageUrl={details?.imageUrl}
-        />
-      );
-    });
-  };
+      // 필요한 정보를 하나의 객체로 반환
+      return {
+        key: pokemon.name,
+        name: details?.name,
+        number: details?.number,
+        height: details?.height,
+        weight: details?.weight,
+        types: details?.types,
+        imageUrl: details?.imageUrl,
+      };
+    })
+    .filter(Boolean); // null 값 제거
 
   return (
     <>
       {isPendingList || !allQueriesSuccessful ? (
         <LargeLoading />
       ) : (
-        <>
-          <div className="flex-grow overflow-y-auto p-4">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-2">
-              {renderCardsList()}
-            </div>
-          </div>
-
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-            listParams={listParams}
-            setListParams={setListParams}
-            setCurrentPage={setCurrentPage}
-          />
-        </>
+        <CardsListTemplate
+          setListParams={setListParams}
+          setCurrentPage={setCurrentPage}
+          handlePageChange={handlePageChange}
+          totalPages={totalPages}
+          listParams={listParams}
+          currentPage={currentPage}
+          consolidatedData={consolidatedData}
+        />
       )}
     </>
   );

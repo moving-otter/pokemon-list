@@ -1,5 +1,7 @@
-import CardsList from './cards-list';
-import Finders from './finders';
-import Header from './header';
+import Card from './card';
+import MultipleSearch from './multiple-search';
+import Pagination from './pagination';
+import RegionFilter from './region-filter';
+import SortOption from './sort-option';
 
-export {CardsList, Finders, Header};
+export {Card, MultipleSearch, Pagination, RegionFilter, SortOption};

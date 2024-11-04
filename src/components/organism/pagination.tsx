@@ -7,7 +7,6 @@ interface PaginationProps {
   currentPage: number;
   totalPages: number;
   listParams: PokemonListParam;
-
   onPageChange: (page: number) => void;
   setListParams: (param: any) => void;
   setCurrentPage: (page: number) => void;
@@ -54,7 +53,7 @@ export default function Pagination(props: PaginationProps) {
       data-testid="pagination"
       className="flex flex-col sm:flex-row justify-between items-center z-10 py-4 relative border-t-2 border-gray-200 bg-gray-50 px-5"
     >
-      <div className="flex-grow flex justify-center">
+      <div className="flex-grow flex justify-between">
         <SemanticPagination
           activePage={currentPage}
           totalPages={totalPages}
@@ -63,8 +62,6 @@ export default function Pagination(props: PaginationProps) {
       </div>
 
       <div className="w-full sm:w-auto flex justify-end mt-4 sm:mt-0">
-        {' '}
-        {/* Added mt-4 for margin-top */}
         <Dropdown
           inline
           options={limitOptions}

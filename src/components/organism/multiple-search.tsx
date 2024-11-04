@@ -16,12 +16,10 @@ const state = [
 
 export default function MultipleSearch() {
   return (
-    // <div className="w-1/2 ">
     <div>
-      {/* 가로 크기를 50%로 설정 */}
       <Dropdown
         className="z-50"
-        placeholder="State"
+        placeholder="Please enter Pokemon number, name or type for searching."
         fluid
         multiple
         search
