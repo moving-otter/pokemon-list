@@ -92,13 +92,8 @@ export default function FinderContainer() {
 
   return (
     <div className="border-b-2 border-gray-200 bg-gray-50 relative">
-      {enableCondition ? (
-        <FindersTemplate />
-      ) : (
-        <div data-testid="slide-loading-wrapper" className="bottom-0 w-full pt-12">
-          <SlideLoading />
-        </div>
-      )}
+      <FindersTemplate enableCondition={enableCondition} />
+
     </div>
   );
 }
