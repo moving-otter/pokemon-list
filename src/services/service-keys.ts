@@ -1,4 +1,4 @@
-const KEYS = ['POKEMON', 'REGION', 'POKEDEX'] as const;
+const KEYS = ['POKEMON', 'REGION', 'POKEDEX', 'SPECIES'] as const;
 
 type KeyValueMatch<T extends readonly string[]> = {
   [K in T[number]]: K;

@@ -1,6 +1,5 @@
 import {z} from 'zod';
 
-// /pokemon
 export const pokemonsListSchema = z.object({
   count: z.number(),
   results: z.array(
@@ -15,7 +14,6 @@ export const pokemonsListParamsSchema = z.object({
   enabled: z.boolean().optional(),
 });
 
-// /pokemon/${id}
 export const pokemonByIdSchema = z.object({
   name: z.string(),
   id: z.number(),
@@ -34,7 +32,6 @@ export const pokemonByIdParamsSchema = z.object({
   id: z.string(),
 });
 
-// /pokedex/${id}
 export const pokedexByIdSchema = z.object({
   pokemon_entries: z.array(
     z.object({

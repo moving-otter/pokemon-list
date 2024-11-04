@@ -19,7 +19,7 @@ export default function FinderContainer() {
     ...pokemonQueryService.getList({...listParams}),
   });
 
-  // 각 pokemon 상세 정보 가져오기
+  // 여러개의 pokemon 상세 정보 가져오기
   const getPokemonByIdQueries = useQueries({
     queries:
       pokemonsList?.results.map((pokemon) =>
@@ -30,7 +30,7 @@ export default function FinderContainer() {
   // region 목록 가져오기
   const {data: regionsList, isPending: isPendingRegions} = useQuery(regionQueryService.getList());
 
-  // 각 region 상세 정보 가져오기
+  // 여러개의 region 상세정보 가져오기
   const regionByIdQueries = useQueries({
     queries:
       regionsList?.results.map((region) =>
@@ -38,12 +38,12 @@ export default function FinderContainer() {
       ) || [],
   });
 
-  // 각 region의 pokedexes 정보를 참조하여 pokedexId 목록 생성
+  // 여러개의 region의 pokedexes 정보를 참조하여 pokedexId 목록 생성
   const pokedexIds = regionByIdQueries.flatMap(
     (query) => query.data?.pokedexes.map((pokedex) => getParsedId(pokedex.url)) ?? []
   );
 
-  // pokedex 목록을 가져오는 쿼리 실행
+  // 여러개의 pokedex 목록을 가져오는 쿼리 실행
   const pokedexByIdQueries = useQueries({
     queries: pokedexIds.map((id) => pokedexQueryService.getById({id: id ?? 'undefined'})) || [],
   });
@@ -55,7 +55,7 @@ export default function FinderContainer() {
   // 모든 `pokemonById` 쿼리가 성공했는지 확인
   const allPokemonByIdQueriesSuccessful = getPokemonByIdQueries.every((query) => query.isSuccess);
 
-  // 해시맵을 생성하여 지역별 포켓몬 ID 저장
+  // HashMap을 생성하여 지역별 포켓몬 ID 저장
   const regionPokemonIdsMap: Record<string, number[] | undefined> = {};
 
   useEffect(() => {
@@ -67,13 +67,14 @@ export default function FinderContainer() {
             (entry) => Number(getParsedId(entry.pokemon_species.url)) // 문자열을 숫자로 변환
           ) || [];
 
-        // Pokémon IDs 정렬
+        // Pokemon IDs 정렬
         const sortedPokemonIds = pokemonIds.sort((a, b) => a - b); // 오름차순 정렬
 
-        // [corner case] regionName이 undefined인 경우에도 해시맵에 추가
-        regionPokemonIdsMap[regionName ?? 'undefined'] = sortedPokemonIds;
+        if (regionName !== undefined) {
+          regionPokemonIdsMap[regionName] = sortedPokemonIds;
+        }
       });
-      console.log('check/regionPokemonIdsMap:', regionPokemonIdsMap);
+      // console.log('check/regionPokemonIdsMap:', regionPokemonIdsMap);
     }
   }, [
     allPokedexByIdQueriesSuccessful,
