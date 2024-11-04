@@ -1,28 +1,22 @@
 import {pokemonKeys} from './keys';
 import {queryOptions} from '@tanstack/react-query';
-import {PokemonDetailParams, PokemonListParam} from './types';
-import {getPokemonDetail, getPokemonList, getRegions} from './fetch';
+import {getPokemonById, getPokemonsList} from './fetch';
+import {PokemonByIdParams, PokemonsListParam} from './types';
 
 export const pokemonQueryService = {
-  getList: (params: PokemonListParam) => {
+  getList: (params: PokemonsListParam) => {
     return queryOptions({
-      queryKey: pokemonKeys.list(params),
-      queryFn: () => getPokemonList(params),
+      queryKey: pokemonKeys.getList(params),
+      queryFn: () => getPokemonsList(params),
     });
   },
-  getById: (params: PokemonDetailParams) => {
+  getById: (params: PokemonByIdParams) => {
     const {id} = params;
 
     return queryOptions({
-      queryKey: pokemonKeys.detail(id),
-      queryFn: () => getPokemonDetail(params),
+      queryKey: pokemonKeys.getById(id),
+      queryFn: () => getPokemonById(params),
       enabled: id !== 'undefined',
-    });
-  },
-  getRegions: () => {
-    return queryOptions({
-      queryKey: pokemonKeys.regions(),
-      queryFn: () => getRegions(),
     });
   },
 };

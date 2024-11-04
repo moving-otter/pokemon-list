@@ -28,8 +28,7 @@ export default function Card(props: CardProps) {
         ease-in-out 
         transform 
         hover:scale-105 
-        hover:bg-blue-50 
-        
+        hover:bg-blue-50       
         border-transparent 
         relative  
         mx-1
@@ -45,7 +44,6 @@ export default function Card(props: CardProps) {
         </div>
 
         <div className="flex">
-          {/* Left side: Image */}
           <div className="w-3/5 overflow-hidden">
             {imageUrl ? (
               <img
@@ -60,7 +58,6 @@ export default function Card(props: CardProps) {
             )}
           </div>
 
-          {/* Right side: Details */}
           <div className="w-2/5 pl-3 pr-1 pt-1 flex flex-col justify-start">
             <div className="text-base font-medium text-gray-700 mb-1">
               {(height / 10).toFixed(1)}m

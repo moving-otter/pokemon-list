@@ -1,12 +1,12 @@
 import React from 'react';
 import {Dropdown, Pagination as SemanticPagination} from 'semantic-ui-react';
 import {useRouter} from 'next/router';
-import {PokemonListParam} from '@/services/pokemon/types';
+import {PokemonsListParam} from '@/services/pokemon/types';
 
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  listParams: PokemonListParam;
+  listParams: PokemonsListParam;
   onPageChange: (page: number) => void;
   setListParams: (param: any) => void;
   setCurrentPage: (page: number) => void;
