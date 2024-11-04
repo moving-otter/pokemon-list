@@ -1,26 +1,12 @@
 import React from 'react';
-import {Card, Pagination} from '@/components/organism';
+import {Card} from '@/components/organism';
 
 interface CardsListTemplateProps {
-  setListParams: any;
-  setCurrentPage: any;
-  totalPages: any;
-  listParams: any;
-  currentPage: any;
   consolidatedData: any;
-  handlePageChange: any;
 }
 
 export default function CardsListTemplate(props: CardsListTemplateProps) {
-  const {
-    handlePageChange,
-    consolidatedData,
-    currentPage,
-    totalPages,
-    listParams,
-    setListParams,
-    setCurrentPage,
-  } = props;
+  const {consolidatedData} = props;
 
   return (
     <>
@@ -39,15 +25,6 @@ export default function CardsListTemplate(props: CardsListTemplateProps) {
           ))}
         </div>
       </div>
-
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-        listParams={listParams}
-        setListParams={setListParams}
-        setCurrentPage={setCurrentPage}
-      />
     </>
   );
 }

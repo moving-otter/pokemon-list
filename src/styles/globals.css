@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@media (max-width: 957px) {
+  [data-testid='slide-loading-wrapper'] [data-testid='slide-loading'] {
+    margin-top: 27px;
+  }
+}
+
 [data-testid='region-filter'] div .menu {
   left: revert-layer !important;
   right: -2px !important;
