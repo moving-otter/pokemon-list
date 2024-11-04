@@ -1,7 +1,7 @@
 import {pokemonKeys} from './keys';
 import {queryOptions} from '@tanstack/react-query';
-import {getPokemonDetail, getPokemonList} from './fetch';
 import {PokemonDetailParams, PokemonListParam} from './types';
+import {getPokemonDetail, getPokemonList, getRegions} from './fetch';
 
 export const pokemonQueryService = {
   getList: (params: PokemonListParam) => {
@@ -17,6 +17,12 @@ export const pokemonQueryService = {
       queryKey: pokemonKeys.detail(id),
       queryFn: () => getPokemonDetail(params),
       enabled: id !== 'undefined',
+    });
+  },
+  getRegions: () => {
+    return queryOptions({
+      queryKey: pokemonKeys.regions(),
+      queryFn: () => getRegions(),
     });
   },
 };

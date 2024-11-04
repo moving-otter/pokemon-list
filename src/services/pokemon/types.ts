@@ -30,7 +30,13 @@ export const pokemonDetailParamsSchema = z.object({
   id: z.string(),
 });
 
+export const regionsSchema = z.object({
+  count: z.number(),
+  results: z.array(z.object({name: z.string(), url: z.string()})),
+});
+
 export type PokemonListSchema = z.infer<typeof pokemonListSchema>;
 export type PokemonListParam = z.infer<typeof pokemonListParamsSchema>;
 export type PokemonDetailSchema = z.infer<typeof pokemonDetailSchema>;
 export type PokemonDetailParams = z.infer<typeof pokemonDetailParamsSchema>;
+export type RegionsSchema = z.infer<typeof regionsSchema>;

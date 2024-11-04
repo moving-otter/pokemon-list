@@ -1,11 +1,12 @@
 import axios from 'axios';
+import {pokemonApiBaseUrl} from '@/utils/constants';
 import {
   pokemonListSchema,
-  PokemonListParam,
   pokemonDetailSchema,
+  regionsSchema,
   PokemonDetailParams,
+  PokemonListParam,
 } from './types';
-import {pokemonApiBaseUrl} from '@/utils/constants';
 
 /**
  * @method GET
@@ -39,4 +40,13 @@ export async function getPokemonDetail(params: PokemonDetailParams) {
     types: validatedData.types.map((type) => type.type.name),
     imageUrl: validatedData.sprites.front_default || '',
   };
+}
+
+/**
+ * @method GET
+ * @description Regions 정보를 가져오는 API.
+ */
+export async function getRegions() {
+  const response = await axios.get(`${pokemonApiBaseUrl}/region`); // 적절한 API 경로로 수정 필요
+  return regionsSchema.parse(response.data); // regions 데이터 유효성 검사
 }
