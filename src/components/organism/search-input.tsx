@@ -1,8 +1,9 @@
-import {usePokemonStore} from '@/store/pokemon-store';
 import React, {useState} from 'react';
+import {usePokemonStore} from '@/store/pokemon-store';
 
-export default function Search() {
-  // const pokemonsList = usePokemonStore((state) => state.pokemonsList);
+export default function SearchInput() {
+  const pokemonDetailList = usePokemonStore((state) => state.pokemonDetailList);
+
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -10,7 +11,7 @@ export default function Search() {
     console.log('check/Searching for:', searchTerm);
   };
 
-  // console.log('check/pokemonDetailList', pokemonsList);
+  console.log('check/pokemonsList', pokemonDetailList);
 
   return (
     <div className="flex items-center mb-2 mr-2" style={{width: '400px'}}>
