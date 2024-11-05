@@ -19,7 +19,7 @@ export default function Pagination(props: PaginationProps) {
     {key: '20', value: 20, text: '20'},
     {key: '50', value: 50, text: '50'},
     {key: '100', value: 100, text: '100'},
-    {key: '300', value: 300, text: '300'},
+    {key: '500', value: 500, text: '500'},
   ];
 
   const handlePageChange = (e: React.MouseEvent, {activePage}: any) => {
