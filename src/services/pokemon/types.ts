@@ -27,6 +27,9 @@ export const pokemonByIdSchema = z.object({
   sprites: z.object({
     front_default: z.string().url().nullable(),
   }),
+  species: z.object({
+    url: z.string(),
+  }),
 });
 export const pokemonByIdParamsSchema = z.object({
   id: z.string(),

@@ -1,6 +1,6 @@
 import React from 'react';
-import {DetailContainer} from '@/components/template-container';
+import {DetailTemplateApi} from '@/components/template-api';
 
 export default function DetailPage() {
-  return <DetailContainer />;
+  return <DetailTemplateApi />;
 }

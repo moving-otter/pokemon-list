@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default function Logo() {
+export default function Header() {
   const handleTitleClick = () => {
-    window.location.reload();
+    window.location.href = '/'; // "/" 경로로 이동
   };
 
   return (

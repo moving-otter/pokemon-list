@@ -3,5 +3,6 @@ export function handleApiError(error: unknown) {
 }
 
 export function transformApiError(error: unknown) {
+  console.log('check/error.....');
   console.error(error);
 }

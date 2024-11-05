@@ -3,6 +3,11 @@ import {Dropdown} from 'semantic-ui-react';
 
 const friendOptions = [
   {
+    key: 'All Regions',
+    text: 'All Regions',
+    value: 'All Regions',
+  },
+  {
     key: 'Region1',
     text: 'Region1',
     value: 'Region1',
@@ -25,7 +30,7 @@ export default function RegionFilter() {
       <div className="flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-gray-600 mr-1" // 아이콘 크기와 색상 설정
+          className="h-6 w-6 text-gray-600 mr-1"
           viewBox="0 0 20 20"
           fill="currentColor"
         >
@@ -35,15 +40,9 @@ export default function RegionFilter() {
             clipRule="evenodd"
           />
         </svg>
-        <label className="text-gray-700 mr-2">Filter by</label>
       </div>
 
-      <Dropdown
-        inline
-        options={friendOptions}
-        defaultValue={friendOptions[0].value}
-        style={{textAlign: 'left'}}
-      />
+      <Dropdown inline options={friendOptions} defaultValue={friendOptions[0].value} />
     </div>
   );
 }

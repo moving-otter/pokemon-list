@@ -1,7 +1,7 @@
 import React from 'react';
-import {Dropdown, Pagination as SemanticPagination} from 'semantic-ui-react';
 import {useRouter} from 'next/router';
 import {PokemonsListParam} from '@/services/pokemon/types';
+import {Dropdown, Pagination as SemanticPagination} from 'semantic-ui-react';
 
 interface PaginationProps {
   currentPage: number;
@@ -48,6 +48,9 @@ export default function Pagination(props: PaginationProps) {
     });
   };
 
+  // Use router.query.limit to set defaultValue for the Dropdown
+  const defaultLimitValue = router.query.limit ? Number(router.query.limit) : listParams.limit;
+
   return (
     <div
       data-testid="pagination"
@@ -65,7 +68,8 @@ export default function Pagination(props: PaginationProps) {
         <Dropdown
           inline
           options={limitOptions}
-          defaultValue={limitOptions.find((option) => option.value === listParams.limit)?.value}
+          // Set defaultValue based on router.query.limit or listParams.limit
+          defaultValue={limitOptions.find((option) => option.value === defaultLimitValue)?.value}
           //@ts-ignore
           onChange={handleLimitChange}
           selection

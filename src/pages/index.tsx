@@ -1,15 +1,15 @@
 import React from 'react';
-import {Logo} from '@/components/atom';
-import {FindersContainer, CardsListContainer} from '@/components/template-container';
+import {Header} from '@/components/atom';
+import {FindersTemplateApi, CardsListTemplateApi} from '@/components/template-api';
 
 export default function MainPage() {
   return (
     <div className="mx-auto flex flex-col h-screen">
-      <Logo />
+      <Header />
 
-      <FindersContainer />
+      <FindersTemplateApi />
 
-      <CardsListContainer />
+      <CardsListTemplateApi />
     </div>
   );
 }

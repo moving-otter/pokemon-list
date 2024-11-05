@@ -1,6 +1,6 @@
-import LargeLoading from './large-loading';
-import Logo from './logo';
-import SlideLoading from './slide-loading';
+import Header from './header';
 import TypeLabel from './type-label';
+import LargeLoading from './large-loading';
+import SlideLoading from './slide-loading';
 
-export {LargeLoading, Logo, SlideLoading, TypeLabel};
+export {LargeLoading, Header, SlideLoading, TypeLabel};

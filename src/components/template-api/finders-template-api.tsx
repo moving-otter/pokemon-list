@@ -4,22 +4,23 @@ import {SlideLoading} from '@/components/atom';
 import {FindersTemplate} from '@/components/template';
 import {useQuery, useQueries} from '@tanstack/react-query';
 
-import {regionQueryService} from '@/services/region/query';
+// 사용되는 [API] 목록) 1 ~ 5 단계로 호출됨
 import {pokemonQueryService} from '@/services/pokemon/query';
+import {regionQueryService} from '@/services/region/query';
 import {pokedexQueryService} from '@/services/pokedex/query';
 
-export default function FinderContainer() {
+export default function FindersContainer() {
   const listParams = {
     page: 1,
     limit: -1,
   };
 
-  // [API] 모든 pokemon 목록 가져오기
+  // 1. [API] 모든 pokemon 목록 가져오기
   const {data: pokemonsList, isPending: isPendingList} = useQuery({
     ...pokemonQueryService.getList({...listParams}),
   });
 
-  // [API] 여러개의 pokemon 상세 정보 가져오기
+  // 2. [API] 여러개의 pokemon 상세 정보 가져오기
   const getPokemonByIdQueries = useQueries({
     queries:
       pokemonsList?.results.map((pokemon) =>
@@ -27,10 +28,10 @@ export default function FinderContainer() {
       ) || [],
   });
 
-  // [API] region 목록 가져오기
+  // 3. [API] region 목록 가져오기
   const {data: regionsList, isPending: isPendingRegions} = useQuery(regionQueryService.getList());
 
-  // [API] 여러개의 region 상세정보 가져오기
+  // 4. [API] 여러개의 region 상세정보 가져오기
   const regionByIdQueries = useQueries({
     queries:
       regionsList?.results.map((region) =>
@@ -43,7 +44,7 @@ export default function FinderContainer() {
     (query) => query.data?.pokedexes.map((pokedex) => getParsedId(pokedex.url)) ?? []
   );
 
-  // 여러개의 pokedex 목록을 가져오는 쿼리 실행
+  // 5. [API] 여러개의 pokedex 목록을 가져오는 쿼리 실행
   const pokedexByIdQueries = useQueries({
     queries: pokedexIds.map((id) => pokedexQueryService.getById({id: id ?? 'undefined'})) || [],
   });
@@ -63,7 +64,7 @@ export default function FinderContainer() {
       regionByIdQueries.forEach((regionQuery, index) => {
         const regionName = regionsList?.results[index]?.name; // 지역 이름
         const pokemonIds =
-          pokedexByIdQueries[index]?.data?.pokemon_entries.map(
+          pokedexByIdQueries[index]?.data?.pokemon_entries?.map(
             (entry) => Number(getParsedId(entry.pokemon_species.url)) // 문자열을 숫자로 변환
           ) || [];
 
@@ -74,6 +75,7 @@ export default function FinderContainer() {
           regionPokemonIdsMap[regionName] = sortedPokemonIds;
         }
       });
+
       // console.log('check/regionPokemonIdsMap:', regionPokemonIdsMap);
     }
   }, [
@@ -92,13 +94,9 @@ export default function FinderContainer() {
 
   return (
     <div className="border-b-2 border-gray-200 bg-gray-50 relative">
-      {enableCondition ? (
-        <FindersTemplate />
-      ) : (
-        <div data-testid="slide-loading-wrapper" className="bottom-0 w-full pt-12">
-          <SlideLoading />
-        </div>
-      )}
+      <FindersTemplate enableCondition={enableCondition} />
+
+      {!enableCondition && <SlideLoading />}
     </div>
   );
 }
