@@ -29,7 +29,7 @@ export default function SortOption() {
     <div data-testid="sort-option" className="select-none flex items-center pr-4">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6 text-gray-600 mr-1" // 아이콘 크기와 색상 설정
+        className="h-6 w-6 text-gray-600 mr-1.5" // 아이콘 크기와 색상 설정
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -39,7 +39,7 @@ export default function SortOption() {
       >
         <path d="M8 9l4-4 4 4M12 5v14M8 15l4 4 4-4" />
       </svg>
-      {/* <label className="text-gray-700 mr-2">Sort by</label> */}
+
       <Dropdown inline options={friendOptions} defaultValue={friendOptions[0].value} />
     </div>
   );

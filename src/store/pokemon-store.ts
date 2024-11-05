@@ -2,16 +2,16 @@ import create from 'zustand';
 
 interface PokemonStore {
   totalPages: number;
-  setTotalPages: (pages: number) => void;
+  pokemonByIdsList: any[];
 
-  pokemonDetailsList: any[];
-  setPokemonDetailsList: (list: any[]) => void;
+  setTotalPages: (pages: number) => void;
+  setPokemonByIdsList: (list: any[]) => void;
 }
 
 export const usePokemonStore = create<PokemonStore>((set) => ({
   totalPages: 0,
-  setTotalPages: (pages) => set({totalPages: pages}),
+  pokemonByIdsList: [],
 
-  pokemonDetailsList: [],
-  setPokemonDetailsList: (list) => set({pokemonDetailsList: list}),
+  setTotalPages: (pages) => set({totalPages: pages}),
+  setPokemonByIdsList: (list) => set({pokemonByIdsList: list}),
 }));

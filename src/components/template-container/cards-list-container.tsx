@@ -12,7 +12,7 @@ import {useQuery, useQueries} from '@tanstack/react-query';
 import {pokemonQueryService} from '@/services/pokemon/query';
 
 export default function CardsListContainer() {
-  const setPokemonDetailList = usePokemonStore((state) => state.setPokemonDetailsList);
+  const setPokemonDetailList = usePokemonStore((state) => state.setPokemonByIdsList);
   const router = useRouter();
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -93,7 +93,7 @@ export default function CardsListContainer() {
     });
   };
 
-  const consolidatedData = pokemonsList?.results
+  const pokmonByIdsList = pokemonsList?.results
     .map((pokemon: any, index) => {
       const {data: details, isPending: isPendingDetailList} = getPokemonByIdQueries[index] || {};
 
@@ -118,7 +118,7 @@ export default function CardsListContainer() {
   return (
     <>
       {enableCondition ? (
-        <CardsListTemplate consolidatedData={consolidatedData} />
+        <CardsListTemplate pokemonByIdsList={pokmonByIdsList} />
       ) : (
         <LargeLoading />
       )}
