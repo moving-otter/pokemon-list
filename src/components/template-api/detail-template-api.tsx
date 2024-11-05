@@ -2,10 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import {useRouter} from 'next/router';
 import {getParsedId} from '@/utils/helper';
-import {LargeLoading} from '@/components/atom';
+import {LoadingSpinner} from '@/components/atom';
 import {DetailTemplate} from '@/components/template';
+import {undefinedString} from '@/utils/constants';
 
-// 사용되는 [API] 목록) 1 ~ 3 단계로 호출됨
+// 사용되는 API 목록) 1 ~ 3 단계로 호출됨
 import {pokemonQueryService} from '@/services/pokemon/query';
 import {pokemonSpeciesQueryService} from '@/services/pokemon-species/query';
 import {evolutionChainQueryService} from '@/services/evolution-chain/query';
@@ -13,29 +14,27 @@ import {evolutionChainQueryService} from '@/services/evolution-chain/query';
 export default function DetailContainer() {
   const router = useRouter();
   const {id} = router.query;
-  const validatedId = typeof id === 'string' ? id : 'undefined';
   const [explanation, setExplanation] = useState('');
+  const validatedId = typeof id === 'string' ? id : undefinedString;
 
-  // 1. [API] pokemon 상세정보 가져오기
+  // 1. [API] 하나의 pokemon 상세정보 가져오기
   const {data: pokemon, isPending: isPendingPokemon} = useQuery(
     pokemonQueryService.getById({
       id: validatedId,
     })
   );
 
-  console.log('check/pokemon', pokemon);
-
-  // 2. [API] species 상세정보 가져오기
+  // 2. [API] 하나의 species 상세정보 가져오기
   const {data: pokemonSpecies, isPending: isPendingPokemonSpecies} = useQuery(
     pokemonSpeciesQueryService.getById({
-      id: validatedId,
+      id: getParsedId(pokemon?.speciesUrl ?? undefinedString) ?? undefinedString,
     })
   );
 
-  // 3. [API] evoluation chain 상세정보 가져오기
+  // 3. [API] 하나의 evoluation chain 상세정보 가져오기
   const {data: evolutionChain, isPending: isPendingEvolutionChain} = useQuery(
     evolutionChainQueryService.getById({
-      id: getParsedId(pokemonSpecies?.evolution_chain?.url ?? 'undefined') ?? 'undefined',
+      id: getParsedId(pokemonSpecies?.evolution_chain?.url ?? undefinedString) ?? undefinedString,
     })
   );
 
@@ -63,5 +62,5 @@ export default function DetailContainer() {
 
   const enableCondition = !isPendingPokemon && !isPendingPokemonSpecies && !isPendingEvolutionChain;
 
-  return <>{enableCondition ? <DetailTemplate pokemon={pokemon} /> : <LargeLoading />}</>;
+  return <>{enableCondition ? <DetailTemplate pokemon={pokemon} /> : <LoadingSpinner />}</>;
 }

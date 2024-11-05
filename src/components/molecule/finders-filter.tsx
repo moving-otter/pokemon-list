@@ -24,7 +24,7 @@ const friendOptions = [
   },
 ];
 
-export default function RegionFilter() {
+export default function FindersFilter() {
   return (
     <div data-testid="region-filter" className="select-none flex items-center pr-4">
       <div className="flex items-center">

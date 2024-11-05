@@ -1,6 +1,6 @@
 import Header from './header';
 import TypeLabel from './type-label';
-import LargeLoading from './large-loading';
-import SlideLoading from './slide-loading';
+import LoadingSlider from './loading-slider';
+import LoadingSpinner from './loading-spinner';
 
-export {LargeLoading, Header, SlideLoading, TypeLabel};
+export {Header, TypeLabel, LoadingSlider, LoadingSpinner};

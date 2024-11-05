@@ -3,7 +3,7 @@
 import {csrClient} from '@/services/react-query';
 import {useEffect, useState} from 'react';
 
-export function useQueryErrorDetector() {
+export function useQueryError() {
   const [commonApiError, setCommonApiError] = useState(null);
 
   // react-query API 에러 감지

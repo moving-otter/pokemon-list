@@ -1,5 +1,6 @@
-import {pokemonSpeciesKeys} from './keys';
 import {queryOptions} from '@tanstack/react-query';
+import {undefinedString} from '@/utils/constants';
+import {pokemonSpeciesKeys} from './keys';
 import {getPokemonSpeciesById} from './fetch';
 import {PokemonSpeciesByIdParams} from './types';
 
@@ -10,7 +11,7 @@ export const pokemonSpeciesQueryService = {
     return queryOptions({
       queryKey: pokemonSpeciesKeys.getById(id),
       queryFn: () => getPokemonSpeciesById(params),
-      enabled: id !== 'undefined',
+      enabled: id !== undefinedString,
     });
   },
 };

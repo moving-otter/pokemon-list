@@ -1,9 +1,9 @@
 import React from 'react';
 import {useRouter} from 'next/router';
 import {PokemonsListParam} from '@/services/pokemon/types';
-import {Dropdown, Pagination as SemanticPagination} from 'semantic-ui-react';
+import {Dropdown, Pagination} from 'semantic-ui-react';
 
-interface PaginationProps {
+interface CardPaginationProps {
   currentPage: number;
   totalPages: number;
   listParams: PokemonsListParam;
@@ -12,15 +12,14 @@ interface PaginationProps {
   setCurrentPage: (page: number) => void;
 }
 
-export default function Pagination(props: PaginationProps) {
+export default function CardPagination(props: CardPaginationProps) {
   const {currentPage, totalPages, listParams, onPageChange, setListParams, setCurrentPage} = props;
-
   const router = useRouter();
   const limitOptions = [
     {key: '20', value: 20, text: '20'},
     {key: '50', value: 50, text: '50'},
     {key: '100', value: 100, text: '100'},
-    {key: '300', value: 300, text: '300'},
+    {key: '500', value: 500, text: '500'},
   ];
 
   const handlePageChange = (e: React.MouseEvent, {activePage}: any) => {
@@ -57,7 +56,7 @@ export default function Pagination(props: PaginationProps) {
       className="flex flex-col sm:flex-row justify-between items-center z-10 py-4 relative border-t-2 border-gray-200 bg-gray-50 px-5"
     >
       <div className="flex-grow flex justify-between">
-        <SemanticPagination
+        <Pagination
           activePage={currentPage}
           totalPages={totalPages}
           onPageChange={handlePageChange}

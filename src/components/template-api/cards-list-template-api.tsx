@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
-import {Pagination} from '@/components/organism';
 import {getParsedId} from '@/utils/helper';
-import {LargeLoading} from '@/components/atom';
+import {LoadingSpinner} from '@/components/atom';
+import {CardPagination} from '@/components/organism';
 import {usePokemonStore} from '@/store/pokemon-store';
 import {PokemonsListParam} from '@/services/pokemon/types';
-import {initialListParams} from '@/utils/constants';
 import {CardsListTemplate} from '@/components/template';
 import {useQuery, useQueries} from '@tanstack/react-query';
+import {initialListParams, undefinedString} from '@/utils/constants';
 
 // 사용되는 [API] 목록) 1 ~ 2 단계로 호출됨
 import {pokemonQueryService} from '@/services/pokemon/query';
@@ -29,11 +29,11 @@ export default function CardsListContainer() {
   const getPokemonByIdQueries = useQueries({
     queries:
       pokemonsList?.results.map((pokemon) =>
-        pokemonQueryService.getById({id: getParsedId(pokemon.url) ?? 'undefined'})
+        pokemonQueryService.getById({id: getParsedId(pokemon.url) ?? undefinedString})
       ) || [],
   });
 
-  // [API] 모든 `pokemonById` 쿼리가 성공했는지 확인
+  // [API] 모든 2. pokemonById 쿼리가 성공했는지 확인
   const allPokemonByIdQueriesSuccessful = getPokemonByIdQueries.every((query) => query.isSuccess);
 
   useEffect(() => {
@@ -71,21 +71,6 @@ export default function CardsListContainer() {
     }
   }, [getPokemonByIdQueries, setPokemonDetailList, allPokemonByIdQueriesSuccessful]);
 
-  // 디테일에서 메인페이지로 라우터 변경 시 CardsList의 엘리먼트 동기화를 기다리기 위한 용도
-  useEffect(() => {
-    const handleRouteChange = (url: string) => {
-      if (url === router.pathname) {
-        setLoading(true);
-        setTimeout(() => setLoading(false), 100);
-      }
-    };
-
-    router.events.on('routeChangeStart', handleRouteChange);
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChange);
-    };
-  }, [router]);
-
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     router.push({
@@ -121,10 +106,10 @@ export default function CardsListContainer() {
       {enableCondition ? (
         <CardsListTemplate pokemonByIdsList={pokmonByIdsList} />
       ) : (
-        <LargeLoading />
+        <LoadingSpinner />
       )}
 
-      <Pagination
+      <CardPagination
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}

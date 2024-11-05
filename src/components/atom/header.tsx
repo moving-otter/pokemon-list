@@ -1,12 +1,22 @@
 import React from 'react';
 
-export default function Header() {
+interface HeaderProps {
+  hasBorder?: boolean; // border 스타일을 적용할지 여부를 결정하는 prop
+}
+
+export default function Header(props: HeaderProps) {
+  const {hasBorder = true} = props;
+
   const handleTitleClick = () => {
-    window.location.href = '/'; // "/" 경로로 이동
+    window.location.href = '/';
   };
 
   return (
-    <div className="bg-gray-50 py-3 px-5 flex items-center select-none">
+    <div
+      className={`bg-gray-50 py-3 px-5 flex items-center select-none ${
+        hasBorder ? 'border-b-2 border-gray-200' : ''
+      }`}
+    >
       <img
         src="/favicon/monsterball-312x320.png"
         alt="Pokedex Icon"

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Container, Header} from 'semantic-ui-react';
 
-export default function EmptyItem() {
+export default function CardEmpty() {
   return (
     <Container
       textAlign="center"
