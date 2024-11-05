@@ -1,13 +1,12 @@
-import React, {useState} from 'react';
-import {useFinderStore} from '@/store/finder-store';
+import React from 'react';
+import {useFindersStore} from '@/store/finders-store';
 
 export default function FinderSearch() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const searchList = useFinderStore((state) => state.setSearchList);
+  const singleSearch = useFindersStore((state) => state.singleSearch);
+  const setSingleSearch = useFindersStore((state) => state.setSingleSearch);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-    console.log('check/Searching for:', searchTerm);
+    setSingleSearch(event.target.value);
   };
 
   return (
@@ -18,9 +17,8 @@ export default function FinderSearch() {
     >
       <input
         type="text"
-        value={searchTerm}
+        value={singleSearch}
         onChange={handleInputChange}
-        // onKeyPress={handleKeyPress}
         placeholder="Please enter Pokemon number, name or type for search."
         className="w-full px-4 py-1.5 mb-1 border border-gray-300 rounded-md focus:outline-none focus:border-gray-50 placeholder-gray-600 placeholder-opacity-50"
       />

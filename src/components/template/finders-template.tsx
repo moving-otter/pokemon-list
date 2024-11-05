@@ -1,6 +1,6 @@
 import React from 'react';
 import {isObjectEmpty} from '@/utils/helper';
-import {useFinderStore} from '@/store/finder-store';
+import {useFindersStore} from '@/store/finders-store';
 import {FinderFilter, FinderSearch, FinderSort} from '@/components/organism';
 
 interface FindersTemplateType {
@@ -10,7 +10,7 @@ interface FindersTemplateType {
 
 export default function FindersTemplate(props: FindersTemplateType) {
   const {disabled, regionPokemonIdsMap} = props;
-  const searchList = useFinderStore((state) => state.searchList);
+  const searchList = useFindersStore((state) => state.searchList);
 
   if (!isObjectEmpty(regionPokemonIdsMap)) {
     console.log('check/regionPokemonIdsMap:', regionPokemonIdsMap);

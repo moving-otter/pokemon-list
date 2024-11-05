@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
 import {getParsedId} from '@/utils/helper';
 import {LoadingSpinner} from '@/components/atom';
+import {useFindersResult} from '@/hooks/use-finders-result';
 import {PokemonsListParam} from '@/services/pokemon/types';
 import {useQuery, useQueries} from '@tanstack/react-query';
 import {CardsTemplate, PaginationTemplate} from '@/components/template';
@@ -16,6 +17,10 @@ export default function CardsTemplateApi() {
   const [currentPage, setCurrentPage] = useState(1);
   const [listParams, setListParams] = useState<PokemonsListParam>(initialListParams);
   const [loading, setLoading] = useState(true);
+  const {hasFindersOption, filteredIdsList} = useFindersResult();
+
+  console.log('check/hasFindersOption', hasFindersOption);
+  console.log('check/filteredIdsList', filteredIdsList);
 
   // 1. [API] pokemon 목록 가져오기
   const {data: pokemonsList, isPending: isPendingList} = useQuery(
