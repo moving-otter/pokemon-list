@@ -10,7 +10,6 @@ interface FindersTemplateType {
 
 export default function FindersTemplate(props: FindersTemplateType) {
   const {disabled, regionPokemonIdsMap} = props;
-
   const searchList = useFinderStore((state) => state.searchList);
 
   if (!isObjectEmpty(regionPokemonIdsMap)) {

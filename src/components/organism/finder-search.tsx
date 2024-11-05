@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-import {usePokemonStore} from '@/store/pokemon-store';
+import {useFinderStore} from '@/store/finder-store';
 
 export default function FinderSearch() {
-  // const pokemonDetailList = usePokemonStore((state) => state.pokemonByIdsList);
-
   const [searchTerm, setSearchTerm] = useState('');
+  const searchList = useFinderStore((state) => state.setSearchList);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);

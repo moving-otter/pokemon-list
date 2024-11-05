@@ -38,14 +38,6 @@ export default function DetailTemplateApi() {
     })
   );
 
-  if (explanation !== '') {
-    console.log('check/explanation', explanation);
-  }
-
-  if (evolutionChain !== undefined) {
-    console.log('check/evolutionChain', evolutionChain);
-  }
-
   // species에서 가장 긴 영문 설명을 추출
   useEffect(() => {
     if (pokemonSpecies !== undefined) {
@@ -62,9 +54,23 @@ export default function DetailTemplateApi() {
 
   // template 렌더링 조건문
   const templateRenderingConditions =
-    !isPendingPokemon && !isPendingPokemonSpecies && !isPendingEvolutionChain;
+    !isPendingPokemon &&
+    !isPendingPokemonSpecies &&
+    !isPendingEvolutionChain &&
+    explanation !== '' &&
+    evolutionChain !== undefined;
 
   return (
-    <>{templateRenderingConditions ? <DetailTemplate pokemon={pokemon} /> : <LoadingSpinner />}</>
+    <>
+      {templateRenderingConditions ? (
+        <DetailTemplate
+          pokemon={pokemon}
+          explanation={explanation}
+          evolutionChain={evolutionChain}
+        />
+      ) : (
+        <LoadingSpinner />
+      )}
+    </>
   );
 }

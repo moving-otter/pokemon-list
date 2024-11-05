@@ -4,15 +4,25 @@ import {TypeLabel} from '@/components/atom';
 
 interface DetailTemplateProps {
   pokemon: any;
+  explanation: string;
+  evolutionChain: any;
 }
 
 export default function DetailTemplate(props: DetailTemplateProps) {
-  const {pokemon} = props;
+  const {pokemon, explanation, evolutionChain} = props;
   const router = useRouter();
 
   const handleBack = () => {
     router.back();
   };
+
+  if (explanation !== '') {
+    console.log('check/explanation', explanation);
+  }
+
+  if (evolutionChain !== undefined) {
+    console.log('check/evolutionChain', evolutionChain);
+  }
 
   return (
     <div data-testid="detail-template" className="container mx-auto p-4">
