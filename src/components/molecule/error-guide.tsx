@@ -2,13 +2,13 @@ import {Button} from 'semantic-ui-react';
 import {Header} from '@/components/atom';
 
 interface ErrorGuideProps {
-  errorCode: string;
   title: string;
+  errorCode: string;
   description: string;
 }
 
 export default function ErrorGuide(props: ErrorGuideProps) {
-  const {errorCode, title, description} = props;
+  const {title, errorCode, description} = props;
 
   const handleTitleClick = () => {
     window.location.replace('/');
@@ -19,6 +19,7 @@ export default function ErrorGuide(props: ErrorGuideProps) {
       <Header />
 
       <div
+        data-testid="error-guide"
         className="flex flex-col items-center justify-center h-1/2  bg-gray-100 text-center pb-40"
         style={{height: 'calc(100vh - 64px)'}}
       >

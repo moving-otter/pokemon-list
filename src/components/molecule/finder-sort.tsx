@@ -24,9 +24,9 @@ const friendOptions = [
   },
 ];
 
-export default function FindersSort() {
+export default function FinderSort() {
   return (
-    <div data-testid="sort-option" className="select-none flex items-center pr-4">
+    <div data-testid="finder-sort" className="select-none flex items-center pr-4">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-6 w-6 text-gray-600 mr-1.5" // 아이콘 크기와 색상 설정

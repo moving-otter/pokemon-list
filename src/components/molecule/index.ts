@@ -1,8 +1,8 @@
 import CardEmpty from './card-empty';
 import ErrorGuide from './error-guide';
-import FindersSort from './finders-sort';
+import FinderSort from './finder-sort';
+import FinderSearch from './finder-search';
+import FinderFilter from './finder-filter';
 import ErrorBoundary from './error-boundary';
-import FindersSearch from './finders-search';
-import FindersFilter from './finders-filter';
 
-export {CardEmpty, ErrorGuide, ErrorBoundary, FindersSort, FindersSearch, FindersFilter};
+export {CardEmpty, ErrorGuide, ErrorBoundary, FinderSort, FinderSearch, FinderFilter};

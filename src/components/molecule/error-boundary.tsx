@@ -26,6 +26,7 @@ export default function ErrorBoundary(props: ErrorBoundaryProps) {
   if (hasError) {
     return (
       <ErrorGuide
+        data-testid="error-boundary"
         errorCode={'...'}
         title={'Unexpected UI Error'}
         description={'It seems like some component has UI error.'}

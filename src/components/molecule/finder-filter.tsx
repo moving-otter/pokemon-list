@@ -24,9 +24,9 @@ const friendOptions = [
   },
 ];
 
-export default function FindersFilter() {
+export default function FinderFilter() {
   return (
-    <div data-testid="region-filter" className="select-none flex items-center pr-4">
+    <div data-testid="finder-filter" className="select-none flex items-center pr-4">
       <div className="flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"

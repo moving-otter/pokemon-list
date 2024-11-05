@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes slide-reset {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-slide-reset {
+  animation: slide-reset 1.5s ease-in-out infinite;
+}
+
 [data-testid='region-filter'] div .menu {
   left: revert-layer !important;
   right: -2px !important;
@@ -12,12 +25,12 @@
   right: -2px !important;
 }
 
-[data-testid='pagination'] .ui.selection.dropdown {
+[data-testid='pagination-template'] .ui.selection.dropdown {
   min-width: 90px !important;
   min-height: 42px !important;
 }
 
-[data-testid='pagination'] .ui.selection.dropdown i {
+[data-testid='pagination-template'] .ui.selection.dropdown i {
   transform: rotate(180deg) !important;
   margin-right: -12px !important;
   margin-top: -7px !important;

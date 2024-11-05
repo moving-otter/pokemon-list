@@ -15,7 +15,7 @@ export default function DetailTemplate(props: DetailTemplateProps) {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div data-testid="detail-template" className="container mx-auto p-4">
       <button onClick={handleBack} className="mb-4 text-blue-500 hover:underline">
         &larr; Back
       </button>

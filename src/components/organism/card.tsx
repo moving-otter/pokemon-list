@@ -4,10 +4,10 @@ import {TypeLabel} from '@/components/atom';
 
 interface CardProps {
   name: string;
+  types: string[];
   number: number;
   height: number;
   weight: number;
-  types: string[];
   imageUrl: string | null; // Allow imageUrl to be null
 }
 
@@ -16,6 +16,7 @@ export default function Card(props: CardProps) {
 
   return (
     <Link
+      data-testid="card"
       href={`/pokemon/${number}`}
       className={`
         flex 

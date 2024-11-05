@@ -11,7 +11,7 @@ import {pokemonQueryService} from '@/services/pokemon/query';
 import {pokemonSpeciesQueryService} from '@/services/pokemon-species/query';
 import {evolutionChainQueryService} from '@/services/evolution-chain/query';
 
-export default function DetailContainer() {
+export default function DetailTemplateApi() {
   const router = useRouter();
   const {id} = router.query;
   const [explanation, setExplanation] = useState('');
@@ -39,11 +39,11 @@ export default function DetailContainer() {
   );
 
   if (explanation !== '') {
-    // console.log('check/explanation', explanation);
+    console.log('check/explanation', explanation);
   }
 
   if (evolutionChain !== undefined) {
-    // console.log('check/evolutionChain', evolutionChain);
+    console.log('check/evolutionChain', evolutionChain);
   }
 
   // species에서 가장 긴 영문 설명을 추출
@@ -60,7 +60,11 @@ export default function DetailContainer() {
     }
   }, [pokemonSpecies]);
 
-  const enableCondition = !isPendingPokemon && !isPendingPokemonSpecies && !isPendingEvolutionChain;
+  // template 렌더링 조건문
+  const templateRenderingConditions =
+    !isPendingPokemon && !isPendingPokemonSpecies && !isPendingEvolutionChain;
 
-  return <>{enableCondition ? <DetailTemplate pokemon={pokemon} /> : <LoadingSpinner />}</>;
+  return (
+    <>{templateRenderingConditions ? <DetailTemplate pokemon={pokemon} /> : <LoadingSpinner />}</>
+  );
 }

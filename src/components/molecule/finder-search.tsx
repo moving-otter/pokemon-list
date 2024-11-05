@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {usePokemonStore} from '@/store/pokemon-store';
 
-export default function FindersSearch() {
+export default function FinderSearch() {
   // const pokemonDetailList = usePokemonStore((state) => state.pokemonByIdsList);
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,7 +12,11 @@ export default function FindersSearch() {
   };
 
   return (
-    <div className="flex items-center mb-2 mr-2" style={{width: '380px'}}>
+    <div
+      data-testid="finder-search"
+      className="flex items-center mb-2 mr-2"
+      style={{width: '380px'}}
+    >
       <input
         type="text"
         value={searchTerm}

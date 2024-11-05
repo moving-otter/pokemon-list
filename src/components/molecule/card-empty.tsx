@@ -4,6 +4,7 @@ import {Container, Header} from 'semantic-ui-react';
 export default function CardEmpty() {
   return (
     <Container
+      data-testid="card-empty"
       textAlign="center"
       className="w-full"
       style={{
