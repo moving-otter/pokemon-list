@@ -13,7 +13,7 @@ export default function FindersTemplate(props: FindersTemplateType) {
   const searchList = useFindersStore((state) => state.searchList);
 
   if (!isObjectEmpty(regionPokemonIdsMap)) {
-    console.log('check/regionPokemonIdsMap:', regionPokemonIdsMap);
+    // console.log('check/regionPokemonIdsMap:', regionPokemonIdsMap);
   }
 
   return (

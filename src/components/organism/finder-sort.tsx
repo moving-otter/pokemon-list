@@ -1,35 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Dropdown} from 'semantic-ui-react';
-
-const friendOptions = [
-  {
-    key: 'Lowest Number',
-    text: 'Lowest Number',
-    value: 'Lowest Number',
-  },
-  {
-    key: 'Highest Number',
-    text: 'Highest Number',
-    value: 'Highest Number',
-  },
-  {
-    key: 'A - Z',
-    text: 'A - Z',
-    value: 'A - Z',
-  },
-  {
-    key: 'Z - A',
-    text: 'Z - A',
-    value: 'Z - A',
-  },
-];
+import {useFindersStore} from '@/store/finders-store';
 
 export default function FinderSort() {
+  const options = [
+    {key: 'lowest-number', text: 'Lowest Number', value: 'asc'},
+    {key: 'highest-number', text: 'Highest Number', value: 'desc'},
+    {key: 'atoz', text: 'A - Z', value: 'atoz'},
+    {key: 'ztoa', text: 'Z - A', value: 'ztoa'},
+  ];
+
+  const setSortOption = useFindersStore((state) => state.setSortOption);
+  const [selectedOption, setSelectedOption] = useState(options[0].value);
+
+  const handleDropdownChange = (_: any, data: any) => {
+    setSelectedOption(data.value);
+    setSortOption(data.value);
+  };
+
   return (
     <div data-testid="finder-sort" className="select-none flex items-center pr-4">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6 text-gray-600 mr-1.5" // 아이콘 크기와 색상 설정
+        className="h-6 w-6 text-gray-600 mr-1.5"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -40,7 +33,7 @@ export default function FinderSort() {
         <path d="M8 9l4-4 4 4M12 5v14M8 15l4 4 4-4" />
       </svg>
 
-      <Dropdown inline options={friendOptions} defaultValue={friendOptions[0].value} />
+      <Dropdown inline options={options} value={selectedOption} onChange={handleDropdownChange} />
     </div>
   );
 }

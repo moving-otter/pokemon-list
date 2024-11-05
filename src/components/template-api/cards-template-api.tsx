@@ -17,10 +17,7 @@ export default function CardsTemplateApi() {
   const [currentPage, setCurrentPage] = useState(1);
   const [listParams, setListParams] = useState<PokemonsListParam>(initialListParams);
   const [loading, setLoading] = useState(true);
-  const {hasFindersOption, filteredPokemonsList} = useFindersResult();
-
-  // console.log('check/hasFindersOption', hasFindersOption);
-  // console.log('check/filteredPokemonsList', filteredPokemonsList);
+  const {isUsingFinders, filteredPokemonsList} = useFindersResult();
 
   // 1. [API] pokemon 목록 가져오기
   const {data: pokemonsList, isPending: isPendingList} = useQuery(
@@ -99,17 +96,12 @@ export default function CardsTemplateApi() {
     })
     .filter(Boolean); // null 값 제거
 
-  // filteredPokemonsList에 페이지네이션 적용
-  const startIndex = (currentPage - 1) * listParams.limit;
-  const endIndex = startIndex + listParams.limit;
-  const paginatedFilteredPokemonsList = filteredPokemonsList.slice(startIndex, endIndex);
-
   const templateRenderingConditions = !loading && !isPendingList && allPokemonByIdQueriesSuccessful;
 
   return (
     <>
-      {hasFindersOption ? (
-        <CardsTemplate pokemonByIdsList={paginatedFilteredPokemonsList} />
+      {isUsingFinders ? (
+        <CardsTemplate pokemonByIdsList={filteredPokemonsList} />
       ) : (
         <>
           {templateRenderingConditions ? (

@@ -1,20 +1,22 @@
 'use client';
 
+import {useEffect} from 'react';
 import {useFindersStore} from '@/store/finders-store';
 import {usePokemonStore} from '@/store/pokemon-store';
-import {useEffect, useState} from 'react';
 
 export function useFindersResult() {
+  const allPokemonByIdsList = usePokemonStore((state) => state.allPokemonByIdsList);
+  const sortOption = useFindersStore((state) => state.sortOption);
   const singleSearch = useFindersStore((state) => state.singleSearch);
   const filteredPokemonsList = useFindersStore((state) => state.filteredPokemonsList);
-  const allPokemonByIdsList = usePokemonStore((state) => state.allPokemonByIdsList);
-
   const setFilteredPokemonsList = useFindersStore((state) => state.setFilteredPokemonsList);
-  const [hasFindersOption, setHasFindersOption] = useState(false);
 
-  // singleSearch 값에 따라 pokemonByIdsList 필터링
+  const isSearchInUse = singleSearch.length > 0;
+  const isSortInUse = sortOption !== 'asc';
+
+  // singleSearch 값에 따라 allPokemonByIdsList 필터링
   useEffect(() => {
-    if (singleSearch.length > 0) {
+    if (isSearchInUse) {
       const newFilteredPokemonByIdsList = Object.values(allPokemonByIdsList).filter(
         (pokemon) =>
           pokemon.name.toLowerCase().includes(singleSearch.toLowerCase()) ||
@@ -24,12 +26,33 @@ export function useFindersResult() {
           )
       );
       setFilteredPokemonsList(newFilteredPokemonByIdsList);
-
-      setHasFindersOption(true);
-    } else {
-      setHasFindersOption(false);
     }
-  }, [singleSearch]);
+  }, [singleSearch, allPokemonByIdsList, setFilteredPokemonsList]);
 
-  return {hasFindersOption, filteredPokemonsList};
+  // sortOption에 따라 filteredPokemonsList 정렬
+  useEffect(() => {
+    if (isSortInUse) {
+      let sortedList = [];
+      if (filteredPokemonsList.length === 0) {
+        sortedList = [...allPokemonByIdsList];
+      } else {
+        sortedList = [...filteredPokemonsList];
+      }
+
+      if (sortOption === 'desc') {
+        sortedList.sort((a, b) => b.number - a.number); // 번호 역순 정렬
+      } else if (sortOption === 'atoz') {
+        sortedList.sort((a, b) => a.name.localeCompare(b.name)); // 알파벳 순 정렬
+      } else if (sortOption === 'ztoa') {
+        sortedList.sort((a, b) => b.name.localeCompare(a.name)); // 알파벳 역순 정렬
+      }
+
+      setFilteredPokemonsList(sortedList);
+    }
+  }, [sortOption]);
+
+  return {
+    isUsingFinders: isSearchInUse || isSortInUse,
+    filteredPokemonsList,
+  };
 }
