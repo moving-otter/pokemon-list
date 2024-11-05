@@ -12,7 +12,7 @@ import {pokemonQueryService} from '@/services/pokemon/query';
 import {pokedexQueryService} from '@/services/pokedex/query';
 
 export default function FindersTemplateApi() {
-  const setPokemonByIdsList = usePokemonStore((state) => state.setPokemonByIdsList);
+  const setAllPokemonByIdsList = usePokemonStore((state) => state.setAllPokemonByIdsList);
   // HashMap을 생성하여 지역별 포켓몬 ID 저장
   const [regionPokemonIdsMap, setRegionPokemonIdsMap] = useState<Record<string, number[]>>({});
 
@@ -67,7 +67,7 @@ export default function FindersTemplateApi() {
         .map((query) => query.data)
         .filter((data) => data); // 유효한 데이터만 필터링
 
-      setPokemonByIdsList(pokemonByIdsList);
+      setAllPokemonByIdsList(pokemonByIdsList);
     }
   }, [allPokemonByIdQueriesSuccessful]);
 

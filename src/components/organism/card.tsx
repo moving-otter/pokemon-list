@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import {TypeLabel} from '@/components/atom';
+import {useFindersStore} from '@/store/finders-store';
+import {TypeLabel, HighlightedText} from '@/components/atom';
 
 interface CardProps {
   name: string;
@@ -12,6 +13,7 @@ interface CardProps {
 }
 
 export default function Card(props: CardProps) {
+  const singleSearch = useFindersStore((state) => state.singleSearch);
   const {name, number, height, weight, types, imageUrl} = props;
 
   return (
@@ -40,8 +42,12 @@ export default function Card(props: CardProps) {
       <div className="flex flex-col w-full p-2">
         {/* Header with number and name */}
         <div className="flex flex-col items-start">
-          <div className="text-gray-600 text-md font-semibold"># {number}</div>
-          <div className="text-gray-600 text-md font-bold capitalize break-words">{name}</div>
+          <div className="text-gray-600 text-md font-semibold">
+            # <HighlightedText value={`${number}`} highlight={singleSearch} />
+          </div>
+          <div className="text-gray-600 text-md font-bold capitalize break-words">
+            <HighlightedText value={`${name}`} highlight={singleSearch} />
+          </div>
         </div>
 
         <div className="flex">

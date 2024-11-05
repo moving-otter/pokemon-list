@@ -6,21 +6,24 @@ import {useEffect, useState} from 'react';
 
 export function useFindersResult() {
   const singleSearch = useFindersStore((state) => state.singleSearch);
-  const pokemonByIdsList = usePokemonStore((state) => state.pokemonByIdsList);
-  const filteredIdsList = useFindersStore((state) => state.filteredIdsList);
-  const setFilteredIdsList = useFindersStore((state) => state.setFilteredIdsList);
+  const filteredPokemonsList = useFindersStore((state) => state.filteredPokemonsList);
+  const allPokemonByIdsList = usePokemonStore((state) => state.allPokemonByIdsList);
+
+  const setFilteredPokemonsList = useFindersStore((state) => state.setFilteredPokemonsList);
   const [hasFindersOption, setHasFindersOption] = useState(false);
 
   // singleSearch 값에 따라 pokemonByIdsList 필터링
   useEffect(() => {
     if (singleSearch.length > 0) {
-      const filteredPokemonByIdsList = Object.values(pokemonByIdsList).filter(
+      const newFilteredPokemonByIdsList = Object.values(allPokemonByIdsList).filter(
         (pokemon) =>
           pokemon.name.toLowerCase().includes(singleSearch.toLowerCase()) ||
-          pokemon.number.toString() === singleSearch ||
-          pokemon.types.some((type: string) => type.toLowerCase() === singleSearch.toLowerCase())
+          pokemon.number.toString().includes(singleSearch.toLowerCase()) ||
+          pokemon.types.some((type: string) =>
+            type.toLowerCase().includes(singleSearch.toLowerCase())
+          )
       );
-      setFilteredIdsList(filteredPokemonByIdsList);
+      setFilteredPokemonsList(newFilteredPokemonByIdsList);
 
       setHasFindersOption(true);
     } else {
@@ -28,5 +31,5 @@ export function useFindersResult() {
     }
   }, [singleSearch]);
 
-  return {hasFindersOption, filteredIdsList};
+  return {hasFindersOption, filteredPokemonsList};
 }
