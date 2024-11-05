@@ -12,7 +12,7 @@ import {useQuery, useQueries} from '@tanstack/react-query';
 import {pokemonQueryService} from '@/services/pokemon/query';
 
 export default function CardsListContainer() {
-  const setPokemonDetailList = usePokemonStore((state) => state.setPokemonDetailList);
+  const setPokemonDetailList = usePokemonStore((state) => state.setPokemonDetailsList);
   const router = useRouter();
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);

@@ -8,9 +8,6 @@ interface CardsListTemplateProps {
 
 export default function CardsListTemplate(props: CardsListTemplateProps) {
   const {consolidatedData} = props;
-  const pokemonsList = usePokemonStore((state) => state.pokemonsList);
-
-  console.log('check/pokemonsList', pokemonsList);
 
   return (
     <div className="flex-grow overflow-y-auto p-4">

@@ -8,7 +8,7 @@ import {regionQueryService} from '@/services/region/query';
 import {pokemonQueryService} from '@/services/pokemon/query';
 import {pokedexQueryService} from '@/services/pokedex/query';
 
-export default function FinderContainer() {
+export default function FindersContainer() {
   const listParams = {
     page: 1,
     limit: -1,

@@ -1,5 +1,5 @@
 import React from 'react';
-import {RegionFilter, SortOption, SearchInput} from '@/components/organism';
+import {RegionFilter, SortOption, SearchInput} from '@/components/molecule';
 
 interface FindersTemplateType {
   enableCondition: boolean;
