@@ -1,15 +1,14 @@
 import React from 'react';
 import {Card} from '@/components/organism';
 import {CardEmpty} from '@/components/molecule';
-// import {useFinderStore} from '@/store/finder-store';
 
 interface CardsTemplateProps {
   pokemonByIdsList: any;
 }
 
 export default function CardsTemplate(props: CardsTemplateProps) {
-  // const sortOption = useFinderStore((state) => state.sortOption);
   const {pokemonByIdsList} = props;
+
   const hasCard = pokemonByIdsList?.length !== 0;
 
   return (

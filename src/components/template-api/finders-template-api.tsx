@@ -1,7 +1,8 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {getParsedId} from '@/utils/helper';
 import {LoadingSlider} from '@/components/atom';
 import {undefinedString} from '@/utils/constants';
+import {usePokemonStore} from '@/store/pokemon-store';
 import {FindersTemplate} from '@/components/template';
 import {useQuery, useQueries} from '@tanstack/react-query';
 
@@ -11,6 +12,10 @@ import {pokemonQueryService} from '@/services/pokemon/query';
 import {pokedexQueryService} from '@/services/pokedex/query';
 
 export default function FindersTemplateApi() {
+  const setPokemonByIdsList = usePokemonStore((state) => state.setPokemonByIdsList);
+  // HashMap을 생성하여 지역별 포켓몬 ID 저장
+  const [regionPokemonIdsMap, setRegionPokemonIdsMap] = useState<Record<string, number[]>>({});
+
   const listParams = {
     page: 1,
     limit: -1,
@@ -51,13 +56,22 @@ export default function FindersTemplateApi() {
   });
 
   // 2, 4, 5번 useQueries 성공 여부 확인
+  const allPokemonByIdQueriesSuccessful = getPokemonByIdQueries.every((query) => query.isSuccess);
   const allRegionByIdQueriesSuccessful = regionByIdQueries.every((query) => query.isSuccess);
   const allPokedexByIdQueriesSuccessful = pokedexByIdQueries.every((query) => query.isSuccess);
-  const allPokemonByIdQueriesSuccessful = getPokemonByIdQueries.every((query) => query.isSuccess);
 
-  // HashMap을 생성하여 지역별 포켓몬 ID 저장
-  const regionPokemonIdsMap: Record<string, number[] | undefined> = {};
+  // 2번 성공 이후에 store에 pokemonByIdsList 세팅
+  useEffect(() => {
+    if (allPokemonByIdQueriesSuccessful) {
+      const pokemonByIdsList = getPokemonByIdQueries
+        .map((query) => query.data)
+        .filter((data) => data); // 유효한 데이터만 필터링
 
+      setPokemonByIdsList(pokemonByIdsList);
+    }
+  }, [allPokemonByIdQueriesSuccessful]);
+
+  // 4, 5번 성공 이후에 regionPokemonIdsMap 세팅
   useEffect(() => {
     if (allPokedexByIdQueriesSuccessful && allRegionByIdQueriesSuccessful) {
       regionByIdQueries.forEach((regionQuery, index) => {
@@ -72,28 +86,31 @@ export default function FindersTemplateApi() {
 
         if (regionName !== undefined) {
           regionPokemonIdsMap[regionName] = sortedPokemonIds;
+          setRegionPokemonIdsMap(regionPokemonIdsMap);
         }
       });
-
-      // console.log('check/regionPokemonIdsMap:', regionPokemonIdsMap);
     }
   }, [
-    allPokedexByIdQueriesSuccessful,
-    allRegionByIdQueriesSuccessful,
-    pokedexByIdQueries,
     regionsList,
+    pokedexByIdQueries,
+    allPokemonByIdQueriesSuccessful,
+    allRegionByIdQueriesSuccessful,
+    allPokedexByIdQueriesSuccessful,
   ]);
 
   const templateRenderingConditions =
     !isPendingList &&
     !isPendingRegions &&
+    allPokemonByIdQueriesSuccessful &&
     allRegionByIdQueriesSuccessful &&
-    allPokedexByIdQueriesSuccessful &&
-    allPokemonByIdQueriesSuccessful;
+    allPokedexByIdQueriesSuccessful;
 
   return (
     <div className="border-b-2 border-gray-200 bg-gray-50 relative">
-      <FindersTemplate disabled={!templateRenderingConditions} />
+      <FindersTemplate
+        disabled={!templateRenderingConditions}
+        regionPokemonIdsMap={regionPokemonIdsMap}
+      />
 
       {!templateRenderingConditions && <LoadingSlider />}
     </div>

@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
 import {getParsedId} from '@/utils/helper';
 import {LoadingSpinner} from '@/components/atom';
-import {usePokemonStore} from '@/store/pokemon-store';
 import {PokemonsListParam} from '@/services/pokemon/types';
 import {useQuery, useQueries} from '@tanstack/react-query';
 import {CardsTemplate, PaginationTemplate} from '@/components/template';
@@ -12,7 +11,6 @@ import {initialListParams, undefinedString} from '@/utils/constants';
 import {pokemonQueryService} from '@/services/pokemon/query';
 
 export default function CardsTemplateApi() {
-  const setPokemonByIdsList = usePokemonStore((state) => state.setPokemonByIdsList);
   const router = useRouter();
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -61,17 +59,12 @@ export default function CardsTemplateApi() {
   // 2번 useQueries 성공 여부 확인
   const allPokemonByIdQueriesSuccessful = getPokemonByIdQueries.every((query) => query.isSuccess);
 
-  // 2번 성공 이후에 pokemonByIdsList 초기화
+  // 2번 성공 이후에 loading 플래그를 true로 변경
   useEffect(() => {
     if (allPokemonByIdQueriesSuccessful) {
-      const pokemonByIdsList = getPokemonByIdQueries
-        .map((query) => query.data)
-        .filter((data) => data); // 유효한 데이터만 필터링
-
-      setPokemonByIdsList(pokemonByIdsList);
       setLoading(false);
     }
-  }, [getPokemonByIdQueries, setPokemonByIdsList, allPokemonByIdQueriesSuccessful]);
+  }, [allPokemonByIdQueriesSuccessful]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
