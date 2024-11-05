@@ -5,6 +5,7 @@ import {getParsedId} from '@/utils/helper';
 import {LargeLoading} from '@/components/atom';
 import {DetailTemplate} from '@/components/template';
 
+// 사용되는 [API] 목록
 import {pokemonQueryService} from '@/services/pokemon/query';
 import {pokemonSpeciesQueryService} from '@/services/pokemon-species/query';
 import {evolutionChainQueryService} from '@/services/evolution-chain/query';

@@ -4,6 +4,7 @@ import {SlideLoading} from '@/components/atom';
 import {FindersTemplate} from '@/components/template';
 import {useQuery, useQueries} from '@tanstack/react-query';
 
+// 사용되는 [API] 목록
 import {regionQueryService} from '@/services/region/query';
 import {pokemonQueryService} from '@/services/pokemon/query';
 import {pokedexQueryService} from '@/services/pokedex/query';
@@ -63,7 +64,7 @@ export default function FindersContainer() {
       regionByIdQueries.forEach((regionQuery, index) => {
         const regionName = regionsList?.results[index]?.name; // 지역 이름
         const pokemonIds =
-          pokedexByIdQueries[index]?.data?.pokemon_entries.map(
+          pokedexByIdQueries[index]?.data?.pokemon_entries?.map(
             (entry) => Number(getParsedId(entry.pokemon_species.url)) // 문자열을 숫자로 변환
           ) || [];
 

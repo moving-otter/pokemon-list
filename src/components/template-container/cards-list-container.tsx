@@ -9,6 +9,7 @@ import {initialListParams} from '@/utils/constants';
 import {CardsListTemplate} from '@/components/template';
 import {useQuery, useQueries} from '@tanstack/react-query';
 
+// 사용되는 [API] 목록
 import {pokemonQueryService} from '@/services/pokemon/query';
 
 export default function CardsListContainer() {
