@@ -16,10 +16,6 @@ export default function DetailTemplate(props: DetailTemplateProps) {
     router.back();
   };
 
-  if (explanation !== '') {
-    console.log('check/explanation', explanation);
-  }
-
   if (evolutionChain !== undefined) {
     console.log('check/evolutionChain', evolutionChain);
   }
@@ -38,6 +34,8 @@ export default function DetailTemplate(props: DetailTemplateProps) {
         <p>Height: {pokemon?.height / 10} m</p>
         <p>Weight: {pokemon?.weight / 10} kg</p>
       </div>
+
+      <p>{explanation}</p>
 
       <div className="flex flex-wrap">
         {pokemon?.types.map((type: string, index: number) => (
