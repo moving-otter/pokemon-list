@@ -14,7 +14,6 @@ interface PaginationProps {
 
 export default function Pagination(props: PaginationProps) {
   const {currentPage, totalPages, listParams, onPageChange, setListParams, setCurrentPage} = props;
-
   const router = useRouter();
   const limitOptions = [
     {key: '20', value: 20, text: '20'},

@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {getParsedId} from '@/utils/helper';
 import {SlideLoading} from '@/components/atom';
+import {undefinedString} from '@/utils/constants';
 import {FindersTemplate} from '@/components/template';
 import {useQuery, useQueries} from '@tanstack/react-query';
 
@@ -35,7 +36,7 @@ export default function FindersContainer() {
   const regionByIdQueries = useQueries({
     queries:
       regionsList?.results.map((region) =>
-        regionQueryService.getById({id: getParsedId(region.url) ?? 'undefined'})
+        regionQueryService.getById({id: getParsedId(region.url) ?? undefinedString})
       ) || [],
   });
 
@@ -46,7 +47,7 @@ export default function FindersContainer() {
 
   // 5. [API] 여러개의 pokedex 목록을 가져오는 쿼리 실행
   const pokedexByIdQueries = useQueries({
-    queries: pokedexIds.map((id) => pokedexQueryService.getById({id: id ?? 'undefined'})) || [],
+    queries: pokedexIds.map((id) => pokedexQueryService.getById({id: id ?? undefinedString})) || [],
   });
 
   // 모든 `regionById` 쿼리가 성공했는지 확인

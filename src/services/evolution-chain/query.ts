@@ -1,5 +1,6 @@
 import {pokedexKeys as evolutionChainKeys} from './keys';
 import {queryOptions} from '@tanstack/react-query';
+import {undefinedString} from '@/utils/constants';
 import {getEvolutionChainById} from './fetch';
 import {EvolutionChainByIdParams} from './types';
 
@@ -10,7 +11,7 @@ export const evolutionChainQueryService = {
     return queryOptions({
       queryKey: evolutionChainKeys.getById(id),
       queryFn: () => getEvolutionChainById(params),
-      enabled: id !== 'undefined',
+      enabled: id !== undefinedString,
     });
   },
 };

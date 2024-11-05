@@ -21,3 +21,5 @@ export const initialListParams = {
   page: 1,
   limit: 20,
 };
+
+export const undefinedString = 'undefined';

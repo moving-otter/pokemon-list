@@ -5,9 +5,9 @@ import {getParsedId} from '@/utils/helper';
 import {LargeLoading} from '@/components/atom';
 import {usePokemonStore} from '@/store/pokemon-store';
 import {PokemonsListParam} from '@/services/pokemon/types';
-import {initialListParams} from '@/utils/constants';
 import {CardsListTemplate} from '@/components/template';
 import {useQuery, useQueries} from '@tanstack/react-query';
+import {initialListParams, undefinedString} from '@/utils/constants';
 
 // 사용되는 [API] 목록) 1 ~ 2 단계로 호출됨
 import {pokemonQueryService} from '@/services/pokemon/query';
@@ -29,7 +29,7 @@ export default function CardsListContainer() {
   const getPokemonByIdQueries = useQueries({
     queries:
       pokemonsList?.results.map((pokemon) =>
-        pokemonQueryService.getById({id: getParsedId(pokemon.url) ?? 'undefined'})
+        pokemonQueryService.getById({id: getParsedId(pokemon.url) ?? undefinedString})
       ) || [],
   });
 

@@ -1,5 +1,6 @@
 import {pokemonKeys} from './keys';
 import {queryOptions} from '@tanstack/react-query';
+import {undefinedString} from '@/utils/constants';
 import {getPokemonById, getPokemonsList} from './fetch';
 import {PokemonByIdParams, PokemonsListParam} from './types';
 
@@ -16,7 +17,7 @@ export const pokemonQueryService = {
     return queryOptions({
       queryKey: pokemonKeys.getById(id),
       queryFn: () => getPokemonById(params),
-      enabled: id !== 'undefined',
+      enabled: id !== undefinedString,
     });
   },
 };

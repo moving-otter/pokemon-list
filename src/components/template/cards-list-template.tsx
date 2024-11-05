@@ -1,7 +1,6 @@
 import React from 'react';
 import {Card} from '@/components/organism';
 import {EmptyItem} from '@/components/molecule';
-import {usePokemonStore} from '@/store/pokemon-store';
 
 interface CardsListTemplateProps {
   pokemonByIdsList: any;

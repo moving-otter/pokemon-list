@@ -6,7 +6,9 @@ interface FindersTemplateType {
   enableCondition: boolean;
 }
 
-export default function FindersTemplate({enableCondition}: FindersTemplateType) {
+export default function FindersTemplate(props: FindersTemplateType) {
+  const {enableCondition} = props;
+
   const searchList = useFinderStore((state) => state.searchList);
 
   return (
