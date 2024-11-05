@@ -1,13 +1,13 @@
 import {Button} from 'semantic-ui-react';
 import {Header} from '@/components/atom';
 
-interface CornerCaseProps {
+interface ErrorGuideProps {
   errorCode: string;
   title: string;
   description: string;
 }
 
-export default function CornerCaseGuide(props: CornerCaseProps) {
+export default function ErrorGuide(props: ErrorGuideProps) {
   const {errorCode, title, description} = props;
 
   const handleTitleClick = () => {

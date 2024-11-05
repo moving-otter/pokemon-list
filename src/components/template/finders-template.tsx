@@ -1,6 +1,6 @@
 import React from 'react';
 import {useFinderStore} from '@/store/finder-store';
-import {RegionFilter, SortOption, SearchInput} from '@/components/molecule';
+import {FindersFilter, FindersSearch, FindersSort} from '@/components/molecule';
 
 interface FindersTemplateType {
   enableCondition: boolean;
@@ -17,12 +17,12 @@ export default function FindersTemplate(props: FindersTemplateType) {
         enableCondition ? '' : 'opacity-50 pointer-events-none'
       }`}
     >
-      <SearchInput />
+      <FindersSearch />
 
       <div className="flex items-center space-x-2 mb-4 md:mt-0">
-        <SortOption />
+        <FindersSort />
 
-        <RegionFilter />
+        <FindersFilter />
       </div>
     </div>
   );

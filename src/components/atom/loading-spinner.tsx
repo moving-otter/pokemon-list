@@ -1,7 +1,7 @@
 import React from 'react';
 import {Segment, Dimmer, Loader} from 'semantic-ui-react';
 
-export default function LargeLoading() {
+export default function LoadingSpinner() {
   return (
     <Segment className="h-screen w-screen" style={{margin: '0', border: 'none'}}>
       <Dimmer active inverted>

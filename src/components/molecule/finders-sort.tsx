@@ -24,7 +24,7 @@ const friendOptions = [
   },
 ];
 
-export default function SortOption() {
+export default function FindersSort() {
   return (
     <div data-testid="sort-option" className="select-none flex items-center pr-4">
       <svg

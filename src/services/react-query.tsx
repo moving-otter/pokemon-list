@@ -1,6 +1,5 @@
 'use client';
 
-import {ApiError} from '@/components/molecule';
 import {handleApiError, transformApiError} from '@/utils/error-define';
 import {QueryCache, QueryClient, MutationCache, QueryClientConfig} from '@tanstack/react-query';
 

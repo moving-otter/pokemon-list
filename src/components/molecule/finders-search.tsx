@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {usePokemonStore} from '@/store/pokemon-store';
 
-export default function SearchInput() {
-  const pokemonDetailList = usePokemonStore((state) => state.pokemonByIdsList);
+export default function FindersSearch() {
+  // const pokemonDetailList = usePokemonStore((state) => state.pokemonByIdsList);
 
   const [searchTerm, setSearchTerm] = useState('');
 

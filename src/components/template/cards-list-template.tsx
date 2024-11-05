@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card} from '@/components/organism';
-import {EmptyItem} from '@/components/molecule';
+import {CardEmpty} from '@/components/molecule';
 import {useFinderStore} from '@/store/finder-store';
 
 interface CardsListTemplateProps {
@@ -8,7 +8,7 @@ interface CardsListTemplateProps {
 }
 
 export default function CardsListTemplate(props: CardsListTemplateProps) {
-  const sortOption = useFinderStore((state) => state.sortOption);
+  // const sortOption = useFinderStore((state) => state.sortOption);
   const {pokemonByIdsList} = props;
 
   const cardsListData = pokemonByIdsList;
@@ -32,7 +32,7 @@ export default function CardsListTemplate(props: CardsListTemplateProps) {
           ))}
         </div>
       ) : (
-        <EmptyItem />
+        <CardEmpty />
       )}
     </div>
   );

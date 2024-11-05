@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {CornerCaseGuide} from '@/components/molecule';
+import {ErrorGuide} from '@/components/molecule';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
@@ -25,7 +25,7 @@ export default function ErrorBoundary(props: ErrorBoundaryProps) {
 
   if (hasError) {
     return (
-      <CornerCaseGuide
+      <ErrorGuide
         errorCode={'...'}
         title={'Unexpected UI Error'}
         description={'It seems like some component has UI error.'}

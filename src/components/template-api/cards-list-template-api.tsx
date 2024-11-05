@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
-import {Pagination} from '@/components/organism';
 import {getParsedId} from '@/utils/helper';
-import {LargeLoading} from '@/components/atom';
+import {LoadingSpinner} from '@/components/atom';
+import {CardPagination} from '@/components/organism';
 import {usePokemonStore} from '@/store/pokemon-store';
 import {PokemonsListParam} from '@/services/pokemon/types';
 import {CardsListTemplate} from '@/components/template';
@@ -33,7 +33,7 @@ export default function CardsListContainer() {
       ) || [],
   });
 
-  // [API] 모든 `pokemonById` 쿼리가 성공했는지 확인
+  // [API] 모든 2. pokemonById 쿼리가 성공했는지 확인
   const allPokemonByIdQueriesSuccessful = getPokemonByIdQueries.every((query) => query.isSuccess);
 
   useEffect(() => {
@@ -106,10 +106,10 @@ export default function CardsListContainer() {
       {enableCondition ? (
         <CardsListTemplate pokemonByIdsList={pokmonByIdsList} />
       ) : (
-        <LargeLoading />
+        <LoadingSpinner />
       )}
 
-      <Pagination
+      <CardPagination
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}

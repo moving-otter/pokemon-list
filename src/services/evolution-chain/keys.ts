@@ -1,5 +1,5 @@
 import {SERVICE_KEYS} from '../service-keys';
 
-export const pokedexKeys = {
-  getById: (id: string) => [SERVICE_KEYS.POKEDEX, id],
+export const evolutionChainKeys = {
+  getById: (id: string) => [SERVICE_KEYS.EVOLUTION_CHAIN, id],
 };
