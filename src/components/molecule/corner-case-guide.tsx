@@ -19,7 +19,7 @@ export default function CornerCaseGuide(props: CornerCaseProps) {
       <Header />
 
       <div
-        className="flex flex-col items-center justify-center h-1/2 border-t-2 border-gray-200 bg-gray-100 text-center pb-40"
+        className="flex flex-col items-center justify-center h-1/2  bg-gray-100 text-center pb-40"
         style={{height: 'calc(100vh - 64px)'}}
       >
         <h1 className="text-6xl font-bold text-red-500 ">{errorCode}</h1>

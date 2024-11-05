@@ -71,21 +71,6 @@ export default function CardsListContainer() {
     }
   }, [getPokemonByIdQueries, setPokemonDetailList, allPokemonByIdQueriesSuccessful]);
 
-  // 디테일에서 메인페이지로 라우터 변경 시 CardsList의 엘리먼트 동기화를 기다리기 위한 용도
-  useEffect(() => {
-    const handleRouteChange = (url: string) => {
-      if (url === router.pathname) {
-        setLoading(true);
-        setTimeout(() => setLoading(false), 100);
-      }
-    };
-
-    router.events.on('routeChangeStart', handleRouteChange);
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChange);
-    };
-  }, [router]);
-
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     router.push({

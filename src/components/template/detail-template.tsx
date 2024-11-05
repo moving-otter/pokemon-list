@@ -8,10 +8,10 @@ interface DetailTemplateProps {
 
 export default function DetailTemplate(props: DetailTemplateProps) {
   const {pokemon} = props;
-  const router = useRouter(); // useRouter 훅을 사용하여 라우터 객체를 가져옵니다.
+  const router = useRouter();
 
   const handleBack = () => {
-    router.back(); // 이전 페이지로 이동하는 함수
+    router.back();
   };
 
   return (

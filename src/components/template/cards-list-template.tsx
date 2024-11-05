@@ -1,12 +1,14 @@
 import React from 'react';
 import {Card} from '@/components/organism';
 import {EmptyItem} from '@/components/molecule';
+import {useFinderStore} from '@/store/finder-store';
 
 interface CardsListTemplateProps {
   pokemonByIdsList: any;
 }
 
 export default function CardsListTemplate(props: CardsListTemplateProps) {
+  const sortOption = useFinderStore((state) => state.sortOption);
   const {pokemonByIdsList} = props;
 
   const cardsListData = pokemonByIdsList;

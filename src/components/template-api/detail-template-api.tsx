@@ -60,7 +60,7 @@ export default function DetailContainer() {
     }
   }, [pokemonSpecies]);
 
-  const enableCondition = !isPendingPokemon && !isPendingPokemonSpecies && !isPendingEvolutionChain;
+  const enableCondition = !isPendingPokemon && !isPendingPokemonSpecies && !isPendingEvolutionChain;  
 
   return <>{enableCondition ? <DetailTemplate pokemon={pokemon} /> : <LargeLoading />}</>;
 }

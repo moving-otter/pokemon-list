@@ -5,7 +5,7 @@ import {FindersTemplateApi, CardsListTemplateApi} from '@/components/template-ap
 export default function MainPage() {
   return (
     <div className="mx-auto flex flex-col h-screen">
-      <Header />
+      <Header hasBorder={false} />
 
       <FindersTemplateApi />
 
