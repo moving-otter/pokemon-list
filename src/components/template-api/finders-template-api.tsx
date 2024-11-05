@@ -4,9 +4,9 @@ import {SlideLoading} from '@/components/atom';
 import {FindersTemplate} from '@/components/template';
 import {useQuery, useQueries} from '@tanstack/react-query';
 
-// 사용되는 [API] 목록
-import {regionQueryService} from '@/services/region/query';
+// 사용되는 [API] 목록) 1 ~ 5 단계로 호출됨
 import {pokemonQueryService} from '@/services/pokemon/query';
+import {regionQueryService} from '@/services/region/query';
 import {pokedexQueryService} from '@/services/pokedex/query';
 
 export default function FindersContainer() {
@@ -15,12 +15,12 @@ export default function FindersContainer() {
     limit: -1,
   };
 
-  // [API] 모든 pokemon 목록 가져오기
+  // 1. [API] 모든 pokemon 목록 가져오기
   const {data: pokemonsList, isPending: isPendingList} = useQuery({
     ...pokemonQueryService.getList({...listParams}),
   });
 
-  // [API] 여러개의 pokemon 상세 정보 가져오기
+  // 2. [API] 여러개의 pokemon 상세 정보 가져오기
   const getPokemonByIdQueries = useQueries({
     queries:
       pokemonsList?.results.map((pokemon) =>
@@ -28,10 +28,10 @@ export default function FindersContainer() {
       ) || [],
   });
 
-  // [API] region 목록 가져오기
+  // 3. [API] region 목록 가져오기
   const {data: regionsList, isPending: isPendingRegions} = useQuery(regionQueryService.getList());
 
-  // [API] 여러개의 region 상세정보 가져오기
+  // 4. [API] 여러개의 region 상세정보 가져오기
   const regionByIdQueries = useQueries({
     queries:
       regionsList?.results.map((region) =>
@@ -44,7 +44,7 @@ export default function FindersContainer() {
     (query) => query.data?.pokedexes.map((pokedex) => getParsedId(pokedex.url)) ?? []
   );
 
-  // 여러개의 pokedex 목록을 가져오는 쿼리 실행
+  // 5. [API] 여러개의 pokedex 목록을 가져오는 쿼리 실행
   const pokedexByIdQueries = useQueries({
     queries: pokedexIds.map((id) => pokedexQueryService.getById({id: id ?? 'undefined'})) || [],
   });
@@ -75,6 +75,7 @@ export default function FindersContainer() {
           regionPokemonIdsMap[regionName] = sortedPokemonIds;
         }
       });
+
       // console.log('check/regionPokemonIdsMap:', regionPokemonIdsMap);
     }
   }, [

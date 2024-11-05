@@ -31,5 +31,6 @@ export async function getPokemonById(params: PokemonByIdParams) {
     weight: validatedData.weight,
     types: validatedData.types.map((type) => type.type.name),
     imageUrl: validatedData.sprites.front_default || '',
+    species: validatedData.species,
   };
 }

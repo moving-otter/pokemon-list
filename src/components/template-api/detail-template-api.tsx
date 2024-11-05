@@ -5,7 +5,7 @@ import {getParsedId} from '@/utils/helper';
 import {LargeLoading} from '@/components/atom';
 import {DetailTemplate} from '@/components/template';
 
-// 사용되는 [API] 목록
+// 사용되는 [API] 목록) 1 ~ 3 단계로 호출됨
 import {pokemonQueryService} from '@/services/pokemon/query';
 import {pokemonSpeciesQueryService} from '@/services/pokemon-species/query';
 import {evolutionChainQueryService} from '@/services/evolution-chain/query';
@@ -16,21 +16,23 @@ export default function DetailContainer() {
   const validatedId = typeof id === 'string' ? id : 'undefined';
   const [explanation, setExplanation] = useState('');
 
-  // [API] pokemon 상세정보 가져오기
+  // 1. [API] pokemon 상세정보 가져오기
   const {data: pokemon, isPending: isPendingPokemon} = useQuery(
     pokemonQueryService.getById({
       id: validatedId,
     })
   );
 
-  // [API] species 상세정보 가져오기
+  console.log('check/pokemon', pokemon);
+
+  // 2. [API] species 상세정보 가져오기
   const {data: pokemonSpecies, isPending: isPendingPokemonSpecies} = useQuery(
     pokemonSpeciesQueryService.getById({
       id: validatedId,
     })
   );
 
-  // [API] evoluation chain 상세정보 가져오기
+  // 3. [API] evoluation chain 상세정보 가져오기
   const {data: evolutionChain, isPending: isPendingEvolutionChain} = useQuery(
     evolutionChainQueryService.getById({
       id: getParsedId(pokemonSpecies?.evolution_chain?.url ?? 'undefined') ?? 'undefined',

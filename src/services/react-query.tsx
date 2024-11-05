@@ -1,5 +1,6 @@
 'use client';
 
+import {ApiError} from '@/components/molecule';
 import {handleApiError, transformApiError} from '@/utils/error-define';
 import {QueryCache, QueryClient, MutationCache, QueryClientConfig} from '@tanstack/react-query';
 
@@ -14,6 +15,7 @@ export const queryConfig: QueryClientConfig = {
       // Data will be fresh for 60 seconds
       staleTime: 60000,
       // staleTime: 2000,
+      // throwOnError: (error) => transformApiError(error) === null,
       throwOnError: (error) => transformApiError(error) === null,
     },
     mutations: {

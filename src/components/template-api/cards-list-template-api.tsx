@@ -9,7 +9,7 @@ import {initialListParams} from '@/utils/constants';
 import {CardsListTemplate} from '@/components/template';
 import {useQuery, useQueries} from '@tanstack/react-query';
 
-// 사용되는 [API] 목록
+// 사용되는 [API] 목록) 1 ~ 2 단계로 호출됨
 import {pokemonQueryService} from '@/services/pokemon/query';
 
 export default function CardsListContainer() {
@@ -20,12 +20,12 @@ export default function CardsListContainer() {
   const [listParams, setListParams] = useState<PokemonsListParam>(initialListParams);
   const [loading, setLoading] = useState(true);
 
-  // [API] pokemon 목록 가져오기
+  // 1. [API] pokemon 목록 가져오기
   const {data: pokemonsList, isPending: isPendingList} = useQuery(
     pokemonQueryService.getList({...listParams})
   );
 
-  // [API] 여러개의 pokemon 상세 정보 가져오기
+  // 2. [API] 여러개의 pokemon 상세 정보 가져오기
   const getPokemonByIdQueries = useQueries({
     queries:
       pokemonsList?.results.map((pokemon) =>

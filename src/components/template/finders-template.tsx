@@ -1,4 +1,5 @@
 import React from 'react';
+import {useFinderStore} from '@/store/finder-store';
 import {RegionFilter, SortOption, SearchInput} from '@/components/molecule';
 
 interface FindersTemplateType {
@@ -6,6 +7,8 @@ interface FindersTemplateType {
 }
 
 export default function FindersTemplate({enableCondition}: FindersTemplateType) {
+  const searchList = useFinderStore((state) => state.searchList);
+
   return (
     <div
       className={`flex flex-wrap px-5 justify-between ${
