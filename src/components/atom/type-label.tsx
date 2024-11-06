@@ -1,7 +1,5 @@
-import React from 'react';
-
 interface TypeLabelProps {
-  type: string;
+  type: any;
 }
 
 export default function TypeLabel(props: TypeLabelProps) {

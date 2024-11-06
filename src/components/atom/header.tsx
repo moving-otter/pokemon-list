@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface HeaderProps {
   hasBorder?: boolean; // border 스타일을 적용할지 여부를 결정하는 prop
 }
@@ -13,7 +11,8 @@ export default function Header(props: HeaderProps) {
 
   return (
     <div
-      className={`bg-gray-50 py-3 px-5 flex items-center select-none ${
+      data-testid="header"
+      className={`bg-gray-50 py-3 px-5 flex items-center select-none  ${
         hasBorder ? 'border-b-2 border-gray-200' : ''
       }`}
     >

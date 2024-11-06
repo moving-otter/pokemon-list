@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
 import {ErrorGuide} from '@/components/molecule';
+import {useState, useEffect} from 'react';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
@@ -26,6 +26,7 @@ export default function ErrorBoundary(props: ErrorBoundaryProps) {
   if (hasError) {
     return (
       <ErrorGuide
+        data-testid="error-boundary"
         errorCode={'...'}
         title={'Unexpected UI Error'}
         description={'It seems like some component has UI error.'}

@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import {useRouter} from 'next/router';
 import {getParsedId} from '@/utils/helper';
 import {LoadingSpinner} from '@/components/atom';
-import {DetailTemplate} from '@/components/template';
 import {undefinedString} from '@/utils/constants';
+import {DetailInfoTemplate} from '@/components/template';
+import {useEffect, useState, useMemo} from 'react';
 
 // 사용되는 API 목록) 1 ~ 3 단계로 호출됨
 import {pokemonQueryService} from '@/services/pokemon/query';
 import {pokemonSpeciesQueryService} from '@/services/pokemon-species/query';
 import {evolutionChainQueryService} from '@/services/evolution-chain/query';
 
-export default function DetailContainer() {
+export default function DetailInfoTemplateApi() {
   const router = useRouter();
   const {id} = router.query;
   const [explanation, setExplanation] = useState('');
@@ -38,16 +38,8 @@ export default function DetailContainer() {
     })
   );
 
-  if (explanation !== '') {
-    // console.log('check/explanation', explanation);
-  }
-
-  if (evolutionChain !== undefined) {
-    // console.log('check/evolutionChain', evolutionChain);
-  }
-
   // species에서 가장 긴 영문 설명을 추출
-  useEffect(() => {
+  const explanationMemoized = useMemo(() => {
     if (pokemonSpecies !== undefined) {
       const englishFlavorTexts = pokemonSpecies.flavor_text_entries.filter(
         (entry) => entry.language.name === 'en'
@@ -56,11 +48,42 @@ export default function DetailContainer() {
         entry.flavor_text.length > longest.flavor_text.length ? entry : longest
       );
 
-      setExplanation(longestFlavorText?.flavor_text);
+      return longestFlavorText?.flavor_text || '';
     }
+    return '';
   }, [pokemonSpecies]);
 
-  const enableCondition = !isPendingPokemon && !isPendingPokemonSpecies && !isPendingEvolutionChain;
+  useEffect(() => {
+    setExplanation(explanationMemoized);
+  }, [explanationMemoized]);
 
-  return <>{enableCondition ? <DetailTemplate pokemon={pokemon} /> : <LoadingSpinner />}</>;
+  const memoRenderConditions = useMemo(() => {
+    return (
+      !isPendingPokemon &&
+      !isPendingPokemonSpecies &&
+      !isPendingEvolutionChain &&
+      explanation !== '' &&
+      evolutionChain !== undefined
+    );
+  }, [
+    isPendingPokemon,
+    isPendingPokemonSpecies,
+    isPendingEvolutionChain,
+    explanation,
+    evolutionChain,
+  ]);
+
+  return (
+    <>
+      {memoRenderConditions ? (
+        <DetailInfoTemplate
+          pokemon={pokemon}
+          explanation={explanation}
+          evolutionChain={evolutionChain}
+        />
+      ) : (
+        <LoadingSpinner />
+      )}
+    </>
+  );
 }

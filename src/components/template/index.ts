@@ -1,5 +1,6 @@
-import DetailTemplate from './detail-template';
+import CardsTemplate from './cards-template';
 import FindersTemplate from './finders-template';
-import CardsListTemplate from './cards-list-template';
+import DetailInfoTemplate from './detail-info-template';
+import PaginationTemplate from './pagination-template';
 
-export {CardsListTemplate, FindersTemplate, DetailTemplate};
+export {CardsTemplate, DetailInfoTemplate, FindersTemplate, PaginationTemplate};

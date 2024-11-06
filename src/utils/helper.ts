@@ -4,3 +4,7 @@ export function getParsedId(url: string) {
 
   return id;
 }
+
+export function isObjectEmpty(param: object) {
+  return Object.keys(param).length === 0;
+}

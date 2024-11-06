@@ -1,4 +1,6 @@
 import Card from './card';
-import CardPagination from './card-pagination';
+import FinderSort from './finder-sort';
+import FinderSearch from './finder-search';
+import FinderFilter from './finder-filter';
 
-export {Card, CardPagination};
+export {Card, FinderSort, FinderSearch, FinderFilter};
