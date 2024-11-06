@@ -15,6 +15,8 @@ export default function DetailInfoTemplate(props: DetailInfoTemplateProps) {
     router.back();
   };
 
+  console.log('check/evolutionChain', evolutionChain);
+
   return (
     <div data-testid="detail-info-template" className="container mx-auto p-6 max-w-4xl">
       <button
