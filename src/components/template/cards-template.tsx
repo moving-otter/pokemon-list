@@ -46,7 +46,9 @@ export default function CardsTemplate(props: CardsTemplateProps) {
     >
       {hasCard ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-2">
+          {/* card: any에 대한 type 구체화하기 */}
           {pokemonByIdsList?.map((card: any) => (
+            // props가 많은 경우 object를 넘겨서 child component에서 분기 (comfound component pattern)
             <Card
               key={card.number}
               name={card.name}
