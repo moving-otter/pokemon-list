@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function LoadingSlider() {
   return (
     <div data-testid="loading-slider" className="w-full h-0.5 bg-gray-200 overflow-hidden fixed">

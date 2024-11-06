@@ -1,14 +1,13 @@
-import React from 'react';
 import {useRouter} from 'next/router';
 import {TypeLabel} from '@/components/atom';
 
-interface DetailTemplateProps {
+interface DetailInfoTemplateProps {
   pokemon: any;
   explanation: string;
   evolutionChain: any;
 }
 
-export default function DetailTemplate(props: DetailTemplateProps) {
+export default function DetailInfoTemplate(props: DetailInfoTemplateProps) {
   const {pokemon, explanation, evolutionChain} = props;
   const router = useRouter();
 
@@ -17,8 +16,7 @@ export default function DetailTemplate(props: DetailTemplateProps) {
   };
 
   return (
-    <div data-testid="detail-template" className="container mx-auto p-6 max-w-4xl">
-      {/* Back Button */}
+    <div data-testid="detail-info-template" className="container mx-auto p-6 max-w-4xl">
       <button
         onClick={handleBack}
         className="mb-6 text-gray-600 hover:text-gray-800 font-medium text-xl flex items-center"

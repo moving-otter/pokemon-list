@@ -1,4 +1,3 @@
-import React from 'react';
 import Link from 'next/link';
 import {useFindersStore} from '@/store/finders-store';
 import {TypeLabel, HighlightedText} from '@/components/atom';

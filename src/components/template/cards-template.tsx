@@ -1,7 +1,7 @@
-import React, {useEffect, useRef} from 'react';
 import {Card} from '@/components/organism';
 import {CardEmpty} from '@/components/atom';
 import {useRouter} from 'next/router';
+import {useEffect, useRef} from 'react';
 
 interface CardsTemplateProps {
   pokemonByIdsList: any;

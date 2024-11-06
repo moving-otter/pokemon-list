@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
 import {Container, Header} from 'semantic-ui-react';
+import {useEffect, useState} from 'react';
 
 export default function CardEmpty() {
   const [isVisible, setIsVisible] = useState(false);
@@ -29,7 +29,7 @@ export default function CardEmpty() {
       <Header as="h2">No Pokemon Found</Header>
 
       <p style={{marginTop: '20px', fontSize: '1.1rem'}}>
-        Can not find any Pokemon matching your search.
+        Cannot find any Pokemon matching your search.
       </p>
     </Container>
   );

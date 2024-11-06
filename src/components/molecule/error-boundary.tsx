@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
 import {ErrorGuide} from '@/components/molecule';
+import {useState, useEffect} from 'react';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;

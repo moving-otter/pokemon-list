@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface HeaderProps {
   hasBorder?: boolean; // border 스타일을 적용할지 여부를 결정하는 prop
 }

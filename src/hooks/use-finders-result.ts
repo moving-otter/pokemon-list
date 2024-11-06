@@ -11,7 +11,7 @@ export function useFindersResult() {
   const filteredPokemonsList = useFindersStore((state) => state.filteredPokemonsList);
   const setFilteredPokemonsList = useFindersStore((state) => state.setFilteredPokemonsList);
 
-  const isSearchInUse = singleSearch.length > 0;
+  const isSearchInUse = singleSearch.length > 1;
   const isSortInUse = sortOption !== 'asc';
 
   // singleSearch 값에 따라 allPokemonByIdsList 필터링

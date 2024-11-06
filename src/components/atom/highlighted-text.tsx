@@ -1,4 +1,3 @@
-import React from 'react';
 import {escapeRegExp} from 'lodash';
 
 interface HighlightedTextProps {
@@ -8,6 +7,10 @@ interface HighlightedTextProps {
 
 export default function HighlightedText(props: HighlightedTextProps) {
   const {value, highlight} = props;
+
+  if (!highlight.trim()) {
+    return <span>{value}</span>;
+  }
 
   const getTextWithHighlights = () => {
     const regex = new RegExp(`(${escapeRegExp(highlight)})`, 'gi');
@@ -27,10 +30,6 @@ export default function HighlightedText(props: HighlightedTextProps) {
       </span>
     );
   };
-
-  if (!highlight.trim()) {
-    return <span>{value}</span>;
-  }
 
   return <>{getTextWithHighlights()}</>;
 }

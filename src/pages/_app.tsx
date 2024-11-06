@@ -1,6 +1,5 @@
 import '../styles/globals.css';
 import 'semantic-ui-css/semantic.min.css';
-import React from 'react';
 import Head from 'next/head';
 import {AppProps} from 'next/app';
 import {csrClient} from '@/services/react-query';

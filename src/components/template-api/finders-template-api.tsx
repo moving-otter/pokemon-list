@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
 import {getParsedId} from '@/utils/helper';
 import {LoadingSlider} from '@/components/atom';
 import {undefinedString} from '@/utils/constants';
 import {usePokemonStore} from '@/store/pokemon-store';
 import {FindersTemplate} from '@/components/template';
 import {useQuery, useQueries} from '@tanstack/react-query';
+import {useEffect, useState, useMemo} from 'react';
 
 // 사용되는 API 목록) 1 ~ 5 단계로 호출됨
 import {regionQueryService} from '@/services/region/query';
@@ -98,21 +98,27 @@ export default function FindersTemplateApi() {
     allPokedexByIdQueriesSuccessful,
   ]);
 
-  const templateRenderingConditions =
-    !isPendingList &&
-    !isPendingRegions &&
-    allPokemonByIdQueriesSuccessful &&
-    allRegionByIdQueriesSuccessful &&
-    allPokedexByIdQueriesSuccessful;
+  const memoRenderConditions = useMemo(() => {
+    return (
+      !isPendingList &&
+      !isPendingRegions &&
+      allPokemonByIdQueriesSuccessful &&
+      allRegionByIdQueriesSuccessful &&
+      allPokedexByIdQueriesSuccessful
+    );
+  }, [
+    isPendingList,
+    isPendingRegions,
+    allPokemonByIdQueriesSuccessful,
+    allRegionByIdQueriesSuccessful,
+    allPokedexByIdQueriesSuccessful,
+  ]);
 
   return (
     <div className="border-b-2 border-gray-200 bg-gray-50 relative">
-      <FindersTemplate
-        disabled={!templateRenderingConditions}
-        regionPokemonIdsMap={regionPokemonIdsMap}
-      />
+      <FindersTemplate disabled={!memoRenderConditions} regionPokemonIdsMap={regionPokemonIdsMap} />
 
-      {!templateRenderingConditions && <LoadingSlider />}
+      {!memoRenderConditions && <LoadingSlider />}
     </div>
   );
 }
