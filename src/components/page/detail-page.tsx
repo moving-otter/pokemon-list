@@ -1,25 +1,26 @@
-import {Header} from '@/components/atom';
 import {useRouter} from 'next/router';
 import {validatedId} from '@/utils/helper';
+import {PokemonDetail} from '@/components/template';
+import {Footer, Header} from '@/components/atom';
 import {LoadingSpinner} from '@/components/atom';
 import {usePokemonDetail} from '@/hooks/use-pokemon-detail';
-import {DetailInfoTemplate} from '@/components/template';
 
 export default function DetailPage() {
   const router = useRouter();
   const {id} = router.query;
 
+  // PokeAPI로부터 가져오는 데이터
   const {data, isPending} = usePokemonDetail(validatedId(id));
   const {pokemon, explanation, evolutionChain} = data;
 
   return (
-    <div className="mx-auto flex flex-col h-screen ">
+    <div data-testid="detail-page" className="mx-auto flex flex-col h-screen">
       <Header />
 
       {isPending ? (
         <LoadingSpinner />
       ) : (
-        <DetailInfoTemplate
+        <PokemonDetail
           {...{
             pokemon,
             explanation,
@@ -27,6 +28,8 @@ export default function DetailPage() {
           }}
         />
       )}
+
+      <Footer />
     </div>
   );
 }

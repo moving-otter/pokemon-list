@@ -1,20 +1,17 @@
 import {Container, Header} from 'semantic-ui-react';
 import {useEffect, useState} from 'react';
 
-export default function CardEmpty() {
+export default function EmptyPokemon() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 500);
-
+    const timer = setTimeout(() => setIsVisible(true), 300);
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <Container
-      data-testid="card-empty"
+      data-testid="empty-pokemon"
       textAlign="center"
       className="w-full transition-opacity duration-500 ease-in-out"
       style={{

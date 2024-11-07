@@ -1,8 +1,8 @@
 import Header from './header';
+import Footer from './footer';
 import TypeLabel from './type-label';
-import CardEmpty from './card-empty';
+import EmptyPokemon from './empty-pokemon';
 import LoadingSlider from './loading-slider';
 import LoadingSpinner from './loading-spinner';
-import HighlightedText from './highlighted-text';
 
-export {Header, TypeLabel, CardEmpty, LoadingSlider, LoadingSpinner, HighlightedText};
+export {Header, Footer, TypeLabel, EmptyPokemon as CardEmpty, LoadingSlider, LoadingSpinner};

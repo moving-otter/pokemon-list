@@ -1,15 +1,16 @@
 import Link from 'next/link';
 import {IPokemon} from '@/interface/pokemon';
-import {useFindersStore} from '@/store/finders-store';
-import {TypeLabel, HighlightedText} from '@/components/atom';
+import {TypeLabel} from '@/components/atom';
+import {useFinderStore} from '@/store/finder-store';
+import {HighlightedText} from '@/components/molecule';
 
-export default function Card(props: IPokemon) {
+export default function PokemonCard(props: IPokemon) {
   const {name, number, height, weight, types, imageUrl} = props;
-  const singleSearch = useFindersStore((state) => state.singleSearch);
+  const singleSearch = useFinderStore((state) => state.singleSearch);
 
   return (
     <Link
-      data-testid="card"
+      data-testid="pokemon-card"
       href={`/pokemon/${number}`}
       className={`
         flex 

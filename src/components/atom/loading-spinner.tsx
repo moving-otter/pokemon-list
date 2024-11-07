@@ -5,7 +5,7 @@ export default function LoadingSpinner() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 0); // 마운트 후에 바로 트리거
+    const timer = setTimeout(() => setIsVisible(true), 0);
     return () => clearTimeout(timer);
   }, []);
 

@@ -1,4 +1,4 @@
 import MainPage from './main-page';
-import DetailPage from './detail-page';
+import PokemonDetail from './detail-page';
 
-export {MainPage, DetailPage};
+export {MainPage as PokemonMain, PokemonDetail};

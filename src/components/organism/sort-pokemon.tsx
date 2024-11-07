@@ -1,16 +1,16 @@
 import {useState} from 'react';
 import {Dropdown} from 'semantic-ui-react';
-import {useFindersStore} from '@/store/finders-store';
+import {useFinderStore} from '@/store/finder-store';
 
-export default function FinderSort() {
-  const options = [
-    {key: 'lowest-number', text: 'Lowest Number', value: 'asc'},
-    {key: 'highest-number', text: 'Highest Number', value: 'desc'},
-    {key: 'atoz', text: 'From A to Z', value: 'atoz'},
-    {key: 'ztoa', text: 'From Z to A', value: 'ztoa'},
-  ];
+const options = [
+  {key: 'lowest-number', text: 'Lowest Number', value: 'asc'},
+  {key: 'highest-number', text: 'Highest Number', value: 'desc'},
+  {key: 'atoz', text: 'From A to Z', value: 'atoz'},
+  {key: 'ztoa', text: 'From Z to A', value: 'ztoa'},
+];
 
-  const setSortOption = useFindersStore((state) => state.setSortOption);
+export default function SortPokemon() {
+  const setSortOption = useFinderStore((state) => state.setSortOption);
   const [selectedOption, setSelectedOption] = useState(options[0].value);
 
   const handleDropdownChange = (_: any, data: any) => {
@@ -19,7 +19,7 @@ export default function FinderSort() {
   };
 
   return (
-    <div data-testid="finder-sort" className="select-none flex items-center mx-5">
+    <div data-testid="sort-pokemon" className="select-none flex items-center mx-5">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-6 w-6 text-gray-600 mr-1.5"

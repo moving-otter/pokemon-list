@@ -2,21 +2,22 @@ import {IPokemon} from '@/interface/pokemon';
 import {useRouter} from 'next/router';
 import {useRegionMap} from '@/hooks/use-region-map';
 import {usePokemonList} from '@/hooks/use-pokemon-list';
-import {useFindersResult} from '@/hooks/use-finders-result';
+import {useFinderResult} from '@/hooks/use-finder-result';
 import {initialListParams} from '@/utils/constants';
 import {PokemonsListParam} from '@/services/pokemon/types';
 import {useEffect, useState} from 'react';
 import {Header, LoadingSpinner} from '@/components/atom';
-import {CardsTemplate, FindersTemplate, PaginationTemplate} from '@/components/template';
+import {FindPokemon, PokemonCardList, Pagination} from '@/components/template';
 
 export default function MainPage() {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
   const [listParams, setListParams] = useState<PokemonsListParam>(initialListParams);
   const [totalPages, setTotalPages] = useState(1);
-  const {isUsingFinders, filteredPokemonsList} = useFindersResult();
   const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(true);
+  const {isUsingFinders, filteredPokemonsList: filteredPokemonList} = useFinderResult();
 
+  // PokeAPI로부터 가져오는 데이터
   const {data: pokemonListData, isPending: isPendingPokemonList} = usePokemonList(listParams);
   const {data: regionMapData, isPending: isPendingRegionMap} = useRegionMap();
   const {pokemonList, totalCount} = pokemonListData;
@@ -57,7 +58,7 @@ export default function MainPage() {
 
   const renderCardsTemplate = (list: IPokemon[]) => {
     return (
-      <CardsTemplate
+      <PokemonCardList
         {...{
           pokemonList: list,
           listParams,
@@ -69,10 +70,10 @@ export default function MainPage() {
   };
 
   return (
-    <div className="mx-auto flex flex-col h-screen">
+    <div data-testid="main-page" className="mx-auto flex flex-col h-screen">
       <Header hasBorder={false} />
 
-      <FindersTemplate
+      <FindPokemon
         {...{
           disabled: isPendingRegionMap,
           regionMap,
@@ -80,7 +81,7 @@ export default function MainPage() {
       />
 
       {isUsingFinders ? (
-        <>{renderCardsTemplate(filteredPokemonsList)}</>
+        <>{renderCardsTemplate(filteredPokemonList)}</>
       ) : (
         <>
           {isPendingPokemonList || loading ? (
@@ -91,7 +92,7 @@ export default function MainPage() {
             <>{renderCardsTemplate(pokemonList)}</>
           )}
 
-          <PaginationTemplate
+          <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={handlePageChange}

@@ -1,6 +1,6 @@
-import CardsTemplate from './cards-template';
-import FindersTemplate from './finders-template';
-import DetailInfoTemplate from './detail-info-template';
-import PaginationTemplate from './pagination-template';
+import PokemonCardList from './pokemon-card-list';
+import FindPokemon from './find-pokemon';
+import PokemonDetail from './pokemon-detail';
+import Pagination from './pagination';
 
-export {CardsTemplate, DetailInfoTemplate, FindersTemplate, PaginationTemplate};
+export {PokemonCardList, FindPokemon, PokemonDetail, Pagination};
