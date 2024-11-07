@@ -15,22 +15,22 @@
   animation: slide-reset 1.5s ease-in-out infinite;
 }
 
-[data-testid='finder-filter'] div .menu {
+[data-testid='filter-pokemon'] div .menu {
   left: revert-layer !important;
   right: -2px !important;
 }
 
-[data-testid='finder-sort'] div .menu {
+[data-testid='sort-pokemon'] div .menu {
   left: revert-layer !important;
   right: -2px !important;
 }
 
-[data-testid='pagination-template'] .ui.selection.dropdown {
-  min-width: 90px !important;
+[data-testid='pagination'] .ui.selection.dropdown {
+  min-width: 95px !important;
   min-height: 42px !important;
 }
 
-[data-testid='pagination-template'] .ui.selection.dropdown i {
+[data-testid='pagination'] .ui.selection.dropdown i {
   transform: rotate(180deg) !important;
   margin-right: -12px !important;
   margin-top: -7px !important;

@@ -48,14 +48,6 @@ export default function MainPage() {
     }
   }, [router.query.page, router.query.limit]);
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    router.push({
-      pathname: router.pathname,
-      query: {...router.query, page, limit: listParams.limit || 20},
-    });
-  };
-
   const renderCardsTemplate = (list: IPokemon[]) => {
     return (
       <PokemonCardList
@@ -95,7 +87,6 @@ export default function MainPage() {
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
-            onPageChange={handlePageChange}
             listParams={listParams}
             setListParams={setListParams}
             setCurrentPage={setCurrentPage}

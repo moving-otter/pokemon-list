@@ -7,7 +7,6 @@ interface PaginationProps {
   listParams: PokemonsListParam;
   currentPage: number;
 
-  onPageChange: (page: number) => void;
   setListParams: (param: any) => void;
   setCurrentPage: (page: number) => void;
 }
@@ -20,12 +19,17 @@ const limitOptions = [
 ];
 
 export default function Pagination(props: PaginationProps) {
-  const {currentPage, totalPages, listParams, onPageChange, setListParams, setCurrentPage} = props;
+  const {currentPage, totalPages, listParams, setListParams, setCurrentPage} = props;
   const router = useRouter();
 
   const handlePageChange = (e: React.MouseEvent, {activePage}: any) => {
     const page = Number(activePage);
-    onPageChange(page);
+    setCurrentPage(page);
+
+    router.push({
+      pathname: router.pathname,
+      query: {...router.query, page, limit: listParams.limit || 20},
+    });
     updateURL(page);
   };
 
@@ -53,7 +57,7 @@ export default function Pagination(props: PaginationProps) {
   return (
     <div
       data-testid="pagination"
-      className="flex flex-col sm:flex-row justify-between items-center z-10 py-2 relative border-t-2 border-gray-100 bg-gray-50 px-5"
+      className="flex flex-col sm:flex-row justify-between items-center z-10 py-2 relative border-t-2 border-gray-100 bg-gray-50 px-6"
     >
       <div className="flex-grow flex justify-between">
         <SemanticPagination
