@@ -1,5 +1,4 @@
 import {getParsedId} from '@/utils/helper';
-import {LoadingSlider} from '@/components/atom';
 import {undefinedString} from '@/utils/constants';
 import {usePokemonStore} from '@/store/pokemon-store';
 import {FindersTemplate} from '@/components/template';

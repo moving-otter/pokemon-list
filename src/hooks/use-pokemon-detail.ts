@@ -1,9 +1,9 @@
+'use client';
+
 import {useQuery} from '@tanstack/react-query';
 import {useRouter} from 'next/router';
 import {getParsedId} from '@/utils/helper';
-import {LoadingSpinner} from '@/components/atom';
 import {undefinedString} from '@/utils/constants';
-import {DetailInfoTemplate} from '@/components/template';
 import {useEffect, useState, useMemo} from 'react';
 
 // 사용되는 API 목록) 1 ~ 3 단계로 호출됨
@@ -11,7 +11,7 @@ import {pokemonQueryService} from '@/services/pokemon/query';
 import {pokemonSpeciesQueryService} from '@/services/pokemon-species/query';
 import {evolutionChainQueryService} from '@/services/evolution-chain/query';
 
-export default function DetailInfoTemplateApi() {
+export function usePokemonDetail() {
   const router = useRouter();
   const {id} = router.query;
   const [explanation, setExplanation] = useState('');
@@ -64,17 +64,17 @@ export default function DetailInfoTemplateApi() {
     explanation !== '' &&
     evolutionChain !== undefined;
 
-  return (
-    <>
-      {enableConditions ? (
-        <DetailInfoTemplate
-          pokemon={pokemon}
-          explanation={explanation}
-          evolutionChain={evolutionChain}
-        />
-      ) : (
-        <LoadingSpinner />
-      )}
-    </>
-  );
+  return {
+    data: {
+      pokemon,
+      explanation,
+      evolutionChain,
+    },
+    isPending:
+      isPendingPokemon ||
+      isPendingPokemonSpecies ||
+      isPendingEvolutionChain ||
+      explanation === '' ||
+      evolutionChain === undefined,
+  };
 }
