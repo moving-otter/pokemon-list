@@ -57,25 +57,16 @@ export default function DetailInfoTemplateApi() {
     setExplanation(explanationMemoized);
   }, [explanationMemoized]);
 
-  const memoRenderConditions = useMemo(() => {
-    return (
-      !isPendingPokemon &&
-      !isPendingPokemonSpecies &&
-      !isPendingEvolutionChain &&
-      explanation !== '' &&
-      evolutionChain !== undefined
-    );
-  }, [
-    isPendingPokemon,
-    isPendingPokemonSpecies,
-    isPendingEvolutionChain,
-    explanation,
-    evolutionChain,
-  ]);
+  const enableConditions =
+    !isPendingPokemon &&
+    !isPendingPokemonSpecies &&
+    !isPendingEvolutionChain &&
+    explanation !== '' &&
+    evolutionChain !== undefined;
 
   return (
     <>
-      {memoRenderConditions ? (
+      {enableConditions ? (
         <DetailInfoTemplate
           pokemon={pokemon}
           explanation={explanation}

@@ -98,27 +98,16 @@ export default function FindersTemplateApi() {
     allPokedexByIdQueriesSuccessful,
   ]);
 
-  const memoRenderConditions = useMemo(() => {
-    return (
-      !isPendingList &&
-      !isPendingRegions &&
-      allPokemonByIdQueriesSuccessful &&
-      allRegionByIdQueriesSuccessful &&
-      allPokedexByIdQueriesSuccessful
-    );
-  }, [
-    isPendingList,
-    isPendingRegions,
-    allPokemonByIdQueriesSuccessful,
-    allRegionByIdQueriesSuccessful,
-    allPokedexByIdQueriesSuccessful,
-  ]);
+  const enableConditions =
+    !isPendingList &&
+    !isPendingRegions &&
+    allPokemonByIdQueriesSuccessful &&
+    allRegionByIdQueriesSuccessful &&
+    allPokedexByIdQueriesSuccessful;
 
   return (
     <div className="border-b-2 border-gray-200 bg-gray-50 relative">
-      <FindersTemplate disabled={!memoRenderConditions} regionPokemonIdsMap={regionPokemonIdsMap} />
-
-      {!memoRenderConditions && <LoadingSlider />}
+      <FindersTemplate disabled={!enableConditions} regionPokemonIdsMap={regionPokemonIdsMap} />
     </div>
   );
 }

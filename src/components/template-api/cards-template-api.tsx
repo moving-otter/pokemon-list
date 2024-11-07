@@ -97,17 +97,11 @@ export default function CardsTemplateApi() {
       .filter(Boolean); // null 값 제거
   }, [pokemonsList?.results, getPokemonByIdQueries]);
 
-  const memoRenderConditions = useMemo(() => {
-    return !loading && !isPendingList && allPokemonByIdQueriesSuccessful;
-  }, [loading, isPendingList, allPokemonByIdQueriesSuccessful]);
+  const enableConditions = !loading && !isPendingList && allPokemonByIdQueriesSuccessful;
 
   return (
     <>
-      {memoRenderConditions ? (
-        <CardsTemplate pokemonByIdsList={pokmonByIdsList} />
-      ) : (
-        <LoadingSpinner />
-      )}
+      {enableConditions ? <CardsTemplate pokemonByIdsList={pokmonByIdsList} /> : <LoadingSpinner />}
 
       <PaginationTemplate
         currentPage={currentPage}

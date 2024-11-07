@@ -19,7 +19,7 @@ export default function FinderSort() {
   };
 
   return (
-    <div data-testid="finder-sort" className="select-none flex items-center pr-4">
+    <div data-testid="finder-sort" className="select-none flex items-center mx-5">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-6 w-6 text-gray-600 mr-1.5"
