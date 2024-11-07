@@ -57,13 +57,6 @@ export function usePokemonDetail() {
     setExplanation(explanationMemoized);
   }, [explanationMemoized]);
 
-  const enableConditions =
-    !isPendingPokemon &&
-    !isPendingPokemonSpecies &&
-    !isPendingEvolutionChain &&
-    explanation !== '' &&
-    evolutionChain !== undefined;
-
   return {
     data: {
       pokemon,

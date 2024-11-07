@@ -2,8 +2,8 @@ import {getParsedId} from '@/utils/helper';
 import {undefinedString} from '@/utils/constants';
 import {usePokemonStore} from '@/store/pokemon-store';
 import {FindersTemplate} from '@/components/template';
+import {useEffect, useState} from 'react';
 import {useQuery, useQueries} from '@tanstack/react-query';
-import {useEffect, useState, useMemo} from 'react';
 
 // 사용되는 API 목록) 1 ~ 5 단계로 호출됨
 import {regionQueryService} from '@/services/region/query';
