@@ -9,7 +9,7 @@ export default function DetailPage() {
   const router = useRouter();
   const {id} = router.query;
 
-  // PokeAPI로부터 가져오는 데이터
+  // PokeAPI에서 데이터 가져오기
   const {data, isPending} = usePokemonDetail(validatedId(id));
   const {pokemon, explanation, evolutionChain} = data;
 

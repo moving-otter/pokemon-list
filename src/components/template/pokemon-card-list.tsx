@@ -1,4 +1,4 @@
-import {IPokemon} from '@/interface/pokemon';
+import {IPokemon} from '@/types/pokemon';
 import {useRouter} from 'next/router';
 import {CardEmpty} from '@/components/atom';
 import {PokemonCard} from '@/components/organism';

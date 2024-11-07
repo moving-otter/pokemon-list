@@ -10,7 +10,7 @@ interface PaginationProps {
   listParams: PokemonsListParam;
   triggerRerender: boolean;
 
-  setListParams: (param: any) => void;
+  setListParams: (param: IListParams) => void;
 }
 
 export default function Pagination(props: PaginationProps) {
@@ -56,11 +56,6 @@ export default function Pagination(props: PaginationProps) {
   };
 
   const handleDropdownChange = (e: any, {value}: {value: number}) => {
-    setListParams((prev: object) => ({
-      ...prev,
-      limit: value,
-    }));
-
     setCurrentPage(1);
     router.push({
       pathname: router.pathname,

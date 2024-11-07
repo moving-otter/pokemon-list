@@ -3,4 +3,6 @@ import FindPokemon from './find-pokemon';
 import PokemonDetail from './pokemon-detail';
 import Pagination from './pagination';
 
-export {PokemonCardList, FindPokemon, PokemonDetail, Pagination};
+import MainTemplate from './main-template';
+
+export {PokemonCardList, FindPokemon, PokemonDetail, Pagination, MainTemplate};

@@ -1,7 +1,7 @@
 'use client';
 
 import {useMemo} from 'react';
-import {IPokemon} from '@/interface/pokemon';
+import {IPokemon} from '@/types/pokemon';
 import {PokemonsListParam} from '@/services/pokemon/types';
 import {useQuery, useQueries} from '@tanstack/react-query';
 import {parsedId, validatedId} from '@/utils/data-helper';

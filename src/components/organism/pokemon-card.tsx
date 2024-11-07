@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import {IPokemon} from '@/interface/pokemon';
+import {IPokemon} from '@/types/pokemon';
 import {TypeLabel} from '@/components/atom';
 import {useFinderStore} from '@/store/finder-store';
 import {HighlightedText} from '@/components/molecule';
