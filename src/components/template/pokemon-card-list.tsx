@@ -1,14 +1,14 @@
-import {Card} from '@/components/organism';
 import {IPokemon} from '@/interface/pokemon';
 import {useRouter} from 'next/router';
 import {CardEmpty} from '@/components/atom';
+import {PokemonCard} from '@/components/organism';
 import {useEffect, useRef} from 'react';
 
-interface CardsTemplateProps {
+interface PokemonCardListProps {
   pokemonList: IPokemon[];
 }
 
-export default function CardsTemplate(props: CardsTemplateProps) {
+export default function PokemonCardList(props: PokemonCardListProps) {
   const {pokemonList} = props;
   const router = useRouter();
   const hasCard = pokemonList?.length !== 0;
@@ -41,13 +41,13 @@ export default function CardsTemplate(props: CardsTemplateProps) {
     <>
       <div
         ref={scrollContainerRef}
-        data-testid="cards-template"
+        data-testid="pokemon-card-list"
         className="flex-grow overflow-y-auto p-4"
       >
         {hasCard ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-2">
             {pokemonList?.map((pokemon: IPokemon) => (
-              <Card {...pokemon} />
+              <PokemonCard {...pokemon} />
             ))}
           </div>
         ) : (

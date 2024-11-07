@@ -1,28 +1,32 @@
 import {useRouter} from 'next/router';
 import {TypeLabel} from '@/components/atom';
 
-interface DetailTemplateProps {
+interface PokemonDetailProps {
   pokemon: any;
   explanation: string;
   evolutionChain: any;
 }
 
-export default function DetailTemplate(props: DetailTemplateProps) {
+export default function PokemonDetail(props: PokemonDetailProps) {
   const {pokemon, explanation, evolutionChain} = props;
   const router = useRouter();
 
-  const handleBack = () => router.back();
+  const handleBack = () => {
+    router.back();
+  };
 
   // console.log('check/evolutionChain', evolutionChain);
 
   return (
-    <div data-testid="detail-template" className="p-6 overflow-auto h-full">
+    <div data-testid="pokemon-detail" className="p-6 overflow-auto h-full">
       <div className="overflow-auto max-w-7xl mx-auto">
         <button
           onClick={handleBack}
           className="mb-6 text-gray-600 hover:text-gray-800 font-medium text-xl flex items-center"
         >
-          <span className="mr-2 text-2xl">&lt; Back</span>
+          <span className="mr-2 text-2xl" style={{userSelect: 'none'}}>
+            &lt; Back
+          </span>
         </button>
 
         {/* Pokémon Info */}
@@ -34,6 +38,7 @@ export default function DetailTemplate(props: DetailTemplateProps) {
                 src={pokemon.imageUrl}
                 alt={pokemon.name}
                 className="h-56 w-56 object-contain shadow-lg rounded-xl border-4 border-gray-200"
+                style={{userSelect: 'none', pointerEvents: 'none'}}
               />
             ) : (
               <div className="flex items-center mt-4 justify-center w-full h-full bg-gray-50 text-gray-500 rounded-lg">

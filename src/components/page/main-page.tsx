@@ -7,7 +7,7 @@ import {initialListParams} from '@/utils/constants';
 import {PokemonsListParam} from '@/services/pokemon/types';
 import {useEffect, useState} from 'react';
 import {Header, LoadingSpinner} from '@/components/atom';
-import {CardsTemplate, FindersTemplate, PaginationTemplate} from '@/components/template';
+import {FindPokemon, PokemonCardList, Pagination} from '@/components/template';
 
 export default function MainPage() {
   const router = useRouter();
@@ -15,7 +15,7 @@ export default function MainPage() {
   const [listParams, setListParams] = useState<PokemonsListParam>(initialListParams);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const {isUsingFinders, filteredPokemonsList} = useFinderResult();
+  const {isUsingFinders, filteredPokemonsList: filteredPokemonList} = useFinderResult();
 
   // PokeAPI로부터 가져오는 데이터
   const {data: pokemonListData, isPending: isPendingPokemonList} = usePokemonList(listParams);
@@ -58,7 +58,7 @@ export default function MainPage() {
 
   const renderCardsTemplate = (list: IPokemon[]) => {
     return (
-      <CardsTemplate
+      <PokemonCardList
         {...{
           pokemonList: list,
           listParams,
@@ -73,7 +73,7 @@ export default function MainPage() {
     <div data-testid="main-page" className="mx-auto flex flex-col h-screen">
       <Header hasBorder={false} />
 
-      <FindersTemplate
+      <FindPokemon
         {...{
           disabled: isPendingRegionMap,
           regionMap,
@@ -81,7 +81,7 @@ export default function MainPage() {
       />
 
       {isUsingFinders ? (
-        <>{renderCardsTemplate(filteredPokemonsList)}</>
+        <>{renderCardsTemplate(filteredPokemonList)}</>
       ) : (
         <>
           {isPendingPokemonList || loading ? (
@@ -92,7 +92,7 @@ export default function MainPage() {
             <>{renderCardsTemplate(pokemonList)}</>
           )}
 
-          <PaginationTemplate
+          <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={handlePageChange}

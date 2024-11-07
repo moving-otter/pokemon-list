@@ -1,9 +1,9 @@
 import {useRouter} from 'next/router';
 import {validatedId} from '@/utils/helper';
+import {PokemonDetail} from '@/components/template';
 import {Footer, Header} from '@/components/atom';
 import {LoadingSpinner} from '@/components/atom';
 import {usePokemonDetail} from '@/hooks/use-pokemon-detail';
-import {DetailInfoTemplate} from '@/components/template';
 
 export default function DetailPage() {
   const router = useRouter();
@@ -17,19 +17,17 @@ export default function DetailPage() {
     <div data-testid="detail-page" className="mx-auto flex flex-col h-screen">
       <Header />
 
-      <>
-        {isPending ? (
-          <LoadingSpinner />
-        ) : (
-          <DetailInfoTemplate
-            {...{
-              pokemon,
-              explanation,
-              evolutionChain,
-            }}
-          />
-        )}
-      </>
+      {isPending ? (
+        <LoadingSpinner />
+      ) : (
+        <PokemonDetail
+          {...{
+            pokemon,
+            explanation,
+            evolutionChain,
+          }}
+        />
+      )}
 
       <Footer />
     </div>

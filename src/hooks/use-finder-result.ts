@@ -5,14 +5,14 @@ import {useFinderStore} from '@/store/finder-store';
 import {usePokemonStore} from '@/store/pokemon-store';
 
 export function useFinderResult() {
-  const allPokemonByIdsList = usePokemonStore((state) => state.allPokemonByIdsList);
   const sortOption = useFinderStore((state) => state.sortOption);
   const singleSearch = useFinderStore((state) => state.singleSearch);
-  const filteredPokemonsList = useFinderStore((state) => state.filteredPokemonsList);
+  const allPokemonByIdsList = usePokemonStore((state) => state.allPokemonByIdsList);
+  const filteredPokemonsList = useFinderStore((state) => state.filteredPokemonList);
   const setFilteredPokemonsList = useFinderStore((state) => state.setFilteredPokemonsList);
 
-  const isSearchInUse = singleSearch.length > 1;
   const isSortInUse = sortOption !== 'asc';
+  const isSearchInUse = singleSearch.length > 1;
 
   // singleSearch 값에 따라 allPokemonByIdsList 필터링
   useEffect(() => {

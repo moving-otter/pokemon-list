@@ -1,17 +1,20 @@
 import {useFinderStore} from '@/store/finder-store';
 
-export default function FinderSearch() {
+export default function SearchPokemon() {
   const singleSearch = useFinderStore((state) => state.singleSearch);
   const setSingleSearch = useFinderStore((state) => state.setSingleSearch);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSingleSearch(event.target.value);
+  };
 
-  const handleClearSearch = () => setSingleSearch('');
+  const handleClearSearch = () => {
+    setSingleSearch('');
+  };
 
   return (
     <div
-      data-testid="finder-search"
+      data-testid="search-pokemon"
       className="flex items-center mb-2 mx-5 relative"
       style={{width: '380px'}}
     >

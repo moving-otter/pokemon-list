@@ -1,5 +1,5 @@
-import {DetailPage} from '@/components/page';
+import {PokemonDetail} from '@/components/page';
 
 export default function PokemonDetailPage() {
-  return <DetailPage />;
+  return <PokemonDetail />;
 }

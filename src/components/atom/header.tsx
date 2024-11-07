@@ -5,7 +5,9 @@ interface HeaderProps {
 export default function Header(props: HeaderProps) {
   const {hasBorder = true} = props;
 
-  const handleTitleClick = () => (window.location.href = '/');
+  const handleTitleClick = () => {
+    window.location.href = '/';
+  };
 
   return (
     <div

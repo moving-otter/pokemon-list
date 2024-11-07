@@ -9,7 +9,7 @@ const options = [
   {key: 'ztoa', text: 'From Z to A', value: 'ztoa'},
 ];
 
-export default function FinderSort() {
+export default function SortPokemon() {
   const setSortOption = useFinderStore((state) => state.setSortOption);
   const [selectedOption, setSelectedOption] = useState(options[0].value);
 
@@ -19,7 +19,7 @@ export default function FinderSort() {
   };
 
   return (
-    <div data-testid="finder-sort" className="select-none flex items-center mx-5">
+    <div data-testid="sort-pokemon" className="select-none flex items-center mx-5">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-6 w-6 text-gray-600 mr-1.5"
