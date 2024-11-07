@@ -15,7 +15,8 @@ export default function Pagination(props: PaginationProps) {
   const {totalCount, totalPages, listParams, setListParams} = props;
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
-
+  const userSelectAll = listParams.limit === totalCount;
+  const defaultLimitValue = router.query.limit ? Number(router.query.limit) : listParams.limit;
   const limitOptions = [
     {key: '20', value: 20, text: '20'},
     {key: '50', value: 50, text: '50'},
@@ -71,14 +72,12 @@ export default function Pagination(props: PaginationProps) {
     });
   };
 
-  const defaultLimitValue = router.query.limit ? Number(router.query.limit) : listParams.limit;
-
   return (
     <div
       data-testid="pagination"
       className="flex flex-col sm:flex-row justify-between items-center z-10 py-2 relative border-t-2 border-gray-100 bg-gray-50 px-6"
     >
-      <div className="flex-grow flex justify-between">
+      <div className="flex-grow flex justify-between" style={{opacity: userSelectAll ? '0' : '1'}}>
         <SemanticPagination
           totalPages={totalPages}
           activePage={currentPage}
@@ -88,9 +87,7 @@ export default function Pagination(props: PaginationProps) {
 
       <div className="w-full sm:w-auto flex justify-end mt-4 sm:mt-0" style={{userSelect: 'none'}}>
         <Dropdown
-          inline
           selection
-          // className="w-24"
           options={limitOptions}
           onChange={handleLimitChange}
           defaultValue={limitOptions.find((option) => option.value === defaultLimitValue)?.value}
