@@ -11,90 +11,76 @@ export default function DetailTemplate(props: DetailTemplateProps) {
   const {pokemon, explanation, evolutionChain} = props;
   const router = useRouter();
 
-  const handleBack = () => {
-    router.back();
-  };
+  const handleBack = () => router.back();
 
   // console.log('check/evolutionChain', evolutionChain);
 
   return (
-    <div
-      data-testid="detail-template"
-      className="container mx-auto p-6 max-w-7xl h-full overflow-auto"
-      // style={{max-height: ''}}
-    >
-      <button
-        onClick={handleBack}
-        className="mb-6 text-gray-600 hover:text-gray-800 font-medium text-xl flex items-center"
-      >
-        <span className="mr-2">&lt; Back</span>
-      </button>
+    <div data-testid="detail-template" className="p-6 overflow-auto h-full">
+      <div className="overflow-auto max-w-7xl mx-auto">
+        <button
+          onClick={handleBack}
+          className="mb-6 text-gray-600 hover:text-gray-800 font-medium text-xl flex items-center"
+        >
+          <span className="mr-2 text-2xl">&lt; Back</span>
+        </button>
 
-      {/* Pokémon Info */}
-      <div className="flex gap-6 mb-8">
-        {/* Left: Pokémon Image and Name */}
-        <div className="flex-shrink-0">
-          <img
-            src={pokemon.imageUrl}
-            alt={pokemon.name}
-            className="h-56 w-56 object-contain shadow-lg rounded-xl border-4 border-gray-200"
-          />
-        </div>
-        <div className="flex-grow">
-          <h1 className="text-4xl font-extrabold text-gray-800 capitalize mb-4">{pokemon.name}</h1>
+        {/* Pokémon Info */}
+        <div className="flex gap-6 mb-8">
+          {/* Left: Pokémon Image and Name */}
+          <div className="flex-shrink-0">
+            {pokemon.imageUrl ? (
+              <img
+                src={pokemon.imageUrl}
+                alt={pokemon.name}
+                className="h-56 w-56 object-contain shadow-lg rounded-xl border-4 border-gray-200"
+              />
+            ) : (
+              <div className="flex items-center mt-4 justify-center w-full h-full bg-gray-50 text-gray-500 rounded-lg">
+                <span className="mb-4">No image</span>
+              </div>
+            )}
+          </div>
+          <div className="flex-grow">
+            <h1 className="text-4xl font-extrabold text-gray-800 capitalize mb-4">
+              {pokemon.name}
+            </h1>
 
-          <div className="mb-4 flex gap-4">
-            <div className="mb-2">
-              <p>
-                <span className="font-semibold">Height:</span> {pokemon?.height / 10} m
-              </p>
+            <div className="mb-4 flex gap-4">
+              <div className="mb-2">
+                <p>
+                  <span className="font-semibold">Height:</span> {pokemon?.height / 10} m
+                </p>
+              </div>
+              <div className="mb-2">
+                <p>
+                  <span className="font-semibold">Weight:</span> {pokemon?.weight / 10} kg
+                </p>
+              </div>
+
+              {/* Types */}
+              <div className="flex flex-wrap gap-2 mb-4">
+                {pokemon?.types.map((type: string, index: number) => (
+                  <TypeLabel key={index} type={type} />
+                ))}
+              </div>
             </div>
-            <div className="mb-2">
-              <p>
-                <span className="font-semibold">Weight:</span> {pokemon?.weight / 10} kg
-              </p>
-            </div>
 
-            {/* Types */}
-            <div className="flex flex-wrap gap-2 mb-4">
-              {pokemon?.types.map((type: string, index: number) => (
-                <TypeLabel key={index} type={type} />
-              ))}
+            {/* Explanation */}
+            <div className="bg-gray-50 p-4 rounded-lg shadow-md">
+              <p className="text-gray-800">{explanation}</p>
             </div>
           </div>
-
-          {/* Explanation */}
-          <div className="bg-gray-50 p-4 rounded-lg shadow-md">
-            <p className="text-gray-800">{explanation}</p>
-
-            <p className="text-gray-800">{explanation}</p>
-            <p className="text-gray-800">{explanation}</p>
-            <p className="text-gray-800">{explanation}</p>
-            <p className="text-gray-800">{explanation}</p>
-            <p className="text-gray-800">{explanation}</p>
-            <p className="text-gray-800">{explanation}</p>
-            <p className="text-gray-800">{explanation}</p>
-            <p className="text-gray-800">{explanation}</p>
-            <p className="text-gray-800">{explanation}</p>
-            <p className="text-gray-800">{explanation}</p>
-            <p className="text-gray-800">{explanation}</p>
-            <p className="text-gray-800">{explanation}</p>
-            <p className="text-gray-800">{explanation}</p>
-            <p className="text-gray-800">{explanation}</p>
-            <p className="text-gray-800">{explanation}</p>
-            <p className="text-gray-800">{explanation}</p>
-            <p className="text-gray-800">{explanation}</p>
-          </div>
         </div>
+
+        {/* Evolution Chain */}
+        {evolutionChain && (
+          <div className="mt-8 p-4 bg-gray-50 rounded-lg shadow-md">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Evolution Chain</h2>
+            {/* Add evolution chain details here */}
+          </div>
+        )}
       </div>
-
-      {/* Evolution Chain */}
-      {evolutionChain && (
-        <div className="mt-8 p-4 bg-gray-50 rounded-lg shadow-md">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Evolution Chain</h2>
-          {/* Add evolution chain details here */}
-        </div>
-      )}
     </div>
   );
 }
