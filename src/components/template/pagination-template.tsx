@@ -12,15 +12,16 @@ interface PaginationTemplateProps {
   setCurrentPage: (page: number) => void;
 }
 
+const limitOptions = [
+  {key: '20', value: 20, text: '20'},
+  {key: '50', value: 50, text: '50'},
+  {key: '100', value: 100, text: '100'},
+  {key: '500', value: 500, text: '500'},
+];
+
 export default function PaginationTemplate(props: PaginationTemplateProps) {
   const {currentPage, totalPages, listParams, onPageChange, setListParams, setCurrentPage} = props;
   const router = useRouter();
-  const limitOptions = [
-    {key: '20', value: 20, text: '20'},
-    {key: '50', value: 50, text: '50'},
-    {key: '100', value: 100, text: '100'},
-    {key: '500', value: 500, text: '500'},
-  ];
 
   const handlePageChange = (e: React.MouseEvent, {activePage}: any) => {
     const page = Number(activePage);
@@ -52,7 +53,7 @@ export default function PaginationTemplate(props: PaginationTemplateProps) {
   return (
     <div
       data-testid="pagination-template"
-      className="flex flex-col sm:flex-row justify-between items-center z-10 py-4 relative border-t-2 border-gray-200 bg-gray-50 px-5"
+      className="flex flex-col sm:flex-row justify-between items-center z-10 py-2 relative border-t-2 border-gray-100 bg-gray-50 px-5"
     >
       <div className="flex-grow flex justify-between">
         <Pagination

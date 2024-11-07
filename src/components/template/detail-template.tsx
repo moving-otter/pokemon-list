@@ -1,13 +1,13 @@
 import {useRouter} from 'next/router';
 import {TypeLabel} from '@/components/atom';
 
-interface DetailInfoTemplateProps {
+interface DetailTemplateProps {
   pokemon: any;
   explanation: string;
   evolutionChain: any;
 }
 
-export default function DetailInfoTemplate(props: DetailInfoTemplateProps) {
+export default function DetailTemplate(props: DetailTemplateProps) {
   const {pokemon, explanation, evolutionChain} = props;
   const router = useRouter();
 
@@ -18,7 +18,11 @@ export default function DetailInfoTemplate(props: DetailInfoTemplateProps) {
   // console.log('check/evolutionChain', evolutionChain);
 
   return (
-    <div data-testid="detail-info-template" className="container mx-auto p-6 max-w-4xl">
+    <div
+      data-testid="detail-template"
+      className="container mx-auto p-6 max-w-7xl h-full overflow-auto"
+      // style={{max-height: ''}}
+    >
       <button
         onClick={handleBack}
         className="mb-6 text-gray-600 hover:text-gray-800 font-medium text-xl flex items-center"
@@ -61,6 +65,24 @@ export default function DetailInfoTemplate(props: DetailInfoTemplateProps) {
 
           {/* Explanation */}
           <div className="bg-gray-50 p-4 rounded-lg shadow-md">
+            <p className="text-gray-800">{explanation}</p>
+
+            <p className="text-gray-800">{explanation}</p>
+            <p className="text-gray-800">{explanation}</p>
+            <p className="text-gray-800">{explanation}</p>
+            <p className="text-gray-800">{explanation}</p>
+            <p className="text-gray-800">{explanation}</p>
+            <p className="text-gray-800">{explanation}</p>
+            <p className="text-gray-800">{explanation}</p>
+            <p className="text-gray-800">{explanation}</p>
+            <p className="text-gray-800">{explanation}</p>
+            <p className="text-gray-800">{explanation}</p>
+            <p className="text-gray-800">{explanation}</p>
+            <p className="text-gray-800">{explanation}</p>
+            <p className="text-gray-800">{explanation}</p>
+            <p className="text-gray-800">{explanation}</p>
+            <p className="text-gray-800">{explanation}</p>
+            <p className="text-gray-800">{explanation}</p>
             <p className="text-gray-800">{explanation}</p>
           </div>
         </div>

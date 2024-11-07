@@ -2,14 +2,14 @@ import {useState} from 'react';
 import {Dropdown} from 'semantic-ui-react';
 import {useFinderStore} from '@/store/finder-store';
 
-export default function FinderSort() {
-  const options = [
-    {key: 'lowest-number', text: 'Lowest Number', value: 'asc'},
-    {key: 'highest-number', text: 'Highest Number', value: 'desc'},
-    {key: 'atoz', text: 'From A to Z', value: 'atoz'},
-    {key: 'ztoa', text: 'From Z to A', value: 'ztoa'},
-  ];
+const options = [
+  {key: 'lowest-number', text: 'Lowest Number', value: 'asc'},
+  {key: 'highest-number', text: 'Highest Number', value: 'desc'},
+  {key: 'atoz', text: 'From A to Z', value: 'atoz'},
+  {key: 'ztoa', text: 'From Z to A', value: 'ztoa'},
+];
 
+export default function FinderSort() {
   const setSortOption = useFinderStore((state) => state.setSortOption);
   const [selectedOption, setSelectedOption] = useState(options[0].value);
 

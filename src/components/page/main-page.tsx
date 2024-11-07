@@ -11,12 +11,13 @@ import {CardsTemplate, FindersTemplate, PaginationTemplate} from '@/components/t
 
 export default function MainPage() {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
   const [listParams, setListParams] = useState<PokemonsListParam>(initialListParams);
   const [totalPages, setTotalPages] = useState(1);
-  const {isUsingFinders, filteredPokemonsList} = useFinderResult();
   const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(true);
+  const {isUsingFinders, filteredPokemonsList} = useFinderResult();
 
+  // PokeAPI로부터 가져오는 데이터
   const {data: pokemonListData, isPending: isPendingPokemonList} = usePokemonList(listParams);
   const {data: regionMapData, isPending: isPendingRegionMap} = useRegionMap();
   const {pokemonList, totalCount} = pokemonListData;
@@ -69,7 +70,7 @@ export default function MainPage() {
   };
 
   return (
-    <div className="mx-auto flex flex-col h-screen">
+    <div data-testid="main-page" className="mx-auto flex flex-col h-screen">
       <Header hasBorder={false} />
 
       <FindersTemplate

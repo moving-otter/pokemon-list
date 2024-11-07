@@ -14,12 +14,8 @@ export default function ErrorBoundary(props: ErrorBoundaryProps) {
       setHasError(true);
       console.error('에러 발생:', event.error);
     };
-
     window.addEventListener('error', handleError);
-
-    return () => {
-      window.removeEventListener('error', handleError);
-    };
+    return () => window.removeEventListener('error', handleError);
   }, []);
 
   if (hasError) {

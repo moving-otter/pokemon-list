@@ -18,7 +18,7 @@ export default function ErrorGuide(props: ErrorGuideProps) {
       <div
         data-testid="error-guide"
         className="p-20 flex flex-col items-center justify-center h-1/2  bg-gray-100 text-center pb-40"
-        style={{height: 'calc(100vh - 105px)'}}
+        style={{height: 'calc(100vh - 108px)'}}
       >
         <h2 className="mt-4 text-4xl text-red-500">{title}</h2>
         <p className="mb-7 text-xl text-gray-600">{description}</p>

@@ -4,13 +4,10 @@ export default function FinderSearch() {
   const singleSearch = useFinderStore((state) => state.singleSearch);
   const setSingleSearch = useFinderStore((state) => state.setSingleSearch);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setSingleSearch(event.target.value);
-  };
 
-  const handleClearSearch = () => {
-    setSingleSearch('');
-  };
+  const handleClearSearch = () => setSingleSearch('');
 
   return (
     <div
