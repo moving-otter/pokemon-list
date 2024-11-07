@@ -40,14 +40,13 @@ export default function PaginationTemplate(props: PaginationTemplateProps) {
       ...prev,
       limit: value,
     }));
-    setCurrentPage(1); // Reset to the first page
+    setCurrentPage(1);
     router.push({
       pathname: router.pathname,
-      query: {...router.query, page: 1, limit: value}, // Update the limit in the URL
+      query: {...router.query, page: 1, limit: value},
     });
   };
 
-  // Use router.query.limit to set defaultValue for the Dropdown
   const defaultLimitValue = router.query.limit ? Number(router.query.limit) : listParams.limit;
 
   return (

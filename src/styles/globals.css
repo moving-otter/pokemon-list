@@ -15,12 +15,12 @@
   animation: slide-reset 1.5s ease-in-out infinite;
 }
 
-[data-testid='region-filter'] div .menu {
+[data-testid='finder-filter'] div .menu {
   left: revert-layer !important;
   right: -2px !important;
 }
 
-[data-testid='sort-option'] div .menu {
+[data-testid='finder-sort'] div .menu {
   left: revert-layer !important;
   right: -2px !important;
 }

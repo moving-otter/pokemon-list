@@ -1,17 +1,17 @@
-import {getParsedId} from '@/utils/helper';
-import {LoadingSlider} from '@/components/atom';
+'use client';
+
+import {parsedId} from '@/utils/helper';
 import {undefinedString} from '@/utils/constants';
 import {usePokemonStore} from '@/store/pokemon-store';
-import {FindersTemplate} from '@/components/template';
+import {useEffect, useState} from 'react';
 import {useQuery, useQueries} from '@tanstack/react-query';
-import {useEffect, useState, useMemo} from 'react';
 
 // 사용되는 API 목록) 1 ~ 5 단계로 호출됨
 import {regionQueryService} from '@/services/region/query';
 import {pokemonQueryService} from '@/services/pokemon/query';
 import {pokedexQueryService} from '@/services/pokedex/query';
 
-export default function FindersTemplateApi() {
+export function useRegionMap() {
   const setAllPokemonByIdsList = usePokemonStore((state) => state.setAllPokemonByIdsList);
   // HashMap을 생성하여 지역별 포켓몬 ID 저장
   const [regionPokemonIdsMap, setRegionPokemonIdsMap] = useState<Record<string, number[]>>({});
@@ -30,7 +30,7 @@ export default function FindersTemplateApi() {
   const getPokemonByIdQueries = useQueries({
     queries:
       pokemonsList?.results.map((pokemon) =>
-        pokemonQueryService.getById({id: getParsedId(pokemon.url)})
+        pokemonQueryService.getById({id: parsedId(pokemon.url)})
       ) || [],
   });
 
@@ -41,13 +41,13 @@ export default function FindersTemplateApi() {
   const regionByIdQueries = useQueries({
     queries:
       regionsList?.results.map((region) =>
-        regionQueryService.getById({id: getParsedId(region.url) ?? undefinedString})
+        regionQueryService.getById({id: parsedId(region.url) ?? undefinedString})
       ) || [],
   });
 
   // 복수개의 region에 포함된 pokedexes 정보를 참조하여 pokedexId 목록 생성
   const pokedexIds = regionByIdQueries.flatMap(
-    (query) => query.data?.pokedexes.map((pokedex) => getParsedId(pokedex.url)) ?? []
+    (query) => query.data?.pokedexes.map((pokedex) => parsedId(pokedex.url)) ?? []
   );
 
   // 5. [API] 복수개의 pokedex 목록 가져오기
@@ -78,7 +78,7 @@ export default function FindersTemplateApi() {
         const regionName = regionsList?.results[index]?.name; // 지역 이름
         const pokemonIds =
           pokedexByIdQueries[index]?.data?.pokemon_entries?.map(
-            (entry) => Number(getParsedId(entry.pokemon_species.url)) // 문자열을 숫자로 변환
+            (entry) => Number(parsedId(entry.pokemon_species.url)) // 문자열을 숫자로 변환
           ) || [];
 
         // Pokemon IDs 정렬
@@ -98,27 +98,15 @@ export default function FindersTemplateApi() {
     allPokedexByIdQueriesSuccessful,
   ]);
 
-  const memoRenderConditions = useMemo(() => {
-    return (
-      !isPendingList &&
-      !isPendingRegions &&
-      allPokemonByIdQueriesSuccessful &&
-      allRegionByIdQueriesSuccessful &&
-      allPokedexByIdQueriesSuccessful
-    );
-  }, [
-    isPendingList,
-    isPendingRegions,
-    allPokemonByIdQueriesSuccessful,
-    allRegionByIdQueriesSuccessful,
-    allPokedexByIdQueriesSuccessful,
-  ]);
-
-  return (
-    <div className="border-b-2 border-gray-200 bg-gray-50 relative">
-      <FindersTemplate disabled={!memoRenderConditions} regionPokemonIdsMap={regionPokemonIdsMap} />
-
-      {!memoRenderConditions && <LoadingSlider />}
-    </div>
-  );
+  return {
+    data: {
+      regionMap: regionPokemonIdsMap,
+    },
+    isPending:
+      isPendingList ||
+      isPendingRegions ||
+      !allPokemonByIdQueriesSuccessful ||
+      !allRegionByIdQueriesSuccessful ||
+      !allPokedexByIdQueriesSuccessful,
+  };
 }

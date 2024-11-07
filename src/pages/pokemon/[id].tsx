@@ -1,12 +1,5 @@
-import {Header} from '@/components/atom';
-import {DetailTemplateApi} from '@/components/template-api';
+import {DetailPage} from '@/components/page';
 
-export default function DetailPage() {
-  return (
-    <div className="mx-auto flex flex-col h-screen ">
-      <Header />
-
-      <DetailTemplateApi />
-    </div>
-  );
+export default function PokemonDetailPage() {
+  return <DetailPage />;
 }

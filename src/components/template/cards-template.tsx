@@ -1,18 +1,18 @@
 import {Card} from '@/components/organism';
-import {CardEmpty} from '@/components/atom';
+import {IPokemon} from '@/interface/pokemon';
 import {useRouter} from 'next/router';
+import {CardEmpty} from '@/components/atom';
 import {useEffect, useRef} from 'react';
 
 interface CardsTemplateProps {
-  pokemonByIdsList: any;
+  pokemonList: IPokemon[];
 }
 
 export default function CardsTemplate(props: CardsTemplateProps) {
-  const {pokemonByIdsList} = props;
+  const {pokemonList} = props;
   const router = useRouter();
+  const hasCard = pokemonList?.length !== 0;
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  const hasCard = pokemonByIdsList?.length !== 0;
 
   const saveScrollPosition = () => {
     if (scrollContainerRef.current) {
@@ -27,10 +27,9 @@ export default function CardsTemplate(props: CardsTemplateProps) {
     }
   };
 
-  // 디테일에서 메인페이지로 넘어왔을 때 scroll 위치 복원
+  // 디테일에서 메인페이지로 돌아왔을 때 scroll 위치 원복
   useEffect(() => {
     router.events.on('routeChangeStart', saveScrollPosition);
-
     restoreScrollPosition();
 
     return () => {
@@ -39,28 +38,22 @@ export default function CardsTemplate(props: CardsTemplateProps) {
   }, [router]);
 
   return (
-    <div
-      ref={scrollContainerRef}
-      data-testid="cards-template"
-      className="flex-grow overflow-y-auto p-4"
-    >
-      {hasCard ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-2">
-          {pokemonByIdsList?.map((card: any) => (
-            <Card
-              key={card.number}
-              name={card.name}
-              number={card.number}
-              height={card.height}
-              weight={card.weight}
-              types={card.types}
-              imageUrl={card.imageUrl}
-            />
-          ))}
-        </div>
-      ) : (
-        <CardEmpty />
-      )}
-    </div>
+    <>
+      <div
+        ref={scrollContainerRef}
+        data-testid="cards-template"
+        className="flex-grow overflow-y-auto p-4"
+      >
+        {hasCard ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-2">
+            {pokemonList?.map((pokemon: IPokemon) => (
+              <Card {...pokemon} />
+            ))}
+          </div>
+        ) : (
+          <CardEmpty />
+        )}
+      </div>
+    </>
   );
 }

@@ -15,7 +15,7 @@ export default function FinderSearch() {
   return (
     <div
       data-testid="finder-search"
-      className="flex items-center mb-2 mr-2 relative"
+      className="flex items-center mb-2 mx-5 relative"
       style={{width: '380px'}}
     >
       <input
