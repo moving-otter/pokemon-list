@@ -1,7 +1,7 @@
 import {IPokemon} from '@/interface/pokemon';
 import {useRegionMap} from '@/hooks/use-region-map';
 import {usePokemonList} from '@/hooks/use-pokemon-list';
-import {useFinderResult} from '@/hooks/use-finder-result';
+import {useFindPokemon} from '@/hooks/use-find-pokemon';
 import {initialListParams} from '@/utils/constants';
 import {PokemonsListParam} from '@/services/pokemon/types';
 import {useEffect, useState} from 'react';
@@ -13,13 +13,15 @@ export default function MainPage() {
   const [triggerRerender, setTriggerRerender] = useState(true);
   const [listParams, setListParams] = useState<PokemonsListParam>(initialListParams);
 
-  const {isUsingFinders, filteredPokemonsList: filteredPokemonList} = useFinderResult();
-
   // PokeAPI로부터 가져오는 데이터
   const {data: pokemonListData, isPending: isPendingPokemonList} = usePokemonList(listParams);
   const {data: regionMapData, isPending: isPendingRegionMap} = useRegionMap();
   const {pokemonList, totalCount} = pokemonListData;
   const {regionMap} = regionMapData;
+
+  // 클라이언트 사이드 데이터 필터링 (Search, Sort, Filter)
+  const {data: findPokemonData, isFindingPokemon} = useFindPokemon();
+  const {filteredPokemonList} = findPokemonData;
 
   useEffect(() => {
     if (pokemonList) {
@@ -28,14 +30,14 @@ export default function MainPage() {
     }
   }, [pokemonList]);
 
-  const renderCardsTemplate = (list: IPokemon[]) => {
+  const renderCardsTemplate = (pokemonList: IPokemon[]) => {
     return (
       <PokemonCardList
         {...{
-          pokemonList: list,
           listParams,
-          setListParams,
           totalCount,
+          pokemonList,
+          setListParams,
         }}
       />
     );
@@ -52,7 +54,7 @@ export default function MainPage() {
         }}
       />
 
-      {isUsingFinders ? (
+      {isFindingPokemon ? (
         <>{renderCardsTemplate(filteredPokemonList)}</>
       ) : (
         <>
@@ -66,7 +68,7 @@ export default function MainPage() {
             {...{
               totalCount,
               totalPages,
-              listParams,            
+              listParams,
               setListParams,
               triggerRerender,
             }}
