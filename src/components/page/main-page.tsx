@@ -14,7 +14,7 @@ export default function MainPage() {
   const [loading, setLoading] = useState(true);
   const [listParams, setListParams] = useState<PokemonsListParam>(initialListParams);
   const [totalPages, setTotalPages] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
+
   const {isUsingFinders, filteredPokemonsList: filteredPokemonList} = useFinderResult();
 
   // PokeAPI로부터 가져오는 데이터
@@ -29,24 +29,6 @@ export default function MainPage() {
       setTotalPages(Math.ceil(totalCount / listParams.limit));
     }
   }, [pokemonList]);
-
-  useEffect(() => {
-    const page = Number(router.query.page) || 1;
-    const limit = Number(router.query.limit) || 20;
-
-    setCurrentPage(page);
-    setListParams({
-      page,
-      limit,
-    });
-
-    if (!router.query.page || !router.query.limit) {
-      router.replace({
-        pathname: router.pathname,
-        query: {...router.query, page, limit},
-      });
-    }
-  }, [router.query.page, router.query.limit]);
 
   const renderCardsTemplate = (list: IPokemon[]) => {
     return (
@@ -67,8 +49,8 @@ export default function MainPage() {
 
       <FindPokemon
         {...{
-          disabled: isPendingRegionMap,
           regionMap,
+          disabled: isPendingRegionMap,
         }}
       />
 
@@ -77,19 +59,18 @@ export default function MainPage() {
       ) : (
         <>
           {isPendingPokemonList || loading ? (
-            <>
-              <LoadingSpinner />
-            </>
+            <LoadingSpinner />
           ) : (
             <>{renderCardsTemplate(pokemonList)}</>
           )}
 
           <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            listParams={listParams}
-            setListParams={setListParams}
-            setCurrentPage={setCurrentPage}
+            {...{
+              totalCount,
+              totalPages,
+              listParams,
+              setListParams,
+            }}
           />
         </>
       )}

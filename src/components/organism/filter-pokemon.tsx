@@ -1,29 +1,29 @@
 import {Dropdown} from 'semantic-ui-react';
 
-const options = [
-  {
-    key: 'All Regions',
-    text: 'All Regions',
-    value: 'All Regions',
-  },
-  {
-    key: 'Region1',
-    text: 'Region1',
-    value: 'Region1',
-  },
-  {
-    key: 'Region2',
-    text: 'Region2',
-    value: 'Region2',
-  },
-  {
-    key: 'Region3',
-    text: 'Region3',
-    value: 'Region3',
-  },
-];
-
 export default function FilterPokemon() {
+  const options = [
+    {
+      key: 'All Regions',
+      text: 'All Regions',
+      value: 'All Regions',
+    },
+    {
+      key: 'Region1',
+      text: 'Region1',
+      value: 'Region1',
+    },
+    {
+      key: 'Region2',
+      text: 'Region2',
+      value: 'Region2',
+    },
+    {
+      key: 'Region3',
+      text: 'Region3',
+      value: 'Region3',
+    },
+  ];
+
   return (
     <div data-testid="filter-pokemon" className="select-none flex items-center pr-4">
       <div className="flex items-center">

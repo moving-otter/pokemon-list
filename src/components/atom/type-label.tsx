@@ -7,9 +7,10 @@ export default function TypeLabel(props: TypeLabelProps) {
 
   return (
     <div
-      data-testid="type-label"
       key={type}
+      data-testid="type-label"
       className={`text-center min-w-[55px] max-w-[70px] break-words text-sm font-semibold px-1 py-1 rounded type-${type}`}
+      style={{userSelect: 'none'}}
     >
       {type?.charAt(0)?.toUpperCase() + type.slice(1)}
     </div>
