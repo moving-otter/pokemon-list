@@ -1,4 +1,4 @@
-import {getParsedId} from '@/utils/helper';
+import {parsedId} from '@/utils/helper';
 import {undefinedString} from '@/utils/constants';
 import {usePokemonStore} from '@/store/pokemon-store';
 import {FindersTemplate} from '@/components/template';
@@ -29,7 +29,7 @@ export default function FindersTemplateApi() {
   const getPokemonByIdQueries = useQueries({
     queries:
       pokemonsList?.results.map((pokemon) =>
-        pokemonQueryService.getById({id: getParsedId(pokemon.url)})
+        pokemonQueryService.getById({id: parsedId(pokemon.url)})
       ) || [],
   });
 
@@ -40,13 +40,13 @@ export default function FindersTemplateApi() {
   const regionByIdQueries = useQueries({
     queries:
       regionsList?.results.map((region) =>
-        regionQueryService.getById({id: getParsedId(region.url) ?? undefinedString})
+        regionQueryService.getById({id: parsedId(region.url) ?? undefinedString})
       ) || [],
   });
 
   // 복수개의 region에 포함된 pokedexes 정보를 참조하여 pokedexId 목록 생성
   const pokedexIds = regionByIdQueries.flatMap(
-    (query) => query.data?.pokedexes.map((pokedex) => getParsedId(pokedex.url)) ?? []
+    (query) => query.data?.pokedexes.map((pokedex) => parsedId(pokedex.url)) ?? []
   );
 
   // 5. [API] 복수개의 pokedex 목록 가져오기
@@ -77,7 +77,7 @@ export default function FindersTemplateApi() {
         const regionName = regionsList?.results[index]?.name; // 지역 이름
         const pokemonIds =
           pokedexByIdQueries[index]?.data?.pokemon_entries?.map(
-            (entry) => Number(getParsedId(entry.pokemon_species.url)) // 문자열을 숫자로 변환
+            (entry) => Number(parsedId(entry.pokemon_species.url)) // 문자열을 숫자로 변환
           ) || [];
 
         // Pokemon IDs 정렬

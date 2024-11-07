@@ -1,19 +1,17 @@
+'use client';
+
 import {useRouter} from 'next/router';
 import {parsedId} from '@/utils/helper';
-import {LoadingSpinner} from '@/components/atom';
 import {PokemonsListParam} from '@/services/pokemon/types';
 import {useQuery, useQueries} from '@tanstack/react-query';
 import {useEffect, useState, useMemo} from 'react';
-import {CardsTemplate, PaginationTemplate} from '@/components/template';
 import {initialListParams, undefinedString} from '@/utils/constants';
 
 // 사용되는 [API] 목록) 1 ~ 2 단계로 호출됨
 import {pokemonQueryService} from '@/services/pokemon/query';
 
-export default function CardsTemplateApi() {
+export function usePokemonList() {
   const router = useRouter();
-  const [totalPages, setTotalPages] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
   const [listParams, setListParams] = useState<PokemonsListParam>(initialListParams);
   const [loading, setLoading] = useState(true);
 
@@ -30,32 +28,6 @@ export default function CardsTemplateApi() {
       ) || [],
   });
 
-  // 1번 성공 이후에 totalPage 세팅
-  useEffect(() => {
-    if (pokemonsList) {
-      setTotalPages(Math.ceil(pokemonsList.count / listParams.limit));
-    }
-  }, [pokemonsList]);
-
-  // router 쿼리 세팅
-  useEffect(() => {
-    const page = Number(router.query.page) || 1;
-    const limit = Number(router.query.limit) || 20;
-
-    setCurrentPage(page);
-    setListParams({
-      page,
-      limit,
-    });
-
-    if (!router.query.page || !router.query.limit) {
-      router.replace({
-        pathname: router.pathname,
-        query: {...router.query, page, limit},
-      });
-    }
-  }, [router.query.page, router.query.limit]);
-
   // 2번 useQueries 성공 여부 확인
   const allPokemonByIdQueriesSuccessful = getPokemonByIdQueries.every((query) => query.isSuccess);
 
@@ -65,14 +37,6 @@ export default function CardsTemplateApi() {
       setLoading(false);
     }
   }, [allPokemonByIdQueriesSuccessful]);
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    router.push({
-      pathname: router.pathname,
-      query: {...router.query, page, limit: listParams.limit || 20},
-    });
-  };
 
   // `pokmonByIdsList` 계산을 useMemo로 최적화
   const pokmonByIdsList = useMemo(() => {
@@ -99,18 +63,11 @@ export default function CardsTemplateApi() {
 
   const enableConditions = !loading && !isPendingList && allPokemonByIdQueriesSuccessful;
 
-  return (
-    <>
-      {enableConditions ? <CardsTemplate pokemonByIdsList={pokmonByIdsList} /> : <LoadingSpinner />}
-
-      <PaginationTemplate
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-        listParams={listParams}
-        setListParams={setListParams}
-        setCurrentPage={setCurrentPage}
-      />
-    </>
-  );
+  return {
+    data: {
+      list: [],
+      count: pokemonsList.count ?? 0,
+    },
+    isPending: false,
+  };
 }

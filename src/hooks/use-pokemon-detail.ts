@@ -1,8 +1,7 @@
 'use client';
 
 import {useQuery} from '@tanstack/react-query';
-import {useRouter} from 'next/router';
-import {getParsedId} from '@/utils/helper';
+import {parsedId} from '@/utils/helper';
 import {undefinedString} from '@/utils/constants';
 import {useEffect, useState, useMemo} from 'react';
 
@@ -11,30 +10,27 @@ import {pokemonQueryService} from '@/services/pokemon/query';
 import {pokemonSpeciesQueryService} from '@/services/pokemon-species/query';
 import {evolutionChainQueryService} from '@/services/evolution-chain/query';
 
-export function usePokemonDetail() {
-  const router = useRouter();
-  const {id} = router.query;
+export function usePokemonDetail(pokemonId: string) {
   const [explanation, setExplanation] = useState('');
-  const validatedId = typeof id === 'string' ? id : undefinedString;
 
   // 1. [API] 하나의 pokemon 상세정보 가져오기
   const {data: pokemon, isPending: isPendingPokemon} = useQuery(
     pokemonQueryService.getById({
-      id: validatedId,
+      id: pokemonId,
     })
   );
 
   // 2. [API] 하나의 species 상세정보 가져오기
   const {data: pokemonSpecies, isPending: isPendingPokemonSpecies} = useQuery(
     pokemonSpeciesQueryService.getById({
-      id: getParsedId(pokemon?.speciesUrl ?? undefinedString) ?? undefinedString,
+      id: parsedId(pokemon?.speciesUrl ?? undefinedString) ?? undefinedString,
     })
   );
 
   // 3. [API] 하나의 evoluation chain 상세정보 가져오기
   const {data: evolutionChain, isPending: isPendingEvolutionChain} = useQuery(
     evolutionChainQueryService.getById({
-      id: getParsedId(pokemonSpecies?.evolution_chain?.url ?? undefinedString) ?? undefinedString,
+      id: parsedId(pokemonSpecies?.evolution_chain?.url ?? undefinedString) ?? undefinedString,
     })
   );
 
