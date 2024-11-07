@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import {IPokemon} from '@/types/pokemon';
-import {TypeLabel} from '@/components/atom';
 import {useFinderStore} from '@/store/finder-store';
-import {HighlightedText} from '@/components/molecule';
+import {TypeLabel, HighlightedText} from '@/components/atom';
 
 export default function PokemonCard(props: IPokemon) {
   const {key, name, number, height, weight, types, imageUrl} = props;
@@ -12,23 +11,9 @@ export default function PokemonCard(props: IPokemon) {
     <Link
       data-testid="pokemon-card"
       href={`/pokemon/${number}`}
-      className={`
-        flex 
-        bg-white 
-        rounded-lg 
-        shadow-md 
-        overflow-hidden 
-        transition-transform 
-        duration-200 
-        ease-in-out 
-        transform 
-        hover:scale-105 
-        hover:bg-blue-50       
-        border-transparent 
-        relative  
-        mx-1
-        mb-2 
-        ${!imageUrl ? 'pb-3' : ''}
+      className={`flex bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-200 ease-in-out transform hover:scale-105 hover:bg-blue-50 border-transparent relative mx-1 mb-2 ${
+        !imageUrl ? 'pb-3' : ''
+      }
       `}
     >
       <div className="flex flex-col w-full p-2" key={key}>

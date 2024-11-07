@@ -1,7 +1,7 @@
 import {IPokemon} from '@/types/pokemon';
 import {useRouter} from 'next/router';
-import {CardEmpty} from '@/components/atom';
-import {PokemonCard} from '@/components/organism';
+import {PokemonCard} from '@/components/molecule';
+import {EmptyPokemon} from '@/components/atom';
 import {useEffect, useRef} from 'react';
 
 interface PokemonCardListProps {
@@ -51,7 +51,7 @@ export default function PokemonCardList(props: PokemonCardListProps) {
             ))}
           </div>
         ) : (
-          <CardEmpty />
+          <EmptyPokemon />
         )}
       </div>
     </>

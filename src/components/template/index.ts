@@ -1,7 +1,7 @@
-import PokemonCardList from './pokemon-card-list';
-import FindPokemon from './find-pokemon';
-import PokemonDetail from './pokemon-detail';
-import Pagination from './pagination';
+import PokemonCardList from '../organism/pokemon-card-list';
+import FindPokemon from '../organism/find-pokemon';
+import PokemonDetail from '../organism/pokemon-detail';
+import Pagination from '../organism/pagination';
 
 import MainTemplate from './main-template';
 

@@ -15,7 +15,7 @@ export default function PokemonDetail(props: PokemonDetailProps) {
     router.back();
   };
 
-  // console.log('check/evolutionChain', evolutionChain);
+  console.log('check/evolutionChain', evolutionChain);
 
   return (
     <div data-testid="pokemon-detail" className="p-6 overflow-auto h-full">

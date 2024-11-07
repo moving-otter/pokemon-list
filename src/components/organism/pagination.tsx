@@ -1,4 +1,5 @@
 import {useRouter} from 'next/router';
+import {IListParams} from '@/types/list-params';
 import {initialListParams} from '@/utils/constants';
 import {PokemonsListParam} from '@/services/pokemon/types';
 import {useEffect, useState} from 'react';
@@ -14,14 +15,15 @@ interface PaginationProps {
 }
 
 export default function Pagination(props: PaginationProps) {
-  const _limit = initialListParams.limit; // limit 초기값
+  const limitInitialValue = initialListParams.limit; // limit 초기값
   const {totalCount, totalPages, listParams, triggerRerender, setListParams} = props;
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const userSelectAll = listParams.limit === totalCount;
   const defaultLimitValue = router.query.limit ? Number(router.query.limit) : listParams.limit;
+
   const limitOptions = [
-    {key: '1', value: _limit, text: _limit},
+    {key: '1', value: limitInitialValue, text: limitInitialValue},
     {key: '2', value: 50, text: '50'},
     {key: '3', value: 100, text: '100'},
     {key: '4', value: totalCount, text: 'All'},
@@ -29,7 +31,7 @@ export default function Pagination(props: PaginationProps) {
 
   useEffect(() => {
     const page = Number(router.query.page) || 1;
-    const limit = Number(router.query.limit) || _limit;
+    const limit = Number(router.query.limit) || limitInitialValue;
 
     setCurrentPage(page);
     setListParams({
@@ -51,7 +53,7 @@ export default function Pagination(props: PaginationProps) {
 
     router.push({
       pathname: router.pathname,
-      query: {...router.query, page, limit: listParams.limit || _limit},
+      query: {...router.query, page, limit: listParams.limit || limitInitialValue},
     });
   };
 
