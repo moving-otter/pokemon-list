@@ -1,8 +1,7 @@
 import {IPokemon} from '@/interface/pokemon';
-import {useRouter} from 'next/router';
 import {useRegionMap} from '@/hooks/use-region-map';
 import {usePokemonList} from '@/hooks/use-pokemon-list';
-import {useFinderResult} from '@/hooks/use-finder-result';
+import {useFindPokemon} from '@/hooks/use-find-pokemon';
 import {initialListParams} from '@/utils/constants';
 import {PokemonsListParam} from '@/services/pokemon/types';
 import {useEffect, useState} from 'react';
@@ -10,12 +9,9 @@ import {Header, LoadingSpinner} from '@/components/atom';
 import {FindPokemon, PokemonCardList, Pagination} from '@/components/template';
 
 export default function MainPage() {
-  const router = useRouter();
-  const [loading, setLoading] = useState(true);
-  const [listParams, setListParams] = useState<PokemonsListParam>(initialListParams);
   const [totalPages, setTotalPages] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
-  const {isUsingFinders, filteredPokemonsList: filteredPokemonList} = useFinderResult();
+  const [triggerRerender, setTriggerRerender] = useState(true);
+  const [listParams, setListParams] = useState<PokemonsListParam>(initialListParams);
 
   // PokeAPI로부터 가져오는 데이터
   const {data: pokemonListData, isPending: isPendingPokemonList} = usePokemonList(listParams);
@@ -23,47 +19,25 @@ export default function MainPage() {
   const {pokemonList, totalCount} = pokemonListData;
   const {regionMap} = regionMapData;
 
+  // 클라이언트 사이드 데이터 필터링 (Search, Sort, Filter)
+  const {data: findPokemonData, isFindingPokemon} = useFindPokemon();
+  const {filteredPokemonList} = findPokemonData;
+
   useEffect(() => {
     if (pokemonList) {
-      setLoading(false);
+      setTriggerRerender(false);
       setTotalPages(Math.ceil(totalCount / listParams.limit));
     }
   }, [pokemonList]);
 
-  useEffect(() => {
-    const page = Number(router.query.page) || 1;
-    const limit = Number(router.query.limit) || 20;
-
-    setCurrentPage(page);
-    setListParams({
-      page,
-      limit,
-    });
-
-    if (!router.query.page || !router.query.limit) {
-      router.replace({
-        pathname: router.pathname,
-        query: {...router.query, page, limit},
-      });
-    }
-  }, [router.query.page, router.query.limit]);
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    router.push({
-      pathname: router.pathname,
-      query: {...router.query, page, limit: listParams.limit || 20},
-    });
-  };
-
-  const renderCardsTemplate = (list: IPokemon[]) => {
+  const renderCardsTemplate = (pokemonList: IPokemon[]) => {
     return (
       <PokemonCardList
         {...{
-          pokemonList: list,
           listParams,
-          setListParams,
           totalCount,
+          pokemonList,
+          setListParams,
         }}
       />
     );
@@ -75,30 +49,29 @@ export default function MainPage() {
 
       <FindPokemon
         {...{
-          disabled: isPendingRegionMap,
           regionMap,
+          disabled: isPendingRegionMap,
         }}
       />
 
-      {isUsingFinders ? (
+      {isFindingPokemon ? (
         <>{renderCardsTemplate(filteredPokemonList)}</>
       ) : (
         <>
-          {isPendingPokemonList || loading ? (
-            <>
-              <LoadingSpinner />
-            </>
+          {isPendingPokemonList || triggerRerender ? (
+            <LoadingSpinner />
           ) : (
             <>{renderCardsTemplate(pokemonList)}</>
           )}
 
           <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-            listParams={listParams}
-            setListParams={setListParams}
-            setCurrentPage={setCurrentPage}
+            {...{
+              totalCount,
+              totalPages,
+              listParams,
+              setListParams,
+              triggerRerender,
+            }}
           />
         </>
       )}

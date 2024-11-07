@@ -4,20 +4,20 @@ import {useEffect} from 'react';
 import {useFinderStore} from '@/store/finder-store';
 import {usePokemonStore} from '@/store/pokemon-store';
 
-export function useFinderResult() {
+export function useFindPokemon() {
   const sortOption = useFinderStore((state) => state.sortOption);
   const singleSearch = useFinderStore((state) => state.singleSearch);
-  const allPokemonByIdsList = usePokemonStore((state) => state.allPokemonByIdsList);
-  const filteredPokemonsList = useFinderStore((state) => state.filteredPokemonList);
-  const setFilteredPokemonsList = useFinderStore((state) => state.setFilteredPokemonsList);
+  const allPokemonByIdList = usePokemonStore((state) => state.allPokemonByIdsList);
+  const filteredPokemonList = useFinderStore((state) => state.filteredPokemonList);
+  const setFilteredPokemonList = useFinderStore((state) => state.setFilteredPokemonList);
 
   const isSortInUse = sortOption !== 'asc';
   const isSearchInUse = singleSearch.length > 1;
 
-  // singleSearch 값에 따라 allPokemonByIdsList 필터링
+  // singleSearch 값에 따라 allPokemonByIdList 필터링
   useEffect(() => {
     if (isSearchInUse) {
-      const newFilteredPokemonByIdsList = Object.values(allPokemonByIdsList).filter(
+      const newFilteredPokemonByIdList = Object.values(allPokemonByIdList).filter(
         (pokemon) =>
           pokemon.name.toLowerCase().includes(singleSearch.toLowerCase()) ||
           pokemon.number.toString().includes(singleSearch.toLowerCase()) ||
@@ -25,18 +25,18 @@ export function useFinderResult() {
             type.toLowerCase().includes(singleSearch.toLowerCase())
           )
       );
-      setFilteredPokemonsList(newFilteredPokemonByIdsList);
+      setFilteredPokemonList(newFilteredPokemonByIdList);
     }
-  }, [singleSearch, allPokemonByIdsList, setFilteredPokemonsList]);
+  }, [singleSearch, allPokemonByIdList, setFilteredPokemonList]);
 
-  // sortOption에 따라 filteredPokemonsList 정렬
+  // sortOption에 따라 filteredPokemonList 정렬
   useEffect(() => {
     if (isSortInUse) {
       let sortedList = [];
-      if (filteredPokemonsList.length === 0) {
-        sortedList = [...allPokemonByIdsList];
+      if (filteredPokemonList.length === 0) {
+        sortedList = [...allPokemonByIdList];
       } else {
-        sortedList = [...filteredPokemonsList];
+        sortedList = [...filteredPokemonList];
       }
 
       if (sortOption === 'desc') {
@@ -47,12 +47,14 @@ export function useFinderResult() {
         sortedList.sort((a, b) => b.name.localeCompare(a.name)); // 알파벳 역순 정렬
       }
 
-      setFilteredPokemonsList(sortedList);
+      setFilteredPokemonList(sortedList);
     }
   }, [sortOption]);
 
   return {
-    isUsingFinders: isSearchInUse || isSortInUse,
-    filteredPokemonsList,
+    isFindingPokemon: isSearchInUse || isSortInUse,
+    data: {
+      filteredPokemonList,
+    },
   };
 }

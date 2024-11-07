@@ -10,7 +10,7 @@ interface FinderStore {
   setSortOption: (param: string) => void;
   setSearchList: (param: string[]) => void;
   setSingleSearch: (param: string) => void;
-  setFilteredPokemonsList: (param: IPokemon[]) => void;
+  setFilteredPokemonList: (param: IPokemon[]) => void;
 }
 
 export const useFinderStore = create<FinderStore>((set) => ({
@@ -22,5 +22,5 @@ export const useFinderStore = create<FinderStore>((set) => ({
   setSortOption: (param) => set({sortOption: param}),
   setSearchList: (param) => set({searchList: param}),
   setSingleSearch: (param) => set({singleSearch: param}),
-  setFilteredPokemonsList: (param) => set({filteredPokemonList: param}),
+  setFilteredPokemonList: (param) => set({filteredPokemonList: param}),
 }));
