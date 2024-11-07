@@ -1,5 +1,4 @@
 import {IPokemon} from '@/interface/pokemon';
-import {useRouter} from 'next/router';
 import {useRegionMap} from '@/hooks/use-region-map';
 import {usePokemonList} from '@/hooks/use-pokemon-list';
 import {useFinderResult} from '@/hooks/use-finder-result';
@@ -10,10 +9,9 @@ import {Header, LoadingSpinner} from '@/components/atom';
 import {FindPokemon, PokemonCardList, Pagination} from '@/components/template';
 
 export default function MainPage() {
-  const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [listParams, setListParams] = useState<PokemonsListParam>(initialListParams);
   const [totalPages, setTotalPages] = useState(1);
+  const [listParams, setListParams] = useState<PokemonsListParam>(initialListParams);
 
   const {isUsingFinders, filteredPokemonsList: filteredPokemonList} = useFinderResult();
 

@@ -42,7 +42,7 @@ export default function Pagination(props: PaginationProps) {
     }
   }, [router.query.page, router.query.limit]);
 
-  const handlePageChange = (e: React.MouseEvent, {activePage}: any) => {
+  const handlePaginationChange = (e: React.MouseEvent, {activePage}: any) => {
     const page = Number(activePage);
     setCurrentPage(page);
 
@@ -50,21 +50,14 @@ export default function Pagination(props: PaginationProps) {
       pathname: router.pathname,
       query: {...router.query, page, limit: listParams.limit || 20},
     });
-    updateURL(page);
   };
 
-  const updateURL = (page: number) => {
-    router.push({
-      pathname: router.pathname,
-      query: {...router.query, page},
-    });
-  };
-
-  const handleLimitChange = (e: any, {value}: {value: number}) => {
+  const handleDropdownChange = (e: any, {value}: {value: number}) => {
     setListParams((prev: object) => ({
       ...prev,
       limit: value,
     }));
+
     setCurrentPage(1);
     router.push({
       pathname: router.pathname,
@@ -81,7 +74,7 @@ export default function Pagination(props: PaginationProps) {
         <SemanticPagination
           totalPages={totalPages}
           activePage={currentPage}
-          onPageChange={handlePageChange}
+          onPageChange={handlePaginationChange}
         />
       </div>
 
@@ -89,7 +82,7 @@ export default function Pagination(props: PaginationProps) {
         <Dropdown
           selection
           options={limitOptions}
-          onChange={handleLimitChange}
+          onChange={handleDropdownChange}
           defaultValue={limitOptions.find((option) => option.value === defaultLimitValue)?.value}
         />
       </div>
