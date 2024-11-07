@@ -1,12 +1,11 @@
 import '../styles/globals.css';
 import 'semantic-ui-css/semantic.min.css';
 import Head from 'next/head';
-import QueryError from './query-error';
-import ErrorBoundary from './error-boundary';
 import {AppProps} from 'next/app';
 import {csrClient} from '@/services/react-query';
 import {useQueryError} from '@/hooks/use-query-error';
 import {QueryClientProvider} from '@tanstack/react-query';
+import {ErrorBoundary, QueryError} from '@/components/molecule';
 
 const NextHead = Head;
 
