@@ -1,19 +1,11 @@
 import Link from 'next/link';
+import {IPokemon} from '@/interface/pokemon';
 import {useFindersStore} from '@/store/finders-store';
 import {TypeLabel, HighlightedText} from '@/components/atom';
 
-interface CardProps {
-  name: string;
-  types: string[];
-  number: number;
-  height: number;
-  weight: number;
-  imageUrl: string | null; // Allow imageUrl to be null
-}
-
-export default function Card(props: CardProps) {
-  const singleSearch = useFindersStore((state) => state.singleSearch);
+export default function Card(props: IPokemon) {
   const {name, number, height, weight, types, imageUrl} = props;
+  const singleSearch = useFindersStore((state) => state.singleSearch);
 
   return (
     <Link

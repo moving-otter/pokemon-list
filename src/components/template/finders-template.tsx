@@ -1,21 +1,21 @@
+import {LoadingSlider} from '../atom';
 import {isObjectEmpty} from '@/utils/helper';
 import {FinderFilter, FinderSearch, FinderSort} from '@/components/organism';
-import {LoadingSlider} from '../atom';
 
 interface FindersTemplateType {
   disabled: boolean;
-  regionPokemonIdsMap: Record<string, number[] | undefined>;
+  regionMap: Record<string, number[] | undefined>;
 }
 
 export default function FindersTemplate(props: FindersTemplateType) {
-  const {disabled, regionPokemonIdsMap} = props;
+  const {disabled, regionMap} = props;
 
-  if (!isObjectEmpty(regionPokemonIdsMap)) {
-    console.log('check/regionPokemonIdsMap:', regionPokemonIdsMap);
-  }
+  // if (!isObjectEmpty(regionMap)) {
+  //   console.log('check/regionPokemonIdsMap:', regionMap);
+  // }
 
   return (
-    <div data-testid="finders-template">
+    <div data-testid="finders-template" className="border-b-2 border-gray-200 bg-gray-50 relative">
       <div
         className={`${
           disabled ? 'opacity-50 pointer-events-none' : ''

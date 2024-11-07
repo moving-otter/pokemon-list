@@ -1,7 +1,8 @@
+'use client';
+
 import {parsedId} from '@/utils/helper';
 import {undefinedString} from '@/utils/constants';
 import {usePokemonStore} from '@/store/pokemon-store';
-import {FindersTemplate} from '@/components/template';
 import {useEffect, useState} from 'react';
 import {useQuery, useQueries} from '@tanstack/react-query';
 
@@ -10,7 +11,7 @@ import {regionQueryService} from '@/services/region/query';
 import {pokemonQueryService} from '@/services/pokemon/query';
 import {pokedexQueryService} from '@/services/pokedex/query';
 
-export default function FindersTemplateApi() {
+export function useRegionMap() {
   const setAllPokemonByIdsList = usePokemonStore((state) => state.setAllPokemonByIdsList);
   // HashMap을 생성하여 지역별 포켓몬 ID 저장
   const [regionPokemonIdsMap, setRegionPokemonIdsMap] = useState<Record<string, number[]>>({});
@@ -97,16 +98,15 @@ export default function FindersTemplateApi() {
     allPokedexByIdQueriesSuccessful,
   ]);
 
-  const enableConditions =
-    !isPendingList &&
-    !isPendingRegions &&
-    allPokemonByIdQueriesSuccessful &&
-    allRegionByIdQueriesSuccessful &&
-    allPokedexByIdQueriesSuccessful;
-
-  return (
-    <div className="border-b-2 border-gray-200 bg-gray-50 relative">
-      <FindersTemplate disabled={!enableConditions} regionPokemonIdsMap={regionPokemonIdsMap} />
-    </div>
-  );
+  return {
+    data: {
+      regionMap: regionPokemonIdsMap,
+    },
+    isPending:
+      isPendingList ||
+      isPendingRegions ||
+      !allPokemonByIdQueriesSuccessful ||
+      !allRegionByIdQueriesSuccessful ||
+      !allPokedexByIdQueriesSuccessful,
+  };
 }
