@@ -1,7 +1,7 @@
 'use client';
 
+import {parsedId} from '@/utils/data-helper';
 import {useQuery} from '@tanstack/react-query';
-import {parsedId} from '@/utils/helper';
 import {undefinedString} from '@/utils/constants';
 import {useEffect, useState, useMemo} from 'react';
 

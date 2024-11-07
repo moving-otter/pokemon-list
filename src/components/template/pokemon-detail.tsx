@@ -41,7 +41,7 @@ export default function PokemonDetail(props: PokemonDetailProps) {
                 style={{userSelect: 'none', pointerEvents: 'none'}}
               />
             ) : (
-              <div className="flex items-center mt-4 justify-center w-full h-full bg-gray-50 text-gray-500 rounded-lg">
+              <div className="flex items-center justify-center  bg-gray-50 text-gray-500 rounded-lg h-56 w-56">
                 <span className="mb-4">No image</span>
               </div>
             )}

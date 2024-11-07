@@ -1,5 +1,5 @@
 import {LoadingSlider} from '../atom';
-import {isObjectEmpty} from '@/utils/helper';
+import {isObjectEmpty} from '@/utils/data-helper';
 import {SearchPokemon, SortPokemon, FilterPokemon} from '@/components/organism';
 
 interface FindPokemonProps {

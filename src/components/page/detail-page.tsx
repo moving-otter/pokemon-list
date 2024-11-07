@@ -1,5 +1,5 @@
 import {useRouter} from 'next/router';
-import {validatedId} from '@/utils/helper';
+import {validatedId} from '@/utils/data-helper';
 import {PokemonDetail} from '@/components/template';
 import {Footer, Header} from '@/components/atom';
 import {LoadingSpinner} from '@/components/atom';

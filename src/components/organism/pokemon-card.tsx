@@ -5,7 +5,7 @@ import {useFinderStore} from '@/store/finder-store';
 import {HighlightedText} from '@/components/molecule';
 
 export default function PokemonCard(props: IPokemon) {
-  const {name, number, height, weight, types, imageUrl} = props;
+  const {key, name, number, height, weight, types, imageUrl} = props;
   const singleSearch = useFinderStore((state) => state.singleSearch);
 
   return (
@@ -31,7 +31,7 @@ export default function PokemonCard(props: IPokemon) {
         ${!imageUrl ? 'pb-3' : ''}
       `}
     >
-      <div className="flex flex-col w-full p-2">
+      <div className="flex flex-col w-full p-2" key={key}>
         {/* Header with number and name */}
         <div className="flex flex-col items-start">
           <div className="text-gray-600 text-md font-semibold">

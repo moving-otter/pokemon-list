@@ -1,6 +1,6 @@
 'use client';
 
-import {parsedId} from '@/utils/helper';
+import {parsedId} from '@/utils/data-helper';
 import {undefinedString} from '@/utils/constants';
 import {usePokemonStore} from '@/store/pokemon-store';
 import {useEffect, useState} from 'react';
