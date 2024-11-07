@@ -2,7 +2,7 @@ import {IPokemon} from '@/interface/pokemon';
 import {useRouter} from 'next/router';
 import {useRegionMap} from '@/hooks/use-region-map';
 import {usePokemonList} from '@/hooks/use-pokemon-list';
-import {useFindersResult} from '@/hooks/use-finders-result';
+import {useFinderResult} from '@/hooks/use-finder-result';
 import {initialListParams} from '@/utils/constants';
 import {PokemonsListParam} from '@/services/pokemon/types';
 import {useEffect, useState} from 'react';
@@ -13,7 +13,7 @@ export default function MainPage() {
   const router = useRouter();
   const [listParams, setListParams] = useState<PokemonsListParam>(initialListParams);
   const [totalPages, setTotalPages] = useState(1);
-  const {isUsingFinders, filteredPokemonsList} = useFindersResult();
+  const {isUsingFinders, filteredPokemonsList} = useFinderResult();
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
 

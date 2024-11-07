@@ -1,8 +1,8 @@
-import {useFindersStore} from '@/store/finders-store';
+import {useFinderStore} from '@/store/finder-store';
 
 export default function FinderSearch() {
-  const singleSearch = useFindersStore((state) => state.singleSearch);
-  const setSingleSearch = useFindersStore((state) => state.setSingleSearch);
+  const singleSearch = useFinderStore((state) => state.singleSearch);
+  const setSingleSearch = useFinderStore((state) => state.setSingleSearch);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSingleSearch(event.target.value);

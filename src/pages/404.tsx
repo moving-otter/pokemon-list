@@ -2,10 +2,11 @@ import {ErrorGuide} from '@/components/molecule';
 
 export default function Custom404() {
   return (
-    <ErrorGuide
-      errorCode={'404'}
-      title={'Page Not Found'}
-      description={'Sorry, the page you are looking for does not exist.'}
-    />
+    <div data-testid="custom-404">
+      <ErrorGuide
+        title={'Page Not Found'}
+        description={'Sorry, the page you are looking for does not exist.'}
+      />
+    </div>
   );
 }

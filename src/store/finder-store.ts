@@ -1,6 +1,6 @@
 import {create} from 'zustand';
 
-interface FindersStore {
+interface FinderStore {
   sortOption: string;
   searchList: string[];
   singleSearch: string;
@@ -12,7 +12,7 @@ interface FindersStore {
   setSingleSearch: (param: string) => void;
 }
 
-export const useFindersStore = create<FindersStore>((set) => ({
+export const useFinderStore = create<FinderStore>((set) => ({
   sortOption: 'asc', // 'asc' 또는 'desc'
   searchList: [],
   singleSearch: '',

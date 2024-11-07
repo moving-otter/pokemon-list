@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {Dropdown} from 'semantic-ui-react';
-import {useFindersStore} from '@/store/finders-store';
+import {useFinderStore} from '@/store/finder-store';
 
 export default function FinderSort() {
   const options = [
@@ -10,7 +10,7 @@ export default function FinderSort() {
     {key: 'ztoa', text: 'From Z to A', value: 'ztoa'},
   ];
 
-  const setSortOption = useFindersStore((state) => state.setSortOption);
+  const setSortOption = useFinderStore((state) => state.setSortOption);
   const [selectedOption, setSelectedOption] = useState(options[0].value);
 
   const handleDropdownChange = (_: any, data: any) => {

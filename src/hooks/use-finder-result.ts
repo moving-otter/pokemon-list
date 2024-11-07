@@ -1,15 +1,15 @@
 'use client';
 
 import {useEffect} from 'react';
-import {useFindersStore} from '@/store/finders-store';
+import {useFinderStore} from '@/store/finder-store';
 import {usePokemonStore} from '@/store/pokemon-store';
 
-export function useFindersResult() {
+export function useFinderResult() {
   const allPokemonByIdsList = usePokemonStore((state) => state.allPokemonByIdsList);
-  const sortOption = useFindersStore((state) => state.sortOption);
-  const singleSearch = useFindersStore((state) => state.singleSearch);
-  const filteredPokemonsList = useFindersStore((state) => state.filteredPokemonsList);
-  const setFilteredPokemonsList = useFindersStore((state) => state.setFilteredPokemonsList);
+  const sortOption = useFinderStore((state) => state.sortOption);
+  const singleSearch = useFinderStore((state) => state.singleSearch);
+  const filteredPokemonsList = useFinderStore((state) => state.filteredPokemonsList);
+  const setFilteredPokemonsList = useFinderStore((state) => state.setFilteredPokemonsList);
 
   const isSearchInUse = singleSearch.length > 1;
   const isSortInUse = sortOption !== 'asc';

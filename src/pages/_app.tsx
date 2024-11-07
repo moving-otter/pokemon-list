@@ -16,7 +16,6 @@ export default function App({Component, pageProps}: AppProps) {
   if (commonApiError) {
     return (
       <ErrorGuide
-        errorCode={'404'}
         title={'API Returned Not Found'}
         description={'Sorry, the API you are looking for does not exist.'}
       />

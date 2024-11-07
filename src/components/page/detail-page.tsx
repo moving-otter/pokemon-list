@@ -1,6 +1,6 @@
-import {Header} from '@/components/atom';
 import {useRouter} from 'next/router';
 import {validatedId} from '@/utils/helper';
+import {Footer, Header} from '@/components/atom';
 import {LoadingSpinner} from '@/components/atom';
 import {usePokemonDetail} from '@/hooks/use-pokemon-detail';
 import {DetailInfoTemplate} from '@/components/template';
@@ -27,6 +27,8 @@ export default function DetailPage() {
           }}
         />
       )}
+
+      <Footer />
     </div>
   );
 }

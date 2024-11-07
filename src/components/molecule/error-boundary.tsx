@@ -9,7 +9,6 @@ export default function ErrorBoundary(props: ErrorBoundaryProps) {
   const {children} = props;
   const [hasError, setHasError] = useState(false);
 
-  // 에러 핸들링을 위한 effect
   useEffect(() => {
     const handleError = (event: any) => {
       setHasError(true);
@@ -27,7 +26,6 @@ export default function ErrorBoundary(props: ErrorBoundaryProps) {
     return (
       <ErrorGuide
         data-testid="error-boundary"
-        errorCode={'...'}
         title={'Unexpected UI Error'}
         description={'It seems like some component has UI error.'}
       />
