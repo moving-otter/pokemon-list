@@ -7,12 +7,13 @@ interface PaginationProps {
   totalCount: number;
   totalPages: number;
   listParams: PokemonsListParam;
+  triggerRerender: boolean;
 
   setListParams: (param: any) => void;
 }
 
 export default function Pagination(props: PaginationProps) {
-  const {totalCount, totalPages, listParams, setListParams} = props;
+  const {totalCount, totalPages, listParams, triggerRerender, setListParams} = props;
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const userSelectAll = listParams.limit === totalCount;
@@ -71,11 +72,13 @@ export default function Pagination(props: PaginationProps) {
       className="flex flex-col sm:flex-row justify-between items-center z-10 py-2 relative border-t-2 border-gray-100 bg-gray-50 px-6"
     >
       <div className="flex-grow flex justify-between" style={{opacity: userSelectAll ? '0' : '1'}}>
-        <SemanticPagination
-          totalPages={totalPages}
-          activePage={currentPage}
-          onPageChange={handlePaginationChange}
-        />
+        {!triggerRerender && (
+          <SemanticPagination
+            totalPages={totalPages}
+            activePage={currentPage}
+            onPageChange={handlePaginationChange}
+          />
+        )}
       </div>
 
       <div className="w-full sm:w-auto flex justify-end mt-4 sm:mt-0" style={{userSelect: 'none'}}>

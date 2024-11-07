@@ -9,8 +9,8 @@ import {Header, LoadingSpinner} from '@/components/atom';
 import {FindPokemon, PokemonCardList, Pagination} from '@/components/template';
 
 export default function MainPage() {
-  const [loading, setLoading] = useState(true);
   const [totalPages, setTotalPages] = useState(1);
+  const [triggerRerender, setTriggerRerender] = useState(true);
   const [listParams, setListParams] = useState<PokemonsListParam>(initialListParams);
 
   const {isUsingFinders, filteredPokemonsList: filteredPokemonList} = useFinderResult();
@@ -23,7 +23,7 @@ export default function MainPage() {
 
   useEffect(() => {
     if (pokemonList) {
-      setLoading(false);
+      setTriggerRerender(false);
       setTotalPages(Math.ceil(totalCount / listParams.limit));
     }
   }, [pokemonList]);
@@ -56,7 +56,7 @@ export default function MainPage() {
         <>{renderCardsTemplate(filteredPokemonList)}</>
       ) : (
         <>
-          {isPendingPokemonList || loading ? (
+          {isPendingPokemonList || triggerRerender ? (
             <LoadingSpinner />
           ) : (
             <>{renderCardsTemplate(pokemonList)}</>
@@ -66,8 +66,9 @@ export default function MainPage() {
             {...{
               totalCount,
               totalPages,
-              listParams,
+              listParams,            
               setListParams,
+              triggerRerender,
             }}
           />
         </>
