@@ -15,8 +15,8 @@ interface PaginationProps {
 }
 
 export default function Pagination(props: PaginationProps) {
-  const limitInitialValue = initialListParams.limit; // limit 초기값
   const {totalCount, totalPages, listParams, triggerRerender, setListParams} = props;
+  const limitInitialValue = initialListParams.limit; // limit 초기값
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const userSelectAll = listParams.limit === totalCount;

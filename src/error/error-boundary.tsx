@@ -1,4 +1,4 @@
-import {ErrorGuide} from '@/components/unexpected';
+import {ErrorGuide} from 'src/error';
 import {useState, useEffect} from 'react';
 
 interface ErrorBoundaryProps {

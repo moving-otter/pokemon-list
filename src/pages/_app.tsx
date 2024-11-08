@@ -5,7 +5,7 @@ import {AppProps} from 'next/app';
 import {csrClient} from '@/services/react-query';
 import {useQueryError} from '@/hooks/use-query-error';
 import {QueryClientProvider} from '@tanstack/react-query';
-import {ErrorBoundary, QueryError} from '@/components/unexpected';
+import {ErrorBoundary, QueryError} from 'src/error';
 
 const NextHead = Head;
 

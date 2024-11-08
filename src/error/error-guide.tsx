@@ -7,6 +7,7 @@ interface ErrorGuideProps {
   description: ReactNode;
 }
 
+// unexpected => src 하위로 옮기기
 export default function ErrorGuide(props: ErrorGuideProps) {
   const {title, description} = props;
 

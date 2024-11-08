@@ -1,4 +1,4 @@
-import {ErrorGuide} from '@/components/unexpected';
+import {ErrorGuide} from 'src/error';
 import {apiRequestFailed404, zodValidationError} from '@/utils/constants';
 
 interface QueryErrorProps {
@@ -8,6 +8,7 @@ interface QueryErrorProps {
 export default function QueryError(props: QueryErrorProps) {
   const {errorMessage} = props;
 
+  // Toast 방식으로 보여줄 수 있음
   const renderErrorGuide = () => {
     switch (errorMessage) {
       case zodValidationError:
