@@ -1,5 +1,5 @@
 interface TypeLabelProps {
-  type: any;
+  type: string;
 }
 
 export default function TypeLabel(props: TypeLabelProps) {

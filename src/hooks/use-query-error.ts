@@ -4,7 +4,7 @@ import {csrClient} from '@/services/react-query';
 import {useEffect, useState} from 'react';
 
 export function useQueryError() {
-  const [commonApiError, setCommonApiError] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     const unsubscribe = csrClient.getQueryCache().subscribe((event) => {
@@ -12,7 +12,7 @@ export function useQueryError() {
 
       if (query && query.state.error) {
         const error = query.state.error as any;
-        setCommonApiError(error.message);
+        setErrorMessage(error.message);
       }
     });
 
@@ -22,6 +22,6 @@ export function useQueryError() {
   }, []);
 
   return {
-    commonApiError,
+    errorMessage,
   };
 }

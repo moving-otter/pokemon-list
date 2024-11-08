@@ -1,4 +1,4 @@
-import {IPokemon} from '@/interface/pokemon';
+import {IPokemon} from '@/types/pokemon';
 import {create} from 'zustand';
 
 interface PokemonStore {

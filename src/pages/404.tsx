@@ -1,4 +1,4 @@
-import {ErrorGuide} from '@/components/molecule';
+import {ErrorGuide} from '@/components/unexpected';
 
 export default function Custom404() {
   return (

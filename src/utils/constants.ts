@@ -23,3 +23,7 @@ export const initialListParams = {
 };
 
 export const undefinedString = 'undefined';
+
+export const zodValidationError = 'ZOD_VALIDATION_ERROR';
+
+export const apiRequestFailed404 = 'Request failed with status code 404';

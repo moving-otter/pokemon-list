@@ -1,3 +1,5 @@
+import {undefinedString} from './constants';
+
 export function parsedId(url: string) {
   const splitted = url?.split('/');
   const id = splitted[splitted.length - 2];
@@ -6,7 +8,7 @@ export function parsedId(url: string) {
 }
 
 export function validatedId(id: string | string[] | undefined) {
-  return typeof id === 'string' ? id : 'undefined';
+  return typeof id === 'string' ? id : undefinedString;
 }
 
 export function isObjectEmpty(param: object) {

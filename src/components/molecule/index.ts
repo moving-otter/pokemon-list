@@ -1,5 +1,6 @@
-import ErrorGuide from './error-guide';
-import ErrorBoundary from './error-boundary';
-import HighlightedText from './highlighted-text';
+import SortPokemon from './sort-pokemon';
+import PokemonCard from './pokemon-card';
+import FilterPokemon from './filter-pokemon';
+import SearchPokemon from './search-pokemon';
 
-export {ErrorGuide, ErrorBoundary, HighlightedText};
+export {SortPokemon, PokemonCard, FilterPokemon, SearchPokemon};

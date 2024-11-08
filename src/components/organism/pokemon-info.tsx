@@ -1,24 +1,22 @@
+import {IPokemon} from '@/types/pokemon';
 import {useRouter} from 'next/router';
 import {TypeLabel} from '@/components/atom';
 
 interface PokemonDetailProps {
-  pokemon: any;
+  pokemon: IPokemon;
   explanation: string;
-  evolutionChain: any;
 }
 
-export default function PokemonDetail(props: PokemonDetailProps) {
-  const {pokemon, explanation, evolutionChain} = props;
+export default function PokemonInfo(props: PokemonDetailProps) {
+  const {pokemon, explanation} = props;
   const router = useRouter();
 
   const handleBack = () => {
     router.back();
   };
 
-  // console.log('check/evolutionChain', evolutionChain);
-
   return (
-    <div data-testid="pokemon-detail" className="p-6 overflow-auto h-full">
+    <div data-testid="pokemon-info" className="p-6 overflow-auto h-full">
       <div className="overflow-auto max-w-7xl mx-auto">
         <button
           onClick={handleBack}
@@ -41,7 +39,7 @@ export default function PokemonDetail(props: PokemonDetailProps) {
                 style={{userSelect: 'none', pointerEvents: 'none'}}
               />
             ) : (
-              <div className="flex items-center mt-4 justify-center w-full h-full bg-gray-50 text-gray-500 rounded-lg">
+              <div className="flex items-center justify-center  bg-gray-50 text-gray-500 rounded-lg h-56 w-56">
                 <span className="mb-4">No image</span>
               </div>
             )}
@@ -77,14 +75,6 @@ export default function PokemonDetail(props: PokemonDetailProps) {
             </div>
           </div>
         </div>
-
-        {/* Evolution Chain */}
-        {evolutionChain && (
-          <div className="mt-8 p-4 bg-gray-50 rounded-lg shadow-md">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Evolution Chain</h2>
-            {/* Add evolution chain details here */}
-          </div>
-        )}
       </div>
     </div>
   );

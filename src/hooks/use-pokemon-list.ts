@@ -1,10 +1,10 @@
 'use client';
 
 import {useMemo} from 'react';
-import {IPokemon} from '@/interface/pokemon';
+import {IPokemon} from '@/types/pokemon';
 import {PokemonsListParam} from '@/services/pokemon/types';
 import {useQuery, useQueries} from '@tanstack/react-query';
-import {parsedId, validatedId} from '@/utils/helper';
+import {parsedId, validatedId} from '@/utils/data-helper';
 
 // 사용되는 [API] 목록) 1 ~ 2 단계로 호출됨
 import {pokemonQueryService} from '@/services/pokemon/query';
@@ -29,7 +29,7 @@ export function usePokemonList(listParams: PokemonsListParam) {
   // `pokmonByIdsList` 계산을 useMemo로 최적화
   const memoPokemonList = useMemo(() => {
     return pokemonsList?.results
-      .map((pokemon: any, index) => {
+      .map((pokemon: any, index: number) => {
         const {data: details, isPending: isPendingDetailList} = getPokemonByIdQueries[index] || {};
 
         if (isPendingDetailList || details === undefined) {
@@ -37,7 +37,6 @@ export function usePokemonList(listParams: PokemonsListParam) {
         }
 
         return <IPokemon>{
-          key: details?.name,
           name: details?.name,
           number: details?.number,
           height: details?.height,
