@@ -1,7 +1,7 @@
-import {IPokemon} from '@/types/pokemon';
-import {IEvolutionChain} from '@/types/evolution-chain';
 import {PokemonInfo, EvoluationChain} from '@/components/organism';
 import {Footer, Header, LoadingSpinner} from '@/components/atom';
+import {IEvolutionChain} from '@/types/evolution-chain';
+import {IPokemon} from '@/types/pokemon';
 
 interface DetailTemplateProps {
   pokemon: IPokemon;

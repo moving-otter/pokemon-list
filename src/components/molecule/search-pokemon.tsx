@@ -4,7 +4,7 @@ export default function SearchPokemon() {
   const singleSearch = useFinderStore((state) => state.singleSearch);
   const setSingleSearch = useFinderStore((state) => state.setSingleSearch);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent | any) => {
     setSingleSearch(event.target.value);
   };
 

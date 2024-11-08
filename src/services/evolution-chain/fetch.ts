@@ -1,6 +1,6 @@
-import axios from 'axios';
-import {pokemonApiBaseUrl} from '@/utils/constants';
 import {evolutionChainByIdSchema, EvolutionChainByIdParams} from './types';
+import {pokemonApiBaseUrl} from '@/utils/constants';
+import axios from 'axios';
 
 /**
  * @method GET

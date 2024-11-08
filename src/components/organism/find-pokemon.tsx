@@ -1,7 +1,7 @@
-import {IRegionMap} from '@/types/region-map';
-import {LoadingSlider} from '../atom';
-import {isObjectEmpty} from '@/utils/data-helper';
 import {SearchPokemon, SortPokemon, FilterPokemon} from '@/components/molecule';
+import {isObjectEmpty} from '@/utils/data-helper';
+import {LoadingSlider} from '@/components/atom';
+import {IRegionMap} from '@/types/region-map';
 
 interface FindPokemonProps {
   disabled: boolean;

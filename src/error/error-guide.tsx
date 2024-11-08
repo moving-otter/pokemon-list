@@ -1,6 +1,6 @@
+import {Header, Footer} from '@/components/atom';
 import {Button} from 'semantic-ui-react';
 import {ReactNode} from 'react';
-import {Header, Footer} from '@/components/atom';
 
 interface ErrorGuideProps {
   title: string;

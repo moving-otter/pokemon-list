@@ -1,6 +1,6 @@
-import {useState} from 'react';
-import {Dropdown} from 'semantic-ui-react';
 import {useFinderStore} from '@/store/finder-store';
+import {Dropdown} from 'semantic-ui-react';
+import {useState} from 'react';
 
 export default function SortPokemon() {
   const options = [

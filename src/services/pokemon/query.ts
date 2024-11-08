@@ -1,8 +1,8 @@
-import {pokemonKeys} from './keys';
+import {PokemonByIdParams, PokemonsListParam} from './types';
+import {getPokemonById, getPokemonsList} from './fetch';
 import {queryOptions} from '@tanstack/react-query';
 import {undefinedString} from '@/utils/constants';
-import {getPokemonById, getPokemonsList} from './fetch';
-import {PokemonByIdParams, PokemonsListParam} from './types';
+import {pokemonKeys} from './keys';
 
 export const pokemonQueryService = {
   getList: (params: PokemonsListParam) => {

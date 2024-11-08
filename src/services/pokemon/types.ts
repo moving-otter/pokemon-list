@@ -48,11 +48,11 @@ export const pokedexByIdParamsSchema = z.object({
   id: z.string(),
 });
 
-export type PokemonsListSchema = z.infer<typeof pokemonsListSchema>;
-export type PokemonsListParam = z.infer<typeof pokemonsListParamsSchema>;
+export type PokemonsListSchema = z.infer;
+export type PokemonsListParam = z.infer;
 
-export type PokemonByIdSchema = z.infer<typeof pokemonByIdSchema>;
-export type PokemonByIdParams = z.infer<typeof pokemonByIdParamsSchema>;
+export type PokemonByIdSchema = z.infer;
+export type PokemonByIdParams = z.infer;
 
-export type PokedexByIdSchema = z.infer<typeof pokedexByIdSchema>;
-export type PokedexByIdParams = z.infer<typeof pokedexByIdParamsSchema>;
+export type PokedexByIdSchema = z.infer;
+export type PokedexByIdParams = z.infer;

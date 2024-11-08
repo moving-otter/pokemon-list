@@ -1,5 +1,5 @@
-import {ZodError} from 'zod';
 import {zodValidationError} from './constants';
+import {ZodError} from 'zod';
 
 export const transformApiError = (error: unknown) => {
   if (error instanceof ZodError) {

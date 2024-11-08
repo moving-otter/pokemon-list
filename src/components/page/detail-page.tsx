@@ -1,7 +1,7 @@
-import {useRouter} from 'next/router';
-import {validatedId} from '@/utils/data-helper';
-import {DetailTemplate} from '@/components/template';
 import {usePokemonDetail} from '@/hooks/use-pokemon-detail';
+import {DetailTemplate} from '@/components/template';
+import {validatedId} from '@/utils/data-helper';
+import {useRouter} from 'next/router';
 
 export default function DetailPage() {
   const router = useRouter();

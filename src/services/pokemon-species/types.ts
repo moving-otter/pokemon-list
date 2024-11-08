@@ -17,5 +17,5 @@ export const pokemonSpeciesByIdParamsSchema = z.object({
   id: z.string(),
 });
 
-export type PokemonSpeciesByIdSchema = z.infer<typeof pokemonSpeciesByIdSchema>;
-export type PokemonSpeciesByIdParams = z.infer<typeof pokemonSpeciesByIdParamsSchema>;
+export type PokemonSpeciesByIdSchema = z.infer;
+export type PokemonSpeciesByIdParams = z.infer;

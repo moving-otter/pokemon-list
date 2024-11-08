@@ -1,10 +1,10 @@
-import {IPokemon} from '@/types/pokemon';
-import {IRegionMap} from '@/types/region-map';
-import {IListParams} from '@/types/list-params';
-import {useFindPokemon} from '@/hooks/use-find-pokemon';
-import {useEffect, useState} from 'react';
-import {Header, LoadingSpinner} from '@/components/atom';
 import {FindPokemon, PokemonCardList, Pagination} from '@/components/organism';
+import {Header, LoadingSpinner} from '@/components/atom';
+import {useFindPokemon} from '@/hooks/use-find-pokemon';
+import {IListParams} from '@/types/list-params';
+import {IRegionMap} from '@/types/region-map';
+import {useEffect, useState} from 'react';
+import {IPokemon} from '@/types/pokemon';
 
 interface MainTemplateProps {
   regionMap: IRegionMap;

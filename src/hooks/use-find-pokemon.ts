@@ -1,8 +1,8 @@
 'use client';
 
-import {useEffect} from 'react';
-import {useFinderStore} from '@/store/finder-store';
 import {usePokemonStore} from '@/store/pokemon-store';
+import {useFinderStore} from '@/store/finder-store';
+import {useEffect} from 'react';
 
 export function useFindPokemon() {
   const sortOption = useFinderStore((state) => state.sortOption);

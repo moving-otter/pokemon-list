@@ -7,4 +7,4 @@ type KeyValueMatch<T extends readonly string[]> = {
 export const SERVICE_KEYS = KEYS.reduce((acc, key) => {
   acc[key] = key;
   return acc;
-}, {} as Record<string, string>) as KeyValueMatch<typeof KEYS>;
+}, {} as Record) as KeyValueMatch;

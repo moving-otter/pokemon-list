@@ -318,8 +318,8 @@ File inside `src/pages` will be the webpage route, there are 2 things that need 
 Snippets: `np`
 
 ```tsx
-import * as React from 'react';
 import Seo from '@/components/Seo';
+import * as React from 'react';
 export default function TestPage() {
   return (
     <>
