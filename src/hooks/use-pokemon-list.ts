@@ -37,7 +37,6 @@ export function usePokemonList(listParams: PokemonsListParam) {
         }
 
         return <IPokemon>{
-          key: index,
           name: details?.name,
           number: details?.number,
           height: details?.height,

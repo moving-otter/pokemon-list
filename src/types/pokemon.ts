@@ -1,5 +1,4 @@
-export interface IPokemon {
-  key: number;
+export interface IPokemon {  
   name: string;
   number: number;
   height: number;

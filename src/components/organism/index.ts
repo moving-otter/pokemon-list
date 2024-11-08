@@ -1,6 +1,7 @@
 import Pagination from './pagination';
 import FindPokemon from './find-pokemon';
-import PokemonDetail from './pokemon-detail';
+import PokemonInfo from './pokemon-info';
+import EvolutionChain from './evolution-chain';
 import PokemonCardList from './pokemon-card-list';
 
-export {Pagination, FindPokemon, PokemonDetail, PokemonCardList};
+export {Pagination, FindPokemon, PokemonInfo, EvolutionChain as EvoluationChain, PokemonCardList};

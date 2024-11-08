@@ -1,8 +1,4 @@
-import PokemonCardList from '../organism/pokemon-card-list';
-import FindPokemon from '../organism/find-pokemon';
-import PokemonDetail from '../organism/pokemon-detail';
-import Pagination from '../organism/pagination';
-
 import MainTemplate from './main-template';
+import DetailTemplate from './detail-template';
 
-export {PokemonCardList, FindPokemon, PokemonDetail, Pagination, MainTemplate};
+export {MainTemplate, DetailTemplate};

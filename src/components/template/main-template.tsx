@@ -4,7 +4,7 @@ import {IListParams} from '@/types/list-params';
 import {useFindPokemon} from '@/hooks/use-find-pokemon';
 import {useEffect, useState} from 'react';
 import {Header, LoadingSpinner} from '@/components/atom';
-import {FindPokemon, PokemonCardList, Pagination} from '@/components/template';
+import {FindPokemon, PokemonCardList, Pagination} from '@/components/organism';
 
 interface MainTemplateProps {
   regionMap: IRegionMap;
@@ -41,7 +41,7 @@ export default function MainTemplate(props: MainTemplateProps) {
     }
   }, [pokemonList]);
 
-  const renderCardsTemplate = (pokemonList: IPokemon[]) => {
+  const renderPokemonCardList = (pokemonList: IPokemon[]) => {
     return (
       <PokemonCardList
         {...{
@@ -55,7 +55,7 @@ export default function MainTemplate(props: MainTemplateProps) {
   };
 
   return (
-    <div data-testid="main-page" className="mx-auto flex flex-col h-screen">
+    <div data-testid="main-template" className="mx-auto flex flex-col h-screen">
       <Header hasBorder={false} />
 
       <FindPokemon
@@ -66,13 +66,13 @@ export default function MainTemplate(props: MainTemplateProps) {
       />
 
       {isFindingPokemon ? (
-        <>{renderCardsTemplate(filteredPokemonList)}</>
+        <>{renderPokemonCardList(filteredPokemonList)}</>
       ) : (
         <>
           {isPendingPokemonList || triggerRerender ? (
             <LoadingSpinner />
           ) : (
-            <>{renderCardsTemplate(pokemonList)}</>
+            <>{renderPokemonCardList(pokemonList)}</>
           )}
 
           <Pagination
