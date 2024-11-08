@@ -1,7 +1,7 @@
 'use client';
 
 import {useMemo} from 'react';
-import {IPokemon} from '@/types/pokemon';
+import {Pokemon} from '@/types/pokemon';
 import {PokemonsListParam} from '@/services/pokemon/types';
 import {useQuery, useQueries} from '@tanstack/react-query';
 import {parsedId, validatedId} from '@/utils/data-helper';
@@ -36,7 +36,7 @@ export function usePokemonList(listParams: PokemonsListParam) {
           return null; // 데이터를 아직 받지 못한 경우 null로 처리
         }
 
-        return <IPokemon>{
+        return <Pokemon>{
           name: details?.name,
           number: details?.number,
           height: details?.height,

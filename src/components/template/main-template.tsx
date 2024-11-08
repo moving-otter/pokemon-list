@@ -1,20 +1,20 @@
 import {FindPokemon, PokemonCardList, Pagination} from '@/components/organism';
 import {Header, LoadingSpinner} from '@/components/atom';
 import {useFindPokemon} from '@/hooks/use-find-pokemon';
-import {IListParams} from '@/types/list-params';
-import {IRegionMap} from '@/types/region-map';
+import {ListParams} from '@/types/list-params';
+import {RegionMap} from '@/types/region-map';
 import {useEffect, useState} from 'react';
-import {IPokemon} from '@/types/pokemon';
+import {Pokemon} from '@/types/pokemon';
 
 interface MainTemplateProps {
-  regionMap: IRegionMap;
+  regionMap: RegionMap;
   listParams: any;
   totalCount: number;
-  pokemonList: IPokemon[];
+  pokemonList: Pokemon[];
   isPendingRegionMap: boolean;
   isPendingPokemonList: boolean;
 
-  setListParams: (param: IListParams) => void;
+  setListParams: (param: ListParams) => void;
 }
 
 export default function MainTemplate(props: MainTemplateProps) {
@@ -41,7 +41,7 @@ export default function MainTemplate(props: MainTemplateProps) {
     }
   }, [pokemonList]);
 
-  const renderPokemonCardList = (pokemonList: IPokemon[]) => {
+  const renderPokemonCardList = (pokemonList: Pokemon[]) => {
     return (
       <PokemonCardList
         {...{

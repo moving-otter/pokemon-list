@@ -1,5 +1,5 @@
 import {useRouter} from 'next/router';
-import {IListParams} from '@/types/list-params';
+import {ListParams} from '@/types/list-params';
 import {initialListParams} from '@/utils/constants';
 import {PokemonsListParam} from '@/services/pokemon/types';
 import {useEffect, useState} from 'react';
@@ -11,7 +11,7 @@ interface PaginationProps {
   listParams: PokemonsListParam;
   triggerRerender: boolean;
 
-  setListParams: (param: IListParams) => void;
+  setListParams: (param: ListParams) => void;
 }
 
 export default function Pagination(props: PaginationProps) {

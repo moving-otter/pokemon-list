@@ -1,7 +1,7 @@
-import {IEvolutionChain} from '@/types/evolution-chain';
+import {EvolutionChain} from '@/types/evolution-chain';
 
 interface EvoluationChainProps {
-  evolutionChain: IEvolutionChain;
+  evolutionChain: EvolutionChain;
 }
 
 export default function EvolutionChain(props: EvoluationChainProps) {

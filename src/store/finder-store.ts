@@ -1,16 +1,16 @@
-import {IPokemon} from '@/types/pokemon';
+import {Pokemon} from '@/types/pokemon';
 import {create} from 'zustand';
 
 interface FinderStore {
   sortOption: string;
   searchList: string[];
   singleSearch: string;
-  filteredPokemonList: IPokemon[];
+  filteredPokemonList: Pokemon[];
 
   setSortOption: (param: string) => void;
   setSearchList: (param: string[]) => void;
   setSingleSearch: (param: string) => void;
-  setFilteredPokemonList: (param: IPokemon[]) => void;
+  setFilteredPokemonList: (param: Pokemon[]) => void;
 }
 
 export const useFinderStore = create<FinderStore>((set) => ({

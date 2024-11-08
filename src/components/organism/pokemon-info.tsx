@@ -1,9 +1,9 @@
-import {IPokemon} from '@/types/pokemon';
+import {Pokemon} from '@/types/pokemon';
 import {useRouter} from 'next/router';
 import {TypeLabel} from '@/components/atom';
 
 interface PokemonDetailProps {
-  pokemon: IPokemon;
+  pokemon: Pokemon;
   explanation: string;
 }
 
