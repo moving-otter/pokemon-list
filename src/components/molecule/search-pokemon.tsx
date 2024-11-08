@@ -16,7 +16,7 @@ export default function SearchPokemon() {
     <div
       data-testid="search-pokemon"
       className="flex items-center mb-2 mx-5 relative"
-      style={{width: '380px'}}
+      style={{width: '420px'}}
     >
       <input
         type="text"

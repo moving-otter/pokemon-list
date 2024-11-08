@@ -24,8 +24,8 @@ export default function Pagination(props: PaginationProps) {
 
   const limitOptions = [
     {key: '1', value: limitInitialValue, text: limitInitialValue},
-    {key: '2', value: 50, text: '50'},
-    {key: '3', value: 100, text: '100'},
+    {key: '2', value: 50, text: '100'},
+    {key: '3', value: 100, text: '200'},
     {key: '4', value: totalCount, text: 'All'},
   ];
 

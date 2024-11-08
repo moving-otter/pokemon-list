@@ -24,7 +24,7 @@ export default function ErrorGuide(props: ErrorGuideProps) {
       >
         <h2 className="text-4xl text-red-500">{title}</h2>
 
-        <p className="mb-7 text-xl text-gray-600 px-20">
+        <p className="mt-5 mb-7 text-xl text-gray-600 px-20">
           {/* description이 string인지 Component인지 구분하여 렌더링 */}
           {description}
         </p>
