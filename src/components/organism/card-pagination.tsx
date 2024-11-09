@@ -5,7 +5,7 @@ import {PokemonsListParam} from '@/services/pokemon/types';
 import {useEffect} from 'react';
 import {Dropdown, Pagination} from 'semantic-ui-react';
 
-interface PokemonPaginationProps {
+interface CardPaginationProps {
   totalCount: number;
   totalPages: number;
   listParams: PokemonsListParam;  
@@ -13,7 +13,7 @@ interface PokemonPaginationProps {
   setListParams: (param: ListParamsType) => void;  
 }
 
-export default function PokemonPagination(props: PokemonPaginationProps) {
+export default function CardPagination(props: CardPaginationProps) {
   const {totalCount, totalPages, listParams, setListParams} = props;
   const limitInitialValue = initialListParams.limit; // limit 초기값
   const router = useRouter();    
@@ -61,7 +61,7 @@ export default function PokemonPagination(props: PokemonPaginationProps) {
 
   return (
     <div
-      data-testid="pagination"
+      data-testid="card-pagination"
       className="flex flex-col sm:flex-row justify-between items-center z-10 py-2 relative border-t-2 border-gray-100 bg-gray-50 px-6"
     >
       <div className="flex-grow flex justify-between">      

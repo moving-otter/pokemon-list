@@ -25,12 +25,12 @@
   right: -2px !important;
 }
 
-[data-testid='pagination'] .ui.selection.dropdown {
+[data-testid='card-pagination'] .ui.selection.dropdown {
   min-width: 95px !important;
   min-height: 42px !important;
 }
 
-[data-testid='pagination'] .ui.selection.dropdown i {
+[data-testid='card-pagination'] .ui.selection.dropdown i {
   transform: rotate(180deg) !important;
   margin-right: -12px !important;
   margin-top: -7px !important;

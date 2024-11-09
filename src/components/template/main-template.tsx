@@ -1,4 +1,4 @@
-import {PokemonDiscovery, PokemonCardList, PokemonPagination} from '@/components/organism';
+import {PokemonDiscovery, PokemonCardList, CardPagination} from '@/components/organism';
 import {usePokemonDiscovery} from '@/hooks/use-pokemon-discovery';
 import {Header, LoadingSpinner} from '@/components/atom';
 import {ListParamsType} from '@/types/list-params';
@@ -72,7 +72,7 @@ export default function MainTemplate(props: MainTemplateProps) {
         />
       )}
 
-      <PokemonPagination
+      <CardPagination
         {...{
           listParams,
           totalPages,
