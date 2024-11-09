@@ -5,9 +5,9 @@ interface Species {
 
 interface EvolutionData {
   species: Species;
-  evolves_to: EvolutionChain[];
+  evolves_to: EvolutionChainType[];
 }
 
-export interface EvolutionChain {
+export interface EvolutionChainType {
   chain?: EvolutionData;
 }

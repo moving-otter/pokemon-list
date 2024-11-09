@@ -6,7 +6,7 @@ import {usePokemonStore} from '@/store/pokemon-store';
 import {useEffect, useState} from 'react';
 import {useQuery, useQueries} from '@tanstack/react-query';
 
-// 사용되는 API 목록) 1. ~ 5. 단계로 호출됨
+// 사용되는 API 목록 1. ~ 5. 단계로 호출됨
 import {regionQueryService} from '@/services/region/query';
 import {pokemonQueryService} from '@/services/pokemon/query';
 import {pokedexQueryService} from '@/services/pokedex/query';
@@ -21,12 +21,12 @@ export function useRegionMap() {
     limit: -1,
   };
 
-  // [API] 1. 모든 pokemon 목록 가져오기
+  // #API 1. 모든 pokemon 목록 가져오기
   const {data: pokemonsList, isPending: isPendingList} = useQuery({
     ...pokemonQueryService.getList({...listParams}),
   });
 
-  // [API] 2. 모든 pokemon 상세정보 가져오기
+  // #API 2. 모든 pokemon 상세정보 가져오기
   const getPokemonByIdQueries = useQueries({
     queries:
       pokemonsList?.results.map((pokemon) =>
@@ -34,10 +34,10 @@ export function useRegionMap() {
       ) || [],
   });
 
-  // [API] 3. 모든 region 목록 가져오기
+  // #API 3. 모든 region 목록 가져오기
   const {data: regionsList, isPending: isPendingRegions} = useQuery(regionQueryService.getList());
 
-  // [API] 4. 모든 region 상세정보 가져오기
+  // #API 4. 모든 region 상세정보 가져오기
   const regionByIdQueries = useQueries({
     queries:
       regionsList?.results.map((region) =>
@@ -50,7 +50,7 @@ export function useRegionMap() {
     (query) => query.data?.pokedexes.map((pokedex) => parsedId(pokedex.url)) ?? []
   );
 
-  // 5. [API] 복수개의 pokedex 목록 가져오기
+  // #API 5. 복수개의 pokedex 목록 가져오기
   const pokedexByIdQueries = useQueries({
     queries: pokedexIds.map((id) => pokedexQueryService.getById({id: id ?? undefinedString})) || [],
   });

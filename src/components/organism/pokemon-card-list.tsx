@@ -1,11 +1,11 @@
-import {Pokemon} from '@/types/pokemon';
+import {PokemonType} from '@/types/pokemon';
 import {useRouter} from 'next/router';
 import {PokemonCard} from '@/components/molecule';
 import {EmptyPokemon} from '@/components/atom';
 import {useEffect, useRef} from 'react';
 
 interface PokemonCardListProps {
-  pokemonList: Pokemon[];
+  pokemonList: PokemonType[];
 }
 
 export default function PokemonCardList(props: PokemonCardListProps) {
@@ -46,7 +46,7 @@ export default function PokemonCardList(props: PokemonCardListProps) {
       >
         {hasCard ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-2">
-            {pokemonList?.map((pokemon: Pokemon) => (
+            {pokemonList?.map((pokemon: PokemonType) => (
               <PokemonCard key={pokemon.name} {...pokemon} />
             ))}
           </div>

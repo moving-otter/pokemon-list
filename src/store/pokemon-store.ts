@@ -1,8 +1,8 @@
-import {Pokemon} from '@/types/pokemon';
+import {PokemonType} from '@/types/pokemon';
 import {create} from 'zustand';
 
 interface PokemonStore {
-  allPokemonByIdsList: Pokemon[];
+  allPokemonByIdsList: PokemonType[];
 
   setAllPokemonByIdsList: (param: any[]) => void;
 }

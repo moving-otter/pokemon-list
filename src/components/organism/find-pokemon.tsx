@@ -1,11 +1,11 @@
 import {SearchPokemon, SortPokemon, FilterPokemon} from '@/components/molecule';
 import {isObjectEmpty} from '@/utils/data-helper';
+import {RegionMapType} from '@/types/region-map';
 import {LoadingSlider} from '@/components/atom';
-import {RegionMap} from '@/types/region-map';
 
 interface FindPokemonProps {
   disabled: boolean;
-  regionMap: RegionMap;
+  regionMap: RegionMapType;
 }
 
 export default function FindPokemon(props: FindPokemonProps) {

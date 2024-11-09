@@ -1,23 +1,29 @@
 'use client';
 
+import {PokemonsListParam} from '@/services/pokemon/types';
 import {usePokemonStore} from '@/store/pokemon-store';
 import {useFinderStore} from '@/store/finder-store';
 import {useEffect} from 'react';
 
-export function useFindPokemon() {
+export function useFindPokemon(listParams: PokemonsListParam) {
   const sortOption = useFinderStore((state) => state.sortOption);
   const singleSearch = useFinderStore((state) => state.singleSearch);
   const allPokemonByIdList = usePokemonStore((state) => state.allPokemonByIdsList);
-  const filteredPokemonList = useFinderStore((state) => state.filteredPokemonList);
-  const setFilteredPokemonList = useFinderStore((state) => state.setFilteredPokemonList);
+  const pokemonList = useFinderStore((state) => state.pokemonList);
+  const setPokemonList = useFinderStore((state) => state.setPokemonList);
 
   const isSortInUse = sortOption !== 'asc';
   const isSearchInUse = singleSearch.length > 1;
 
-  // singleSearch 값에 따라 allPokemonByIdList 필터링
+  const getPokemonList = () => {
+    const {page, limit} = listParams;
+    return pokemonList.slice((page - 1) * limit, page * limit);
+  };
+
+  // singleSearch 값에 따라 allPokemonList 필터링
   useEffect(() => {
     if (isSearchInUse) {
-      const newFilteredPokemonByIdList = Object.values(allPokemonByIdList).filter(
+      const newFilteredPokemonList = Object.values(allPokemonByIdList).filter(
         (pokemon) =>
           pokemon.name.toLowerCase().includes(singleSearch.toLowerCase()) ||
           pokemon.number.toString().includes(singleSearch.toLowerCase()) ||
@@ -25,18 +31,18 @@ export function useFindPokemon() {
             type.toLowerCase().includes(singleSearch.toLowerCase())
           )
       );
-      setFilteredPokemonList(newFilteredPokemonByIdList);
+      setPokemonList(newFilteredPokemonList);
     }
-  }, [singleSearch, allPokemonByIdList, setFilteredPokemonList]);
+  }, [singleSearch, allPokemonByIdList, setPokemonList]);
 
-  // sortOption에 따라 filteredPokemonList 정렬
+  // sortOption에 따라 pokemonList 정렬
   useEffect(() => {
     if (isSortInUse) {
       let sortedList = [];
-      if (filteredPokemonList.length === 0) {
+      if (pokemonList.length === 0) {
         sortedList = [...allPokemonByIdList];
       } else {
-        sortedList = [...filteredPokemonList];
+        sortedList = [...pokemonList];
       }
 
       if (sortOption === 'desc') {
@@ -47,14 +53,15 @@ export function useFindPokemon() {
         sortedList.sort((a, b) => b.name.localeCompare(a.name)); // 알파벳 역순 정렬
       }
 
-      setFilteredPokemonList(sortedList);
+      setPokemonList(sortedList);
     }
   }, [sortOption]);
 
   return {
     isFindingPokemon: isSearchInUse || isSortInUse,
     data: {
-      filteredPokemonList,
+      pokemonList: getPokemonList(),
+      totalCount: pokemonList.length ?? 0,
     },
   };
 }

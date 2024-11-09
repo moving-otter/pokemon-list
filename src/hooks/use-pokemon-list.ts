@@ -1,21 +1,21 @@
 'use client';
 
 import {useMemo} from 'react';
-import {Pokemon} from '@/types/pokemon';
+import {PokemonType} from '@/types/pokemon';
 import {PokemonsListParam} from '@/services/pokemon/types';
 import {useQuery, useQueries} from '@tanstack/react-query';
 import {parsedId, validatedId} from '@/utils/data-helper';
 
-// 사용되는 [API] 목록) 1. 2. 단계로 호출됨
+// 사용되는 API 목록) 1. 2. 단계로 호출됨
 import {pokemonQueryService} from '@/services/pokemon/query';
 
 export function usePokemonList(listParams: PokemonsListParam) {
-  // [API] 1. 여러개의 pokemon 목록 가져오기
+  // #API 1. 여러개의 pokemon 목록 가져오기
   const {data: pokemonsList, isPending: isPendingList} = useQuery(
     pokemonQueryService.getList({...listParams})
   );
 
-  // [API] 2. 여러개의 pokemon 상세 정보 가져오기
+  // #API 2. 여러개의 pokemon 상세 정보 가져오기
   const getPokemonByIdQueries = useQueries({
     queries:
       pokemonsList?.results.map((pokemon) =>
@@ -36,7 +36,7 @@ export function usePokemonList(listParams: PokemonsListParam) {
           return null; // 데이터를 아직 받지 못한 경우 null로 처리
         }
 
-        return <Pokemon>{
+        return <PokemonType>{
           name: details?.name,
           number: details?.number,
           height: details?.height,

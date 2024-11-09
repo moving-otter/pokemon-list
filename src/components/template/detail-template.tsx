@@ -1,12 +1,12 @@
 import {PokemonInfo, EvoluationChain} from '@/components/organism';
 import {Footer, Header, LoadingSpinner} from '@/components/atom';
-import {EvolutionChain} from '@/types/evolution-chain';
-import {Pokemon} from '@/types/pokemon';
+import {EvolutionChainType} from '@/types/evolution-chain';
+import {PokemonType} from '@/types/pokemon';
 
 interface DetailTemplateProps {
-  pokemon: Pokemon;
+  pokemon: PokemonType;
   explanation: string;
-  evolutionChain: EvolutionChain;
+  evolutionChain: EvolutionChainType;
   isPendingPokemonDetail: boolean;
 }
 
