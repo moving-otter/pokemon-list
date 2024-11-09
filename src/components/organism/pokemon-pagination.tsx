@@ -2,10 +2,10 @@ import {useRouter} from 'next/router';
 import {ListParamsType} from '@/types/list-params';
 import {initialListParams} from '@/utils/constants';
 import {PokemonsListParam} from '@/services/pokemon/types';
-import {useEffect, useState} from 'react';
-import {Dropdown, Pagination as SemanticPagination} from 'semantic-ui-react';
+import {useEffect} from 'react';
+import {Dropdown, Pagination} from 'semantic-ui-react';
 
-interface PaginationProps {
+interface PokemonPaginationProps {
   totalCount: number;
   totalPages: number;
   listParams: PokemonsListParam;  
@@ -13,11 +13,10 @@ interface PaginationProps {
   setListParams: (param: ListParamsType) => void;  
 }
 
-export default function Pagination(props: PaginationProps) {
+export default function PokemonPagination(props: PokemonPaginationProps) {
   const {totalCount, totalPages, listParams, setListParams} = props;
   const limitInitialValue = initialListParams.limit; // limit 초기값
-  const router = useRouter();
-  const [currentPage, setCurrentPage] = useState(1);  
+  const router = useRouter();    
   const defaultLimitValue = router.query.limit ? Number(router.query.limit) : listParams.limit;
 
   const limitOptions = [
@@ -27,11 +26,11 @@ export default function Pagination(props: PaginationProps) {
     {key: '4', value: totalCount, text: 'All'},
   ];
 
+  // URL에서 가져온 {page, limit} 정보를 현재 페이지와 listParam에 할당
   useEffect(() => {
     const page = Number(router.query.page) || 1;
     const limit = Number(router.query.limit) || limitInitialValue;
-
-    setCurrentPage(page);
+    
     setListParams({
       page,
       limit,
@@ -46,17 +45,14 @@ export default function Pagination(props: PaginationProps) {
   }, [router.query.page, router.query.limit]);
 
   const handlePaginationChange = (e: React.MouseEvent, {activePage}: any) => {
-    const page = Number(activePage);
-    setCurrentPage(page);
-
+    const page = Number(activePage);    
     router.push({
       pathname: router.pathname,
       query: {...router.query, page, limit: listParams.limit || limitInitialValue},
     });
   };
 
-  const handleDropdownChange = (e: any, {value}: {value: number}) => {
-    setCurrentPage(1);
+  const handleDropdownChange = (e: any, {value}: {value: number}) => {    
     router.push({
       pathname: router.pathname,
       query: {...router.query, page: 1, limit: value},
@@ -69,9 +65,9 @@ export default function Pagination(props: PaginationProps) {
       className="flex flex-col sm:flex-row justify-between items-center z-10 py-2 relative border-t-2 border-gray-100 bg-gray-50 px-6"
     >
       <div className="flex-grow flex justify-between">      
-        <SemanticPagination
+        <Pagination
           totalPages={totalPages}
-          activePage={currentPage}
+          activePage={listParams.page}
           onPageChange={handlePaginationChange}
         />     
       </div>

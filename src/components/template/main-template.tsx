@@ -1,4 +1,4 @@
-import {PokemonDiscovery, PokemonCardList, Pagination} from '@/components/organism';
+import {PokemonDiscovery, PokemonCardList, PokemonPagination} from '@/components/organism';
 import {usePokemonDiscovery} from '@/hooks/use-pokemon-discovery';
 import {Header, LoadingSpinner} from '@/components/atom';
 import {ListParamsType} from '@/types/list-params';
@@ -29,6 +29,7 @@ export default function MainTemplate(props: MainTemplateProps) {
     setListParams,
   } = props;
   const [totalPages, setTotalPages] = useState(1);
+  const [triggerRerender, setTriggerRerender] = useState(true);
 
   // 클라이언트 사이드에서 포켓몬 발견하기 (Search, Sort, Filter)
   const {data: PokemonDiscoveryData, isDiscoveringPokemon} = usePokemonDiscovery(listParams);
@@ -47,6 +48,7 @@ export default function MainTemplate(props: MainTemplateProps) {
     if (isDiscoveringPokemon) {
       setTotalPages(Math.ceil(totalCountFromClient / listParams.limit));
     }
+    setTriggerRerender(false);
   }, [pokemonListFromAPI, pokemonListFromClient]);
 
   return (
@@ -60,7 +62,7 @@ export default function MainTemplate(props: MainTemplateProps) {
         }}
       />
 
-      {isPendingPokemonList ? (
+      {isPendingPokemonList || triggerRerender ? (
         <LoadingSpinner />
       ) : (
         <PokemonCardList
@@ -70,7 +72,7 @@ export default function MainTemplate(props: MainTemplateProps) {
         />
       )}
 
-      <Pagination
+      <PokemonPagination
         {...{
           listParams,
           totalPages,
