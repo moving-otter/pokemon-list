@@ -1,3 +1,4 @@
+import {useRouterCore} from '@/hooks/use-router-core';
 import {useFinderStore} from '@/store/finder-store';
 import {useRouter} from 'next/router';
 
@@ -5,13 +6,7 @@ export default function SearchPokemon() {
   const router = useRouter();
   const singleSearch = useFinderStore((state) => state.singleSearch);
   const setSingleSearch = useFinderStore((state) => state.setSingleSearch);
-
-  const initRouterPage = () => {
-    router.push({
-      pathname: router.pathname,
-      query: {...router.query, page: 1},
-    });
-  };
+  const {initRouterPage} = useRouterCore();
 
   const handleInputChange = (event: React.ChangeEvent | any) => {
     setSingleSearch(event.target.value);
@@ -20,7 +15,7 @@ export default function SearchPokemon() {
 
   const handleClearSearch = () => {
     setSingleSearch('');
-    initRouterPage;
+    initRouterPage();
   };
 
   return (
