@@ -1,4 +1,4 @@
-import { useFinderStore } from "@/store/finder-store";
+import { useDiscoveryStore } from "@/store/discovery-store";
 import { HighlightedText } from "@/components/atom";
 
 interface TypeLabelProps {
@@ -7,7 +7,7 @@ interface TypeLabelProps {
 
 export default function TypeLabel(props: TypeLabelProps) {
   const {type} = props;
-  const singleSearch = useFinderStore((state) => state.singleSearch);
+  const singleSearch = useDiscoveryStore((state) => state.singleSearch);
 
   return (
     <div

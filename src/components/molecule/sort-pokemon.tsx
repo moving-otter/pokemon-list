@@ -1,5 +1,5 @@
+import {useDiscoveryStore} from '@/store/discovery-store';
 import {useRouterCore} from '@/hooks/use-router-core';
-import {useFinderStore} from '@/store/finder-store';
 import {Dropdown} from 'semantic-ui-react';
 import {useState} from 'react';
 
@@ -10,7 +10,7 @@ export default function SortPokemon() {
     {key: 'atoz', text: 'From A to Z', value: 'atoz'},
     {key: 'ztoa', text: 'From Z to A', value: 'ztoa'},
   ];
-  const setSortOption = useFinderStore((state) => state.setSortOption);
+  const setSortOption = useDiscoveryStore((state) => state.setSortOption);
   const [selectedOption, setSelectedOption] = useState(options[0].value);
   const {initRouterPage} = useRouterCore();
 

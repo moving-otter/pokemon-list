@@ -1,11 +1,9 @@
+import {useDiscoveryStore} from '@/store/discovery-store';
 import {useRouterCore} from '@/hooks/use-router-core';
-import {useFinderStore} from '@/store/finder-store';
-import {useRouter} from 'next/router';
 
 export default function SearchPokemon() {
-  const router = useRouter();
-  const singleSearch = useFinderStore((state) => state.singleSearch);
-  const setSingleSearch = useFinderStore((state) => state.setSingleSearch);
+  const singleSearch = useDiscoveryStore((state) => state.singleSearch);
+  const setSingleSearch = useDiscoveryStore((state) => state.setSingleSearch);
   const {initRouterPage} = useRouterCore();
 
   const handleInputChange = (event: React.ChangeEvent | any) => {

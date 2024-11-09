@@ -3,12 +3,12 @@ import {isObjectEmpty} from '@/utils/data-helper';
 import {RegionMapType} from '@/types/region-map';
 import {LoadingSlider} from '@/components/atom';
 
-interface FindPokemonProps {
+interface PokemonDiscoveryProps {
   disabled: boolean;
   regionMap: RegionMapType;
 }
 
-export default function FindPokemon(props: FindPokemonProps) {
+export default function PokemonDiscovery(props: PokemonDiscoveryProps) {
   const {disabled, regionMap} = props;
 
   // if (!isObjectEmpty(regionMap)) {
@@ -16,7 +16,7 @@ export default function FindPokemon(props: FindPokemonProps) {
   // }
 
   return (
-    <div data-testid="find-pokemon" className="border-b-2 border-gray-200 bg-gray-50 relative">
+    <div data-testid="pokemon-discovery" className="border-b-2 border-gray-200 bg-gray-50 relative">
       <div
         className={`${
           disabled ? 'opacity-50 pointer-events-none' : ''

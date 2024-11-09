@@ -1,24 +1,19 @@
 'use client';
 
 import {PokemonsListParam} from '@/services/pokemon/types';
+import {useDiscoveryStore} from '@/store/discovery-store';
 import {usePokemonStore} from '@/store/pokemon-store';
-import {useFinderStore} from '@/store/finder-store';
 import {useEffect} from 'react';
 
-export function useFindPokemon(listParams: PokemonsListParam) {
-  const sortOption = useFinderStore((state) => state.sortOption);
-  const singleSearch = useFinderStore((state) => state.singleSearch);
+export function usePokemonDiscovery(listParams: PokemonsListParam) {
+  const sortOption = useDiscoveryStore((state) => state.sortOption);
+  const singleSearch = useDiscoveryStore((state) => state.singleSearch);
   const allPokemonList = usePokemonStore((state) => state.allPokemonByIdsList);
-  const pokemonList = useFinderStore((state) => state.pokemonList);
-  const setPokemonList = useFinderStore((state) => state.setPokemonList);
+  const discoveredPokemonList = useDiscoveryStore((state) => state.discoveredPokemonList);
+  const setDiscoveredPokemonList = useDiscoveryStore((state) => state.setDiscoveredPokemonList);
 
   const isSortInUse = sortOption !== 'asc';
   const isSearchInUse = singleSearch.length > 1;
-
-  const getPokemonList = () => {
-    const {page, limit} = listParams;
-    return pokemonList.slice((page - 1) * limit, page * limit);
-  };
 
   // singleSearch 값에 따라 allPokemonList 필터링
   useEffect(() => {
@@ -31,24 +26,24 @@ export function useFindPokemon(listParams: PokemonsListParam) {
             type.toLowerCase().includes(singleSearch.toLowerCase())
           )
       );
-      setPokemonList(newFilteredPokemonList);
+      setDiscoveredPokemonList(newFilteredPokemonList);
     }
-  }, [singleSearch, allPokemonList, setPokemonList]);
+  }, [singleSearch, allPokemonList, setDiscoveredPokemonList]);
 
-  // sortOption에 따라 pokemonList 정렬
+  // sortOption에 따라 discoveredPokemonList 정렬
   useEffect(() => {
     let sortedList = [];
 
-    if (pokemonList.length > 0 && sortOption === 'asc') {
-      sortedList = [...pokemonList];
+    if (discoveredPokemonList.length > 0 && sortOption === 'asc') {
+      sortedList = [...discoveredPokemonList];
       sortedList.sort((a, b) => a.number - b.number); // 번호순으로 정렬
     }
 
     if (isSortInUse) {
-      if (pokemonList.length === 0) {
+      if (discoveredPokemonList.length === 0) {
         sortedList = [...allPokemonList];
       } else {
-        sortedList = [...pokemonList];
+        sortedList = [...discoveredPokemonList];
       }
 
       if (sortOption === 'desc') {
@@ -60,14 +55,19 @@ export function useFindPokemon(listParams: PokemonsListParam) {
       }
     }
 
-    setPokemonList(sortedList);
+    setDiscoveredPokemonList(sortedList);
   }, [sortOption]);
 
+  const getSlicedList = () => {
+    const {page, limit} = listParams;
+    return discoveredPokemonList.slice((page - 1) * limit, page * limit);
+  };
+
   return {
-    isFindingPokemon: isSearchInUse || isSortInUse,
+    isDiscoveringPokemon: isSearchInUse || isSortInUse,
     data: {
-      pokemonList: getPokemonList(),
-      totalCount: pokemonList.length ?? 0,
+      pokemonList: getSlicedList(),
+      totalCount: discoveredPokemonList.length ?? 0,
     },
   };
 }

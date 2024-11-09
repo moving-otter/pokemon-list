@@ -1,6 +1,6 @@
-import {FindPokemon, PokemonCardList, Pagination} from '@/components/organism';
+import {PokemonDiscovery, PokemonCardList, Pagination} from '@/components/organism';
+import {usePokemonDiscovery} from '@/hooks/use-pokemon-discovery';
 import {Header, LoadingSpinner} from '@/components/atom';
-import {useFindPokemon} from '@/hooks/use-find-pokemon';
 import {ListParamsType} from '@/types/list-params';
 import {RegionMapType} from '@/types/region-map';
 import {PokemonType} from '@/types/pokemon';
@@ -30,32 +30,30 @@ export default function MainTemplate(props: MainTemplateProps) {
   } = props;
   const [totalPages, setTotalPages] = useState(1);
 
-  // 클라이언트 사이드 필터링 (Search, Sort, Filter)
-  const {data: findPokemonData, isFindingPokemon} = useFindPokemon(listParams);
-  const {pokemonList: pokemonListFromClient, totalCount: totalCountFromClient} = findPokemonData;
+  // 클라이언트 사이드에서 포켓몬 발견하기 (Search, Sort, Filter)
+  const {data: PokemonDiscoveryData, isDiscoveringPokemon} = usePokemonDiscovery(listParams);
+  const {pokemonList: pokemonListFromClient, totalCount: totalCountFromClient} =
+    PokemonDiscoveryData;
 
-  const totalCount = isFindingPokemon ? totalCountFromClient : totalCountFromAPI;
-  const pokemonList = isFindingPokemon ? pokemonListFromClient : pokemonListFromAPI;
+  // 포켓몬을 발견하고 있는 경우 클라이언트 사이드의 Filtered Data를 totalCount, pokemonList에 할당
+  const totalCount = isDiscoveringPokemon ? totalCountFromClient : totalCountFromAPI;
+  const pokemonList = isDiscoveringPokemon ? pokemonListFromClient : pokemonListFromAPI;
 
-  // API를 호출한 경우 PokeAPI에서 가져오는 count를 totalCount로 사용
+  // 페이지네이션에 전달할 전체 페이지 개수 계산
   useEffect(() => {
     if (pokemonListFromAPI) {
       setTotalPages(Math.ceil(totalCountFromAPI / listParams.limit));
     }
-  }, [pokemonListFromAPI]);
-
-  // 클라이언트 사이드 필터링인 경우 FilteredList의 전체 개수를 totalCount로 사용
-  useEffect(() => {
-    if (isFindingPokemon) {
+    if (isDiscoveringPokemon) {
       setTotalPages(Math.ceil(totalCountFromClient / listParams.limit));
     }
-  }, [pokemonListFromClient]);
+  }, [pokemonListFromAPI, pokemonListFromClient]);
 
   return (
     <div data-testid="main-template" className="mx-auto flex flex-col h-screen">
       <Header hasBorder={false} />
 
-      <FindPokemon
+      <PokemonDiscovery
         {...{
           regionMap: regionMapFromAPI,
           disabled: isPendingRegionMap,
