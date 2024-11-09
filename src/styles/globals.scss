@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import './semantic-ui.scss';
 
 @keyframes slide-reset {
   0% {
@@ -13,27 +14,6 @@
 
 .animate-slide-reset {
   animation: slide-reset 1.5s ease-in-out infinite;
-}
-
-[data-testid='filter-pokemon'] div .menu {
-  left: revert-layer !important;
-  right: -2px !important;
-}
-
-[data-testid='sort-pokemon'] div .menu {
-  left: revert-layer !important;
-  right: -2px !important;
-}
-
-[data-testid='card-pagination'] .ui.selection.dropdown {
-  min-width: 95px !important;
-  min-height: 42px !important;
-}
-
-[data-testid='card-pagination'] .ui.selection.dropdown i {
-  transform: rotate(180deg) !important;
-  margin-right: -12px !important;
-  margin-top: -7px !important;
 }
 
 /* <pokemon-label-color> */

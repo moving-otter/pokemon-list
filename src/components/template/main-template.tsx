@@ -48,7 +48,7 @@ export default function MainTemplate(props: MainTemplateProps) {
     if (isDiscoveringPokemon) {
       setTotalPages(Math.ceil(totalCountFromClient / listParams.limit));
     }
-    setTriggerRerender(false);
+    setTriggerRerender(false); // 디테일 페이지에서 메인으로 돌아왔을 때 Card List UI 싱크를 맞추기 위한 용도
   }, [pokemonListFromAPI, pokemonListFromClient]);
 
   return (

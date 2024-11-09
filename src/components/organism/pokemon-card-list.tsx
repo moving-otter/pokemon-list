@@ -1,8 +1,8 @@
-import {PokemonType} from '@/types/pokemon';
-import {useRouter} from 'next/router';
 import {PokemonCard} from '@/components/molecule';
 import {EmptyPokemon} from '@/components/atom';
+import {PokemonType} from '@/types/pokemon';
 import {useEffect, useRef} from 'react';
+import {useRouter} from 'next/router';
 
 interface PokemonCardListProps {
   pokemonList: PokemonType[];
@@ -10,8 +10,7 @@ interface PokemonCardListProps {
 
 export default function PokemonCardList(props: PokemonCardListProps) {
   const {pokemonList} = props;
-  const router = useRouter();
-  const hasCard = pokemonList?.length !== 0;
+  const router = useRouter();  
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const saveScrollPosition = () => {
@@ -23,6 +22,7 @@ export default function PokemonCardList(props: PokemonCardListProps) {
   const restoreScrollPosition = () => {
     const savedPosition = sessionStorage.getItem('scrollPosition');
     if (savedPosition && scrollContainerRef.current) {
+
       scrollContainerRef.current.scrollTop = parseInt(savedPosition, 10);
     }
   };
@@ -31,10 +31,7 @@ export default function PokemonCardList(props: PokemonCardListProps) {
   useEffect(() => {
     router.events.on('routeChangeStart', saveScrollPosition);
     restoreScrollPosition();
-
-    return () => {
-      router.events.off('routeChangeStart', saveScrollPosition);
-    };
+    return () => router.events.off('routeChangeStart', saveScrollPosition);
   }, [router]);
 
   return (
@@ -44,14 +41,14 @@ export default function PokemonCardList(props: PokemonCardListProps) {
         data-testid="pokemon-card-list"
         className="flex-grow overflow-y-auto p-4"
       >
-        {hasCard ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-2">
-            {pokemonList?.map((pokemon: PokemonType) => (
-              <PokemonCard key={pokemon.name} {...pokemon} />
-            ))}
-          </div>
+        {pokemonList.length === 0 ? (
+          <EmptyPokemon />          
         ) : (
-          <EmptyPokemon />
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-2">
+            {pokemonList?.map((pokemon: PokemonType) => (              
+              <PokemonCard key={pokemon.name} {...pokemon} />
+            ))}            
+          </div>
         )}
       </div>
     </>

@@ -1,9 +1,9 @@
-import {useRouter} from 'next/router';
-import {ListParamsType} from '@/types/list-params';
-import {initialListParams} from '@/utils/constants';
 import {PokemonsListParam} from '@/services/pokemon/types';
-import {useEffect} from 'react';
 import {Dropdown, Pagination} from 'semantic-ui-react';
+import {initialListParams} from '@/utils/constants';
+import {ListParamsType} from '@/types/list-params';
+import {useRouter} from 'next/router';
+import {useEffect} from 'react';
 
 interface CardPaginationProps {
   totalCount: number;

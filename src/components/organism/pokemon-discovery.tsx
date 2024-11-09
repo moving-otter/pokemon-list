@@ -2,6 +2,7 @@ import {SearchPokemon, SortPokemon, FilterPokemon} from '@/components/molecule';
 import {isObjectEmpty} from '@/utils/data-helper';
 import {RegionMapType} from '@/types/region-map';
 import {LoadingSlider} from '@/components/atom';
+import {useState} from 'react';
 
 interface PokemonDiscoveryProps {
   disabled: boolean;
@@ -10,6 +11,7 @@ interface PokemonDiscoveryProps {
 
 export default function PokemonDiscovery(props: PokemonDiscoveryProps) {
   const {disabled, regionMap} = props;
+  const [refresh, setRefresh] = useState(false);
 
   // if (!isObjectEmpty(regionMap)) {
   //   console.log('check/regionPokemonIdsMap:', regionMap);
@@ -22,7 +24,7 @@ export default function PokemonDiscovery(props: PokemonDiscoveryProps) {
           disabled ? 'opacity-50 pointer-events-none' : ''
         } flex flex-wrap justify-between `}
       >
-        <SearchPokemon />
+        <SearchPokemon {...{setRefresh}} />
         <div className="flex items-center space-x-2 mb-4 md:mt-0">
           <SortPokemon />
 
