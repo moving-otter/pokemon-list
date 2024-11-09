@@ -25,7 +25,7 @@ export default function FilterPokemon() {
   ];
 
   return (
-    <div data-testid="filter-pokemon" className="select-none flex items-center pr-4">
+    <div data-testid="filter-pokemon" className="select-none flex items-center pr-8">
       <div className="flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"

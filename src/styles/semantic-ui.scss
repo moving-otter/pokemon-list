@@ -1,0 +1,20 @@
+[data-testid='filter-pokemon'] div .menu {
+  left: revert-layer !important;
+  right: -2px !important;
+}
+
+[data-testid='sort-pokemon'] div .menu {
+  left: revert-layer !important;
+  right: -2px !important;
+}
+
+[data-testid='card-pagination'] .ui.selection.dropdown {
+  min-width: 95px !important;
+  min-height: 42px !important;
+
+  i {
+    transform: rotate(180deg) !important;
+    margin-right: -12px !important;
+    margin-top: -7px !important;
+  }
+}

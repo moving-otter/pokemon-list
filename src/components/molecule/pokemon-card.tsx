@@ -1,11 +1,11 @@
 import {TypeLabel, HighlightedText} from '@/components/atom';
-import {useFinderStore} from '@/store/finder-store';
+import {useDiscoveryStore} from '@/store/discovery-store';
 import {PokemonType} from '@/types/pokemon';
 import Link from 'next/link';
 
 export default function PokemonCard(props: PokemonType) {
   const {name, number, height, weight, types, imageUrl} = props;
-  const singleSearch = useFinderStore((state) => state.singleSearch);
+  const singleSearch = useDiscoveryStore((state) => state.singleSearch);
 
   return (
     <Link
@@ -42,7 +42,7 @@ export default function PokemonCard(props: PokemonType) {
             )}
           </div>
 
-          <div className="w-2/5 pl-3 pr-1 pt-1 flex flex-col justify-start">
+          <div className="w-2/5 pl-2 pr-1 pt-1 flex flex-col justify-start">
             <div className="text-base font-medium text-gray-700 mb-1">
               {(height / 10).toFixed(1)}m
             </div>

@@ -1,4 +1,4 @@
-import {PokemonInfo, EvoluationChain} from '@/components/organism';
+import {PokemonInfo, EvolutionChain} from '@/components/organism';
 import {Footer, Header, LoadingSpinner} from '@/components/atom';
 import {EvolutionChainType} from '@/types/evolution-chain';
 import {PokemonType} from '@/types/pokemon';
@@ -24,7 +24,7 @@ export default function DetailTemplate(props: DetailTemplateProps) {
           <div className="overflow-auto max-w-7xl mx-auto">
             <PokemonInfo {...{pokemon, explanation, evolutionChain}} />
 
-            {evolutionChain && <EvoluationChain {...{evolutionChain}} />}
+            {evolutionChain && <EvolutionChain {...{evolutionChain}} />}
           </div>
         </div>
       )}

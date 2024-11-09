@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import './semantic-ui.scss';
+
+@keyframes slide-reset {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-slide-reset {
+  animation: slide-reset 1.5s ease-in-out infinite;
+}
+
+/* <pokemon-label-color> */
+.type-fire {
+  background-color: #fca311;
+  color: white;
+}
+.type-water {
+  background-color: #0077b6;
+  color: white;
+}
+.type-grass {
+  background-color: #2a9d8f;
+  color: white;
+}
+.type-electric {
+  background-color: #f9c74f;
+  color: black;
+}
+.type-ice {
+  background-color: #90e0ef;
+  color: black;
+}
+.type-fighting {
+  background-color: #e63946;
+  color: white;
+}
+.type-poison {
+  background-color: #a105ac;
+  color: white;
+}
+.type-ground {
+  background-color: #e9c46a;
+  color: black;
+}
+.type-flying {
+  background-color: #4d4c7d;
+  color: white;
+}
+.type-psychic {
+  background-color: #ff6f61;
+  color: white;
+}
+.type-bug {
+  background-color: #6f9e72;
+  color: white;
+}
+.type-rock {
+  background-color: #8d99ae;
+  color: black;
+}
+.type-ghost {
+  background-color: #6a0572;
+  color: white;
+}
+.type-steel {
+  background-color: #8d99ae;
+  color: black;
+}
+.type-fairy {
+  background-color: #ff8e8e;
+  color: white;
+}
+.type-dark {
+  background-color: #333;
+  color: white;
+}
+.type-normal {
+  background-color: gray;
+  color: white;
+}
+.type-dragon {
+  background-color: green;
+  color: white;
+}
+/* </pokemon-label-color> */
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+.scrollbar-thumb-blue-500 {
+  background-color: #3b82f6; /* Tailwind's blue-500 */
+}
+.scrollbar-track-blue-200 {
+  background-color: #bfdbfe; /* Tailwind's blue-200 */
+}

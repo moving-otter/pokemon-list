@@ -1,26 +1,26 @@
 import {PokemonType} from '@/types/pokemon';
 import {create} from 'zustand';
 
-interface FinderStore {
+interface DiscoveryStore {
   sortOption: string;
   searchList: string[];
   singleSearch: string;
-  pokemonList: PokemonType[];
+  discoveredPokemonList: PokemonType[];
 
   setSortOption: (param: string) => void;
   setSearchList: (param: string[]) => void;
   setSingleSearch: (param: string) => void;
-  setPokemonList: (param: PokemonType[]) => void;
+  setDiscoveredPokemonList: (param: PokemonType[]) => void;
 }
 
-export const useFinderStore = create<FinderStore>((set) => ({
+export const useDiscoveryStore = create<DiscoveryStore>((set) => ({
   sortOption: 'asc', // 'asc' 또는 'desc'
   searchList: [],
   singleSearch: '',
-  pokemonList: [],
+  discoveredPokemonList: [],
 
   setSortOption: (param) => set({sortOption: param}),
   setSearchList: (param) => set({searchList: param}),
   setSingleSearch: (param) => set({singleSearch: param}),
-  setPokemonList: (param) => set({pokemonList: param}),
+  setDiscoveredPokemonList: (param) => set({discoveredPokemonList: param}),
 }));

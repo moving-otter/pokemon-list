@@ -1,7 +1,7 @@
+import PokemonDiscovery from './pokemon-discovery';
 import PokemonCardList from './pokemon-card-list';
+import CardPagination from './card-pagination';
 import EvolutionChain from './evolution-chain';
-import FindPokemon from './find-pokemon';
 import PokemonInfo from './pokemon-info';
-import Pagination from './pagination';
 
-export {Pagination, FindPokemon, PokemonInfo, EvolutionChain as EvoluationChain, PokemonCardList};
+export {CardPagination, PokemonDiscovery, PokemonInfo, EvolutionChain, PokemonCardList};
