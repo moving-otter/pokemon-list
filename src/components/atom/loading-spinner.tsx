@@ -1,5 +1,5 @@
-import {useEffect, useState} from 'react';
 import {Segment, Dimmer, Loader} from 'semantic-ui-react';
+import {useEffect, useState} from 'react';
 
 export default function LoadingSpinner() {
   const [isVisible, setIsVisible] = useState(false);

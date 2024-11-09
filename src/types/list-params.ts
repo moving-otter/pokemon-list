@@ -1,4 +1,4 @@
-export interface IListParams {
+export interface ListParamsType {
   page: number;
   limit: number;
 }

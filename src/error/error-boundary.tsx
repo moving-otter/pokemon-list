@@ -1,5 +1,5 @@
-import {ErrorGuide} from '@/components/unexpected';
 import {useState, useEffect} from 'react';
+import {ErrorGuide} from 'src/error';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;

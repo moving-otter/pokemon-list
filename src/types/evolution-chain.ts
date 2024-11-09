@@ -1,13 +1,13 @@
-interface ISpecies {
+interface Species {
   name: string;
   url: string;
 }
 
-interface IEvolutionData {
-  species: ISpecies;
-  evolves_to: IEvolutionChain[];
+interface EvolutionData {
+  species: Species;
+  evolves_to: EvolutionChainType[];
 }
 
-export interface IEvolutionChain {
-  chain?: IEvolutionData;
+export interface EvolutionChainType {
+  chain?: EvolutionData;
 }

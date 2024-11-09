@@ -1,4 +1,4 @@
-import {ErrorGuide} from '@/components/unexpected';
+import {ErrorGuide} from 'src/error';
 
 export default function Custom404() {
   return (

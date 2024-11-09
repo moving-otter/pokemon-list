@@ -1,6 +1,6 @@
-import axios from 'axios';
-import {pokemonApiBaseUrl} from '@/utils/constants';
 import {regionsListSchema, regionByIdSchema, RegionByIdParams} from './types';
+import {pokemonApiBaseUrl} from '@/utils/constants';
+import axios from 'axios';
 
 /**
  * @method GET

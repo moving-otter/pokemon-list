@@ -1,8 +1,8 @@
 import {queryOptions} from '@tanstack/react-query';
 import {undefinedString} from '@/utils/constants';
-import {evolutionChainKeys} from './keys';
-import {getEvolutionChainById} from './fetch';
 import {EvolutionChainByIdParams} from './types';
+import {getEvolutionChainById} from './fetch';
+import {evolutionChainKeys} from './keys';
 
 export const evolutionChainQueryService = {
   getById: (params: EvolutionChainByIdParams) => {

@@ -1,9 +1,9 @@
-import Link from 'next/link';
-import {IPokemon} from '@/types/pokemon';
-import {useFinderStore} from '@/store/finder-store';
 import {TypeLabel, HighlightedText} from '@/components/atom';
+import {useFinderStore} from '@/store/finder-store';
+import {PokemonType} from '@/types/pokemon';
+import Link from 'next/link';
 
-export default function PokemonCard(props: IPokemon) {
+export default function PokemonCard(props: PokemonType) {
   const {name, number, height, weight, types, imageUrl} = props;
   const singleSearch = useFinderStore((state) => state.singleSearch);
 

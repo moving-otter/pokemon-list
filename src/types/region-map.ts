@@ -1,3 +1,3 @@
-export interface IRegionMap {
+export interface RegionMapType {
   [key: string]: number[] | undefined;
 }

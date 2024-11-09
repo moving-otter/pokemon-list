@@ -1,22 +1,33 @@
 import {useFinderStore} from '@/store/finder-store';
+import {useRouter} from 'next/router';
 
 export default function SearchPokemon() {
+  const router = useRouter();
   const singleSearch = useFinderStore((state) => state.singleSearch);
   const setSingleSearch = useFinderStore((state) => state.setSingleSearch);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const initRouterPage = () => {
+    router.push({
+      pathname: router.pathname,
+      query: {...router.query, page: 1},
+    });
+  };
+
+  const handleInputChange = (event: React.ChangeEvent | any) => {
     setSingleSearch(event.target.value);
+    initRouterPage();
   };
 
   const handleClearSearch = () => {
     setSingleSearch('');
+    initRouterPage;
   };
 
   return (
     <div
       data-testid="search-pokemon"
       className="flex items-center mb-2 mx-5 relative"
-      style={{width: '380px'}}
+      style={{width: '420px'}}
     >
       <input
         type="text"

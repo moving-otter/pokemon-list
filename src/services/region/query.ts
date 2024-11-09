@@ -1,8 +1,8 @@
-import {regionKeys} from './keys';
+import {getRegionsList, getRegionById} from './fetch';
 import {queryOptions} from '@tanstack/react-query';
 import {undefinedString} from '@/utils/constants';
 import {RegionByIdParams} from './types';
-import {getRegionsList, getRegionById} from './fetch';
+import {regionKeys} from './keys';
 
 export const regionQueryService = {
   getList: () => {

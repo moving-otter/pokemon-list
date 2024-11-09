@@ -1,9 +1,9 @@
-import {useState} from 'react';
-import {MainTemplate} from '@/components/template';
-import {useRegionMap} from '@/hooks/use-region-map';
-import {usePokemonList} from '@/hooks/use-pokemon-list';
-import {initialListParams} from '@/utils/constants';
 import {PokemonsListParam} from '@/services/pokemon/types';
+import {usePokemonList} from '@/hooks/use-pokemon-list';
+import {useRegionMap} from '@/hooks/use-region-map';
+import {initialListParams} from '@/utils/constants';
+import {MainTemplate} from '@/components/template';
+import {useState} from 'react';
 
 export default function MainPage() {
   const [listParams, setListParams] = useState<PokemonsListParam>(initialListParams);
