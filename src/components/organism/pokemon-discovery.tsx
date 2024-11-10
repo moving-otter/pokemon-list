@@ -62,6 +62,8 @@ export default function PokemonDiscovery(props: PokemonDiscoveryProps) {
             {...{
               regionMap,
               forceInitialize,
+              discoveredPokemonList,
+              setDiscoveredPokemonList,
             }}
           />
         </div>

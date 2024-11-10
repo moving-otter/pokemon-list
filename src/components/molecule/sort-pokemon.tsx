@@ -11,8 +11,8 @@ interface SortPokemonType {
 export default function SortPokemon(props: SortPokemonType) {
   const {forceInitialize, setSortOption} = props;
   const options = [
-    {key: 'lowest-number', text: 'Lowest Number', value: 'asc'},
-    {key: 'highest-number', text: 'Highest Number', value: 'desc'},
+    {key: 'lowest-number', text: '# Lowest', value: 'asc'},
+    {key: 'highest-number', text: '# Highest', value: 'desc'},
     {key: 'atoz', text: 'From A to Z', value: 'atoz'},
     {key: 'ztoa', text: 'From Z to A', value: 'ztoa'},
   ];
@@ -26,14 +26,14 @@ export default function SortPokemon(props: SortPokemonType) {
     }
   }, [forceInitialize]);
 
-  const handleDropdownChange = (_: any, data: any) => {
-    setSelectedOption(data.value);
-    setSortOption(data.value);
+  const handleDropdownChange = (_: any, {value}: {value: string}) => {
+    setSelectedOption(value);
+    setSortOption(value);
     initRouterPage();
   };
 
   return (
-    <div data-testid="sort-pokemon" className="select-none flex items-center mx-5">
+    <div data-testid="sort-pokemon" className="select-none flex items-center mr-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-6 w-6 text-gray-600 mr-1.5"
@@ -47,7 +47,13 @@ export default function SortPokemon(props: SortPokemonType) {
         <path d="M8 9l4-4 4 4M12 5v14M8 15l4 4 4-4" />
       </svg>
 
-      <Dropdown inline options={options} value={selectedOption} onChange={handleDropdownChange} />
+      <Dropdown
+        data-testid="sort-dropdown"
+        options={options}
+        value={selectedOption}
+        onChange={handleDropdownChange}
+        inline
+      />
     </div>
   );
 }

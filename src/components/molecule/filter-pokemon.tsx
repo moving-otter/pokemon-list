@@ -1,29 +1,50 @@
 import {isObjectEmpty} from '@/utils/data-helper';
 import {RegionMapType} from '@/types/region-map';
+import {PokemonType} from '@/types/pokemon';
 import {Dropdown} from 'semantic-ui-react';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 
 interface FilterPokemonProps {
   regionMap: RegionMapType;
   forceInitialize: boolean;
+  discoveredPokemonList: PokemonType[];
+
+  setDiscoveredPokemonList: (param: PokemonType[]) => void;
 }
 
 export default function FilterPokemon(props: FilterPokemonProps) {
-  const {regionMap, forceInitialize} = props;
-  const options = [
-    {key: '1', text: 'All Regions', value: '1'},
-    {key: '2', text: 'Region1', value: '2'},
-  ];
+  const {
+    regionMap,
+    forceInitialize,
+    discoveredPokemonList,
 
+    setDiscoveredPokemonList,
+  } = props;
+  const options = [
+    {key: 'all', text: 'All Regions', value: 'all'},
+    ...Object.keys(regionMap).map((regionKey) => ({
+      key: regionKey,
+      text: regionKey,
+      value: regionKey,
+    })),
+  ];
+  const [selectedOption, setSelectedOption] = useState(options[0].value);
+
+  // 검색 키워드가 비어졌을 때 Filter Dropdown 초기화
   useEffect(() => {
     if (forceInitialize) {
-      //
+      setSelectedOption(options[0].value);
     }
   }, [forceInitialize]);
 
-  if (!isObjectEmpty(regionMap)) {
-    // console.log('check/regionPokemonIdsMap:', regionMap);
-  }
+  // if (!isObjectEmpty(regionMap)) {
+  //   console.log('check/regionPokemonIdsMap:', regionMap);
+  // }
+
+  const handleDropdownChange = (_: any, {value}: {value: string}) => {
+    console.log('check/discoveredPokemonList', discoveredPokemonList);
+    setSelectedOption(value);
+  };
 
   return (
     <div data-testid="filter-pokemon" className="select-none flex items-center pr-8">
@@ -42,7 +63,13 @@ export default function FilterPokemon(props: FilterPokemonProps) {
         </svg>
       </div>
 
-      <Dropdown inline options={options} defaultValue={options[0].value} />
+      <Dropdown
+        data-testid="filter-dropdown"
+        options={options}
+        value={selectedOption}
+        onChange={handleDropdownChange}
+        inline
+      />
     </div>
   );
 }

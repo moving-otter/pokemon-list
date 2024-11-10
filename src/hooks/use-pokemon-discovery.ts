@@ -14,6 +14,7 @@ export function usePokemonDiscovery(listParams: PokemonsListParam) {
 
   const isSortInUse = sortOption !== 'asc';
   const isSearchInUse = singleSearch.length > 0;
+  const isFilterInUse = false;
 
   // singleSearch 값에 따라 allPokemonList 필터링
   useEffect(() => {
@@ -64,7 +65,7 @@ export function usePokemonDiscovery(listParams: PokemonsListParam) {
   };
 
   return {
-    isDiscoveringPokemon: isSearchInUse || isSortInUse,
+    isDiscoveringPokemon: isSearchInUse || isSortInUse || isFilterInUse,
     data: {
       pokemonList: getSlicedList(),
       totalCount: discoveredPokemonList.length ?? 0,
