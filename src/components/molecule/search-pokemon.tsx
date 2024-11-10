@@ -1,32 +1,24 @@
-import {useDiscoveryStore} from '@/store/discovery-store';
 import {useRouterCore} from '@/hooks/use-router-core';
+import {PokemonType} from '@/types/pokemon';
 
-interface SearchPokemonProps {
-  setRefresh: (param: boolean) => void;
+interface SearchPokemonType {
+  singleSearch: string;
+
+  setSingleSearch: (param: string) => void;
 }
 
-export default function SearchPokemon(props: SearchPokemonProps) {
-  const {setRefresh} = props;
-  const singleSearch = useDiscoveryStore((state) => state.singleSearch);
-  // const setSortOption = useDiscoveryStore((state) => state.setSortOption);
-  const setSingleSearch = useDiscoveryStore((state) => state.setSingleSearch);
+export default function SearchPokemon(props: SearchPokemonType) {
+  const {singleSearch, setSingleSearch} = props;
   const {initRouterPage} = useRouterCore();
-
-  const resetDiscoveryStore = () => {
-    initRouterPage();
-    setRefresh(false);
-    setTimeout(() => setRefresh(true), 100);
-    // setSortOption('asc');
-  };
 
   const handleInputChange = (event: React.ChangeEvent | any) => {
     setSingleSearch(event.target.value);
-    resetDiscoveryStore();
+    initRouterPage();
   };
 
   const handleClearSearch = () => {
     setSingleSearch('');
-    resetDiscoveryStore();
+    initRouterPage();
   };
 
   return (

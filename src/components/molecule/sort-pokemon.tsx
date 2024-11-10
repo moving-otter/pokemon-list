@@ -1,9 +1,15 @@
-import {useDiscoveryStore} from '@/store/discovery-store';
 import {useRouterCore} from '@/hooks/use-router-core';
 import {Dropdown} from 'semantic-ui-react';
 import {useEffect, useState} from 'react';
 
-export default function SortPokemon() {
+interface SortPokemonType {
+  forceInitialize: boolean;
+
+  setSortOption: (param: string) => void;
+}
+
+export default function SortPokemon(props: SortPokemonType) {
+  const {forceInitialize, setSortOption} = props;
   const options = [
     {key: 'lowest-number', text: 'Lowest Number', value: 'asc'},
     {key: 'highest-number', text: 'Highest Number', value: 'desc'},
@@ -11,17 +17,14 @@ export default function SortPokemon() {
     {key: 'ztoa', text: 'From Z to A', value: 'ztoa'},
   ];
   const {initRouterPage} = useRouterCore();
-  const singleSearch = useDiscoveryStore((state) => state.singleSearch);
-  const setSortOption = useDiscoveryStore((state) => state.setSortOption);
   const [selectedOption, setSelectedOption] = useState(options[0].value);
 
-  // 검색키워드가 비어졌을 때 Sort Dropdown 초기화
+  // 검색 키워드가 비어졌을 때 Sort Dropdown 초기화
   useEffect(() => {
-    if (singleSearch === '') {
+    if (forceInitialize) {
       setSelectedOption(options[0].value);
-      setSortOption('asc');
     }
-  }, [singleSearch]);
+  }, [forceInitialize]);
 
   const handleDropdownChange = (_: any, data: any) => {
     setSelectedOption(data.value);

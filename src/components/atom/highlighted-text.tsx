@@ -18,7 +18,7 @@ export default function HighlightedText(props: HighlightedTextProps) {
       return {
         fontWeight: 900,
         textDecoration: 'underline',
-        textDecorationThickness: '0.20em', // 텍스트 크기에 비례하는 underline 두께
+        textDecorationThickness: '0.17em', // 텍스트 크기에 비례하는 underline 두께
       };
     } else {
       return {

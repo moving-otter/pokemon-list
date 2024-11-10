@@ -29,7 +29,7 @@ export default function MainTemplate(props: MainTemplateProps) {
     setListParams,
   } = props;
   const [totalPages, setTotalPages] = useState(1);
-  const [triggerRerender, setTriggerRerender] = useState(true);
+  const [forceRerender, setForceRerender] = useState(true);
 
   // 클라이언트 사이드에서 포켓몬 발견하기 (Search, Sort, Filter)
   const {data: PokemonDiscoveryData, isDiscoveringPokemon} = usePokemonDiscovery(listParams);
@@ -48,7 +48,7 @@ export default function MainTemplate(props: MainTemplateProps) {
     if (isDiscoveringPokemon) {
       setTotalPages(Math.ceil(totalCountFromClient / listParams.limit));
     }
-    setTriggerRerender(false); // 디테일 페이지에서 메인으로 돌아왔을 때 Card List UI 싱크를 맞추기 위한 용도
+    setForceRerender(false); // 디테일 페이지에서 메인으로 돌아왔을 때 Card List UI 싱크를 맞추기 위한 용도
   }, [pokemonListFromAPI, pokemonListFromClient]);
 
   return (
@@ -62,7 +62,7 @@ export default function MainTemplate(props: MainTemplateProps) {
         }}
       />
 
-      {isPendingPokemonList || triggerRerender ? (
+      {isPendingPokemonList || forceRerender ? (
         <LoadingSpinner />
       ) : (
         <PokemonCardList

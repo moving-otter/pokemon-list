@@ -1,28 +1,29 @@
+import {isObjectEmpty} from '@/utils/data-helper';
+import {RegionMapType} from '@/types/region-map';
 import {Dropdown} from 'semantic-ui-react';
+import {useEffect} from 'react';
 
-export default function FilterPokemon() {
+interface FilterPokemonProps {
+  regionMap: RegionMapType;
+  forceInitialize: boolean;
+}
+
+export default function FilterPokemon(props: FilterPokemonProps) {
+  const {regionMap, forceInitialize} = props;
   const options = [
-    {
-      key: 'All Regions',
-      text: 'All Regions',
-      value: 'All Regions',
-    },
-    {
-      key: 'Region1',
-      text: 'Region1',
-      value: 'Region1',
-    },
-    {
-      key: 'Region2',
-      text: 'Region2',
-      value: 'Region2',
-    },
-    {
-      key: 'Region3',
-      text: 'Region3',
-      value: 'Region3',
-    },
+    {key: '1', text: 'All Regions', value: '1'},
+    {key: '2', text: 'Region1', value: '2'},
   ];
+
+  useEffect(() => {
+    if (forceInitialize) {
+      //
+    }
+  }, [forceInitialize]);
+
+  if (!isObjectEmpty(regionMap)) {
+    // console.log('check/regionPokemonIdsMap:', regionMap);
+  }
 
   return (
     <div data-testid="filter-pokemon" className="select-none flex items-center pr-8">

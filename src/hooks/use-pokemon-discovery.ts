@@ -13,7 +13,7 @@ export function usePokemonDiscovery(listParams: PokemonsListParam) {
   const setDiscoveredPokemonList = useDiscoveryStore((state) => state.setDiscoveredPokemonList);
 
   const isSortInUse = sortOption !== 'asc';
-  const isSearchInUse = singleSearch.length > 1;
+  const isSearchInUse = singleSearch.length > 0;
 
   // singleSearch 값에 따라 allPokemonList 필터링
   useEffect(() => {
