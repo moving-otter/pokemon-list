@@ -1,5 +1,8 @@
-import {isMockMode} from './helper';
 import axios from 'axios';
+
+export function isMockMode() {
+  return process.env.MOCK_ENV === 'mock';
+}
 
 const pokeApiClient = axios.create({
   baseURL: 'https://pokeapi.co/api/v2', // 실제 API 기본 URL
@@ -15,7 +18,8 @@ async function getMockData(filePath: string) {
 export async function getData(url: string) {
   let data: object;
 
-  if (isMockMode()) {
+  // if (isMockMode()) {
+  if (process.env.MOCK_ENV === 'mock') {
     const splitted = url?.split('/');
     let path = splitted[1] ?? '';
 

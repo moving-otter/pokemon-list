@@ -26,10 +26,3 @@ export function isObjectEmpty(param: object) {
   return Object.keys(param).length === 0;
 }
 
-export function isMockMode() {
-  return process.env.MOCK_ENV === 'mock';
-}
-
-export async function getMockData(moduleName: string) {
-  return await import(`@/__mocks__/${moduleName}.json`);
-}

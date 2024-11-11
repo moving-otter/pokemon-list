@@ -1,5 +1,6 @@
 import {PokemonDiscovery, PokemonCardList, CardPagination} from '@/components/organism';
 import {usePokemonDiscovery} from '@/hooks/use-pokemon-discovery';
+import {PokemonsListParam} from '@/services/pokemon/types';
 import {Header, LoadingSpinner} from '@/components/atom';
 import {usePokemonStore} from '@/store/pokemon-store';
 import {ListParamsType} from '@/types/list-params';
@@ -9,7 +10,7 @@ import {useEffect, useState} from 'react';
 
 interface MainTemplateProps {
   regionMap: RegionMapType;
-  listParams: ListParamsType;
+  listParams: PokemonsListParam;
   totalCount: number;
   pokemonList: PokemonType[];
   allPokemonList: PokemonType[];
