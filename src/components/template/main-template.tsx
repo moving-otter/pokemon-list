@@ -1,6 +1,7 @@
 import {PokemonDiscovery, PokemonCardList, CardPagination} from '@/components/organism';
 import {usePokemonDiscovery} from '@/hooks/use-pokemon-discovery';
 import {Header, LoadingSpinner} from '@/components/atom';
+import {usePokemonStore} from '@/store/pokemon-store';
 import {ListParamsType} from '@/types/list-params';
 import {RegionMapType} from '@/types/region-map';
 import {PokemonType} from '@/types/pokemon';
@@ -8,11 +9,13 @@ import {useEffect, useState} from 'react';
 
 interface MainTemplateProps {
   regionMap: RegionMapType;
-  listParams: any;
+  listParams: ListParamsType;
   totalCount: number;
   pokemonList: PokemonType[];
+  allPokemonList: PokemonType[];
   isPendingRegionMap: boolean;
   isPendingPokemonList: boolean;
+  isPendingAllPokemonList: boolean;
 
   setListParams: (param: ListParamsType) => void;
 }
@@ -22,14 +25,17 @@ export default function MainTemplate(props: MainTemplateProps) {
     listParams,
     isPendingRegionMap,
     isPendingPokemonList,
+    isPendingAllPokemonList,
     regionMap: regionMapFromAPI,
     totalCount: totalCountFromAPI,
     pokemonList: pokemonListFromAPI,
+    allPokemonList: allPokemonListFromAPI,
 
     setListParams,
   } = props;
   const [totalPages, setTotalPages] = useState(1);
-  const [triggerRerender, setTriggerRerender] = useState(true);
+  const [forceRerender, setForceRerender] = useState(true);
+  const setAllPokemonList = usePokemonStore((state) => state.setAllPokemonList);
 
   // 클라이언트 사이드에서 포켓몬 발견하기 (Search, Sort, Filter)
   const {data: PokemonDiscoveryData, isDiscoveringPokemon} = usePokemonDiscovery(listParams);
@@ -48,8 +54,15 @@ export default function MainTemplate(props: MainTemplateProps) {
     if (isDiscoveringPokemon) {
       setTotalPages(Math.ceil(totalCountFromClient / listParams.limit));
     }
-    setTriggerRerender(false); // 디테일 페이지에서 메인으로 돌아왔을 때 Card List UI 싱크를 맞추기 위한 용도
+    setForceRerender(false); // 디테일 페이지에서 메인으로 돌아왔을 때 Card List UI 싱크를 맞추기 위한 용도
   }, [pokemonListFromAPI, pokemonListFromClient]);
+
+  // 전체 포켓몬 정보를 PokemonStore에 저장. Search, Sort, Filter에 활용됨
+  useEffect(() => {
+    if (!isPendingPokemonList) {
+      setAllPokemonList(allPokemonListFromAPI);
+    }
+  }, [isPendingAllPokemonList]);
 
   return (
     <div data-testid="main-template" className="mx-auto flex flex-col h-screen">
@@ -58,11 +71,11 @@ export default function MainTemplate(props: MainTemplateProps) {
       <PokemonDiscovery
         {...{
           regionMap: regionMapFromAPI,
-          disabled: isPendingRegionMap,
+          disabled: isPendingRegionMap || isPendingAllPokemonList,
         }}
       />
 
-      {isPendingPokemonList || triggerRerender ? (
+      {isPendingPokemonList || forceRerender ? (
         <LoadingSpinner />
       ) : (
         <PokemonCardList

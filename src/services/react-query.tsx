@@ -1,8 +1,8 @@
 'use client';
 
-import {transformApiError} from '@/utils/error-helper';
-import {zodValidationError} from '@/utils/constants';
 import {QueryCache, QueryClient, QueryClientConfig} from '@tanstack/react-query';
+import {zodValidationError} from '@/utils/constants';
+import {transformApiError} from '@/utils/helper';
 
 export const queryConfig: QueryClientConfig = {
   defaultOptions: {

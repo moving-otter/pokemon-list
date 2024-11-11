@@ -1,28 +1,41 @@
+import {RegionMapType} from '@/types/region-map';
+import {PokemonType} from '@/types/pokemon';
 import {Dropdown} from 'semantic-ui-react';
+import {useEffect, useState} from 'react';
 
-export default function FilterPokemon() {
+interface FilterPokemonProps {
+  regionMap: RegionMapType;
+  forceInitialize: boolean;
+  discoveredPokemonList: PokemonType[];
+
+  setDiscoveredPokemonList: (param: PokemonType[]) => void;
+}
+
+export default function FilterPokemon(props: FilterPokemonProps) {
+  const {regionMap, forceInitialize, discoveredPokemonList, setDiscoveredPokemonList} = props;
   const options = [
-    {
-      key: 'All Regions',
-      text: 'All Regions',
-      value: 'All Regions',
-    },
-    {
-      key: 'Region1',
-      text: 'Region1',
-      value: 'Region1',
-    },
-    {
-      key: 'Region2',
-      text: 'Region2',
-      value: 'Region2',
-    },
-    {
-      key: 'Region3',
-      text: 'Region3',
-      value: 'Region3',
-    },
+    {key: 'all', text: 'All Regions', value: 'all'},
+    ...Object.keys(regionMap).map((regionKey) => ({
+      key: regionKey,
+      text: regionKey,
+      value: regionKey,
+    })),
   ];
+  const [selectedOption, setSelectedOption] = useState(options[0].value);
+
+  // 검색 키워드가 비어졌을 때 Filter Dropdown 초기화
+  useEffect(() => {
+    if (forceInitialize) {
+      setSelectedOption(options[0].value);
+    }
+  }, [forceInitialize]);
+
+  // console.log('check/regionMap:', regionMap);
+
+  const handleDropdownChange = (_: any, {value}: {value: string}) => {
+    // console.log('check/discoveredPokemonList', discoveredPokemonList);
+    setSelectedOption(value);
+  };
 
   return (
     <div data-testid="filter-pokemon" className="select-none flex items-center pr-8">
@@ -41,7 +54,13 @@ export default function FilterPokemon() {
         </svg>
       </div>
 
-      <Dropdown inline options={options} defaultValue={options[0].value} />
+      <Dropdown
+        data-testid="filter-dropdown"
+        options={options}
+        value={selectedOption}
+        onChange={handleDropdownChange}
+        inline
+      />
     </div>
   );
 }

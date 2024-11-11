@@ -1,4 +1,4 @@
-import {apiRequestFailed404, zodValidationError} from '@/utils/constants';
+import {apiRequestFailed404, networkError, zodValidationError} from '@/utils/constants';
 import {ErrorGuide} from 'src/error';
 
 interface QueryErrorProps {
@@ -29,11 +29,20 @@ export default function QueryError(props: QueryErrorProps) {
           <ErrorGuide
             title={apiRequestFailed404}
             // 간단한 형식의 String도 전달 가능
-            description={`Did you edit the URL yourself...? If so, please select the card on the main page.`}
+            description={'Did you edit the URL yourself...? If so, please select the card on the main page.'}
           />
         );
+      case networkError:
+        return (
+          <ErrorGuide title={networkError} description={'Please check your internet connection.'} />
+        );
       default:
-        return <></>;
+        return (
+          <ErrorGuide
+            title={'Unexpected Error'}
+            description={'Error has occurred from an unexpected side.'}
+          />
+        );
     }
   };
 

@@ -11,8 +11,13 @@ export default function MainPage() {
   // PokeAPI에서 데이터 가져오기
   const {data: regionMapData, isPending: isPendingRegionMap} = useRegionMap();
   const {data: pokemonListData, isPending: isPendingPokemonList} = usePokemonList(listParams);
+  const {data: allPokemonListData, isPending: isPendingAllPokemonList} = usePokemonList({
+    page: 1,
+    limit: -1,
+  });
   const {regionMap} = regionMapData;
   const {pokemonList, totalCount} = pokemonListData;
+  const {pokemonList: allPokemonList} = allPokemonListData;
 
   return (
     <MainTemplate
@@ -21,8 +26,11 @@ export default function MainPage() {
         listParams,
         totalCount,
         pokemonList,
+        allPokemonList,
         isPendingRegionMap,
         isPendingPokemonList,
+        isPendingAllPokemonList,
+
         setListParams,
       }}
     />

@@ -1,10 +1,10 @@
 'use client';
 
-import {useMemo} from 'react';
-import {PokemonType} from '@/types/pokemon';
 import {PokemonsListParam} from '@/services/pokemon/types';
 import {useQuery, useQueries} from '@tanstack/react-query';
-import {parsedId, validatedId} from '@/utils/data-helper';
+import {parsedId, validatedId} from '@/utils/helper';
+import {PokemonType} from '@/types/pokemon';
+import {useMemo} from 'react';
 
 // 사용되는 API 목록) 1. 2. 단계로 호출됨
 import {pokemonQueryService} from '@/services/pokemon/query';

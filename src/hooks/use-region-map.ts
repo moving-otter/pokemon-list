@@ -1,43 +1,22 @@
 'use client';
 
-import {parsedId} from '@/utils/data-helper';
-import {undefinedString} from '@/utils/constants';
-import {usePokemonStore} from '@/store/pokemon-store';
-import {useEffect, useState} from 'react';
 import {useQuery, useQueries} from '@tanstack/react-query';
+import {isObjectEmpty, parsedId} from '@/utils/helper';
+import {undefinedString} from '@/utils/constants';
+import {useEffect, useState} from 'react';
 
-// 사용되는 API 목록 1. ~ 5. 단계로 호출됨
-import {regionQueryService} from '@/services/region/query';
-import {pokemonQueryService} from '@/services/pokemon/query';
+// 사용되는 API 목록 1. ~ 3. 단계로 호출됨
 import {pokedexQueryService} from '@/services/pokedex/query';
+import {regionQueryService} from '@/services/region/query';
 
 export function useRegionMap() {
-  const setAllPokemonByIdsList = usePokemonStore((state) => state.setAllPokemonByIdsList);
   // HashMap을 생성하여 지역별 포켓몬 ID 저장
   const [regionPokemonIdsMap, setRegionPokemonIdsMap] = useState<Record<string, number[]>>({});
 
-  const listParams = {
-    page: 1,
-    limit: -1,
-  };
-
-  // #API 1. 모든 pokemon 목록 가져오기
-  const {data: pokemonsList, isPending: isPendingList} = useQuery({
-    ...pokemonQueryService.getList({...listParams}),
-  });
-
-  // #API 2. 모든 pokemon 상세정보 가져오기
-  const getPokemonByIdQueries = useQueries({
-    queries:
-      pokemonsList?.results.map((pokemon) =>
-        pokemonQueryService.getById({id: parsedId(pokemon.url)})
-      ) || [],
-  });
-
-  // #API 3. 모든 region 목록 가져오기
+  // #API 1. 모든 region 목록 가져오기
   const {data: regionsList, isPending: isPendingRegions} = useQuery(regionQueryService.getList());
 
-  // #API 4. 모든 region 상세정보 가져오기
+  // #API 2. 모든 region 상세정보 가져오기
   const regionByIdQueries = useQueries({
     queries:
       regionsList?.results.map((region) =>
@@ -50,28 +29,16 @@ export function useRegionMap() {
     (query) => query.data?.pokedexes.map((pokedex) => parsedId(pokedex.url)) ?? []
   );
 
-  // #API 5. 복수개의 pokedex 목록 가져오기
+  // #API 3. 복수개의 pokedex 목록 가져오기
   const pokedexByIdQueries = useQueries({
     queries: pokedexIds.map((id) => pokedexQueryService.getById({id: id ?? undefinedString})) || [],
   });
 
-  // 2, 4, 5번 useQueries 성공 여부 확인
-  const allPokemonByIdQueriesSuccessful = getPokemonByIdQueries.every((query) => query.isSuccess);
+  // 2, 3번 useQueries 성공 여부 확인
   const allRegionByIdQueriesSuccessful = regionByIdQueries.every((query) => query.isSuccess);
   const allPokedexByIdQueriesSuccessful = pokedexByIdQueries.every((query) => query.isSuccess);
 
-  // 2번 성공 이후에 store에 pokemonByIdsList 세팅
-  useEffect(() => {
-    if (allPokemonByIdQueriesSuccessful) {
-      const pokemonByIdsList = getPokemonByIdQueries
-        .map((query) => query.data)
-        .filter((data) => data); // 유효한 데이터만 필터링
-
-      setAllPokemonByIdsList(pokemonByIdsList);
-    }
-  }, [allPokemonByIdQueriesSuccessful]);
-
-  // 4, 5번 성공 이후에 regionPokemonIdsMap 세팅
+  // 2, 3번 성공 이후에 regionPokemonIdsMap 세팅
   useEffect(() => {
     if (allPokedexByIdQueriesSuccessful && allRegionByIdQueriesSuccessful) {
       regionByIdQueries.forEach((regionQuery, index) => {
@@ -93,7 +60,6 @@ export function useRegionMap() {
   }, [
     regionsList,
     pokedexByIdQueries,
-    allPokemonByIdQueriesSuccessful,
     allRegionByIdQueriesSuccessful,
     allPokedexByIdQueriesSuccessful,
   ]);
@@ -103,10 +69,9 @@ export function useRegionMap() {
       regionMap: regionPokemonIdsMap,
     },
     isPending:
-      isPendingList ||
       isPendingRegions ||
-      !allPokemonByIdQueriesSuccessful ||
       !allRegionByIdQueriesSuccessful ||
-      !allPokedexByIdQueriesSuccessful,
+      !allPokedexByIdQueriesSuccessful ||
+      isObjectEmpty(regionPokemonIdsMap ?? {}),
   };
 }

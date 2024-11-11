@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
@@ -39,6 +41,12 @@ const nextConfig = {
           titleProp: true,
         },
       }
+    );
+
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        'process.env.MOCK_ENV': JSON.stringify(process.env.MOCK_ENV || 'development'),
+      })
     );
 
     // Modify the file loader rule to ignore *.svg, since we have it handled now.
