@@ -1,7 +1,5 @@
 import {evolutionChainByIdSchema, EvolutionChainByIdParams} from './types';
-import {getMockData, isMockMode} from '@/utils/helper';
-import {pokemonApiBaseUrl} from '@/utils/constants';
-import axios from 'axios';
+import {getData} from '@/utils/poke-api-client';
 
 /**
  * @method GET
@@ -9,16 +7,8 @@ import axios from 'axios';
  * @param {EvolutionChainByIdParams} params 진화 ID를 포함하는 매개변수
  */
 export async function getEvolutionChainById(params: EvolutionChainByIdParams) {
-  let data: object;
-
-  if (isMockMode()) {
-    await new Promise((resolve) => setTimeout(resolve, 100));
-    await getMockData('evolution-chain/get-evolution-chain-id').then((obj) => (data = obj));
-  } else {
-    const {id} = params;
-    const response = await axios.get(`${pokemonApiBaseUrl}/evolution-chain/${id}`);
-    data = response.data;
-  }
+  const {id} = params;
+  const data = await getData(`/evolution-chain/${id}`);
 
   return evolutionChainByIdSchema.parse(data); // 도감 데이터 유효성 검사
 }

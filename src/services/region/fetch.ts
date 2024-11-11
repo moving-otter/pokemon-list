@@ -1,22 +1,12 @@
 import {regionsListSchema, regionByIdSchema, RegionByIdParams} from './types';
-import {getMockData, isMockMode} from '@/utils/helper';
-import {pokemonApiBaseUrl} from '@/utils/constants';
-import axios from 'axios';
+import {getData} from '@/utils/poke-api-client';
 
 /**
  * @method GET
  * @description 지역정보를 가져오는 API.
  */
 export async function getRegionsList() {
-  let data: object;
-
-  if (isMockMode()) {
-    await new Promise((resolve) => setTimeout(resolve, 0));
-    await getMockData('region/get-region').then((json) => (data = json));
-  } else {
-    const response = await axios.get(`${pokemonApiBaseUrl}/region`);
-    data = response.data;
-  }
+  const data = await getData(`/region`);
 
   return regionsListSchema.parse(data);
 }
@@ -27,16 +17,8 @@ export async function getRegionsList() {
  * @param {RegionByIdParams} params 지역 ID를 포함하는 매개변수
  */
 export async function getRegionById(params: RegionByIdParams) {
-  let data: object;
-
-  if (isMockMode()) {
-    await new Promise((resolve) => setTimeout(resolve, 0));
-    await getMockData('region/get-region-id').then((json) => (data = json));
-  } else {
-    const {id} = params;
-    const response = await axios.get(`${pokemonApiBaseUrl}/region/${id}`);
-    data = response.data;
-  }
+  const {id} = params;
+  const data = await getData(`/region/${id}`);
 
   return regionByIdSchema.parse(data);
 }

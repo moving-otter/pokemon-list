@@ -21,7 +21,7 @@ export const regionByIdParamsSchema = z.object({
   id: z.string(),
 });
 
-export type RegionsListSchema = z.infer;
+export type RegionsListSchema = z.infer<typeof regionsListSchema>;
 
-export type RegionByIdSchema = z.infer;
-export type RegionByIdParams = z.infer;
+export type RegionByIdSchema = z.infer<typeof regionByIdSchema>;
+export type RegionByIdParams = z.infer<typeof regionByIdParamsSchema>;

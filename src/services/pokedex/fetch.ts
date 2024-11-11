@@ -1,7 +1,5 @@
 import {pokedexByIdSchema, PokedexByIdParams} from './types';
-import {isMockMode, getMockData} from '@/utils/helper';
-import {pokemonApiBaseUrl} from '@/utils/constants';
-import axios from 'axios';
+import {getData} from '@/utils/poke-api-client';
 
 /**
  * @method GET
@@ -9,16 +7,8 @@ import axios from 'axios';
  * @param {PokedexByIdParams} params 도감 ID를 포함하는 매개변수
  */
 export async function getPokedexById(params: PokedexByIdParams) {
-  let data: object;
-
-  if (isMockMode()) {
-    await new Promise((resolve) => setTimeout(resolve, 0));
-    await getMockData('pokedex/get-pokedex-id').then((json) => (data = json));
-  } else {
-    const {id} = params;
-    const response = await axios.get(`${pokemonApiBaseUrl}/pokedex/${id}`);
-    data = response.data;
-  }
+  const {id} = params;
+  const data = await getData(`/pokedex/${id}`);
 
   return pokedexByIdSchema.parse(data); // 도감 데이터 유효성 검사
 }

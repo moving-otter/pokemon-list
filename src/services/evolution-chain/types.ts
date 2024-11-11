@@ -18,5 +18,5 @@ export const evolutionChainByIdParamSchema = z.object({
   id: z.string(),
 });
 
-export type EvolutionChainByIdSchema = z.infer;
-export type EvolutionChainByIdParams = z.infer;
+export type EvolutionChainByIdSchema = z.infer<typeof evolutionChainByIdSchema>;
+export type EvolutionChainByIdParams = z.infer<typeof evolutionChainByIdParamSchema>;
