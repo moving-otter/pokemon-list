@@ -16,10 +16,6 @@ export default function App({Component, pageProps}: AppProps) {
     return <QueryError {...{errorMessage}} />;
   }
 
-  if (process.env.MOCK_ENV === 'mock') {
-    console.log('check/mock mode!');
-  }
-
   return (
     <QueryClientProvider client={csrClient}>
       <NextHead>

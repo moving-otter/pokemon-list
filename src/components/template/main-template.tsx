@@ -9,7 +9,7 @@ import {useEffect, useState} from 'react';
 
 interface MainTemplateProps {
   regionMap: RegionMapType;
-  listParams: any;
+  listParams: ListParamsType;
   totalCount: number;
   pokemonList: PokemonType[];
   allPokemonList: PokemonType[];

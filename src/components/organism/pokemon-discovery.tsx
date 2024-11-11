@@ -1,8 +1,8 @@
 import {SearchPokemon, SortPokemon, FilterPokemon} from '@/components/molecule';
 import {LoadingSlider, DiscoveredCount} from '@/components/atom';
 import {useDiscoveryStore} from '@/store/discovery-store';
-import {isObjectEmpty} from '@/utils/data-helper';
 import {RegionMapType} from '@/types/region-map';
+import {isObjectEmpty} from '@/utils/helper';
 import {useEffect} from 'react';
 
 interface PokemonDiscoveryProps {

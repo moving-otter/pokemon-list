@@ -3,7 +3,7 @@
 import {useEffect, useState, useMemo} from 'react';
 import {undefinedString} from '@/utils/constants';
 import {useQuery} from '@tanstack/react-query';
-import {parsedId} from '@/utils/data-helper';
+import {parsedId} from '@/utils/helper';
 
 // 사용되는 API 목록 1. ~ 3. 단계로 호출됨
 import {pokemonSpeciesQueryService} from '@/services/pokemon-species/query';

@@ -1,7 +1,7 @@
 'use client';
 
-import {isObjectEmpty, parsedId} from '@/utils/data-helper';
 import {useQuery, useQueries} from '@tanstack/react-query';
+import {isObjectEmpty, parsedId} from '@/utils/helper';
 import {undefinedString} from '@/utils/constants';
 import {useEffect, useState} from 'react';
 

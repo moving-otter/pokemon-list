@@ -1,4 +1,5 @@
 import {pokemonSpeciesByIdSchema, PokemonSpeciesByIdParams} from './types';
+import {isMockMode, getMockData} from '@/utils/helper';
 import {pokemonApiBaseUrl} from '@/utils/constants';
 import axios from 'axios';
 
@@ -8,8 +9,16 @@ import axios from 'axios';
  * @param {PokemonSpeciesByIdParams} params 지역 ID를 포함하는 매개변수
  */
 export async function getPokemonSpeciesById(params: PokemonSpeciesByIdParams) {
-  const {id} = params;
-  const response = await axios.get(`${pokemonApiBaseUrl}/pokemon-species/${id}`);
+  let data: object;
 
-  return pokemonSpeciesByIdSchema.parse(response.data);
+  if (isMockMode()) {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    await getMockData('pokemon-species/get-pokemon-species-id').then((json) => (data = json));
+  } else {
+    const {id} = params;
+    const response = await axios.get(`${pokemonApiBaseUrl}/pokemon-species/${id}`);
+    data = response.data;
+  }
+
+  return pokemonSpeciesByIdSchema.parse(data);
 }
