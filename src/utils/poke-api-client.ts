@@ -1,9 +1,5 @@
 import axios from 'axios';
 
-export function isMockMode() {
-  return process.env.MOCK_ENV === 'mock';
-}
-
 const pokeApiClient = axios.create({
   baseURL: 'https://pokeapi.co/api/v2', // 실제 API 기본 URL
   timeout: 10000, // 10초 후에 타임아웃
@@ -18,7 +14,6 @@ async function getMockData(filePath: string) {
 export async function getData(url: string) {
   let data: object;
 
-  // if (isMockMode()) {
   if (process.env.MOCK_ENV === 'mock') {
     const splitted = url?.split('/');
     let path = splitted[1] ?? '';

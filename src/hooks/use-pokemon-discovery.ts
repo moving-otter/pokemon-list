@@ -22,7 +22,7 @@ export function usePokemonDiscovery(listParams: PokemonsListParam) {
       const newFilteredPokemonList = Object.values(allPokemonList).filter(
         (pokemon) =>
           pokemon.name.toLowerCase().includes(singleSearch.toLowerCase()) ||
-          pokemon.number.toString().includes(singleSearch.toLowerCase()) ||
+          pokemon.id.toString().includes(singleSearch.toLowerCase()) ||
           pokemon.types.some((type: string) =>
             type.toLowerCase().includes(singleSearch.toLowerCase())
           )

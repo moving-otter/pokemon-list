@@ -1,6 +1,6 @@
 export interface PokemonType {
   name: string;
-  number: number;
+  id: number;
   height: number;
   weight: number;
   types: string[];

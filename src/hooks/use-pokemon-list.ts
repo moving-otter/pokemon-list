@@ -38,7 +38,7 @@ export function usePokemonList(listParams: PokemonsListParam) {
 
         return <PokemonType>{
           name: details?.name,
-          number: details?.number,
+          id: details?.id,
           height: details?.height,
           weight: details?.weight,
           types: details?.types,

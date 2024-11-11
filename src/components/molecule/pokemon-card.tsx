@@ -4,23 +4,23 @@ import {PokemonType} from '@/types/pokemon';
 import Link from 'next/link';
 
 export default function PokemonCard(props: PokemonType) {
-  const {name, number, height, weight, types, imageUrl} = props;
+  const {name, id, height, weight, types, imageUrl} = props;
   const singleSearch = useDiscoveryStore((state) => state.singleSearch);
 
   return (
     <Link
       data-testid="pokemon-card"
-      href={`/pokemon/${number}`}
+      href={`/pokemon/${id}`}
       className={`flex bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-200 ease-in-out transform hover:scale-105 hover:bg-blue-50 border-transparent relative mx-1 mb-2 ${
         !imageUrl ? 'pb-3' : ''
       }
       `}
     >
       <div className="flex flex-col w-full p-2" key={name}>
-        {/* Header with number and name */}
+        {/* Header with id and name */}
         <div className="flex flex-col items-start">
           <div className="text-gray-600 text-md font-semibold">
-            # <HighlightedText value={`${number}`} highlight={singleSearch} />
+            # <HighlightedText value={`${id}`} highlight={singleSearch} />
           </div>
           <div className="text-gray-600 text-md font-bold capitalize break-words">
             <HighlightedText value={`${name}`} highlight={singleSearch} />

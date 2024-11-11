@@ -11,11 +11,6 @@ import {evolutionChainQueryService} from '@/services/evolution-chain/query';
 import {pokemonQueryService} from '@/services/pokemon/query';
 
 export function usePokemonDetail(pokemonId: string) {
-  // async () => {
-  //   if (process.env.MOCK_ENV === 'mock') {
-  //     return await import('@/__mocks__/pokemon-detail.json');
-  //   }
-  // };
   const [explanation, setExplanation] = useState('');
 
   // #API 1. 하나의 pokemon 상세정보 가져오기

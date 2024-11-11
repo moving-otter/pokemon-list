@@ -23,7 +23,7 @@ export async function getPokemonById(params: PokemonByIdParams) {
 
   return {
     name: validatedData.name,
-    number: validatedData.id,
+    id: validatedData.id,
     height: validatedData.height,
     weight: validatedData.weight,
     types: validatedData.types.map((type) => type.type.name),
