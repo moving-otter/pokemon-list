@@ -23,7 +23,7 @@ export default function CardPagination(props: CardPaginationProps) {
     {key: '1', value: limitInitialValue, text: limitInitialValue},
     {key: '2', value: 100, text: '100'},
     {key: '3', value: 200, text: '200'},
-    {key: '4', value: totalCount, text: 'All'},
+    {key: '4', value: 500, text: '500'},
   ];
 
   // URL에서 가져온 {page, limit} 정보를 현재 페이지와 listParam에 할당

@@ -2,13 +2,13 @@ import {PokemonType} from '@/types/pokemon';
 import {create} from 'zustand';
 
 interface PokemonStore {
-  allPokemonByIdsList: PokemonType[];
+  allPokemonList: PokemonType[];
 
-  setAllPokemonByIdsList: (param: any[]) => void;
+  setAllPokemonList: (param: any[]) => void;
 }
 
 export const usePokemonStore = create<PokemonStore>((set) => ({
-  allPokemonByIdsList: [],
+  allPokemonList: [],
 
-  setAllPokemonByIdsList: (param) => set({allPokemonByIdsList: param}),
+  setAllPokemonList: (param) => set({allPokemonList: param}),
 }));

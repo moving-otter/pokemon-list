@@ -1,0 +1,25 @@
+{
+  "chain": {
+    "species": {
+      "name": "caterpie",
+      "url": "https://pokeapi.co/api/v2/pokemon-species/10/"
+    },
+    "evolves_to": [
+      {
+        "species": {
+          "name": "metapod",
+          "url": "https://pokeapi.co/api/v2/pokemon-species/11/"
+        },
+        "evolves_to": [
+          {
+            "species": {
+              "name": "butterfree",
+              "url": "https://pokeapi.co/api/v2/pokemon-species/12/"
+            },
+            "evolves_to": []
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -8,7 +8,7 @@ import {useEffect} from 'react';
 export function usePokemonDiscovery(listParams: PokemonsListParam) {
   const sortOption = useDiscoveryStore((state) => state.sortOption);
   const singleSearch = useDiscoveryStore((state) => state.singleSearch);
-  const allPokemonList = usePokemonStore((state) => state.allPokemonByIdsList);
+  const allPokemonList = usePokemonStore((state) => state.allPokemonList);
   const discoveredPokemonList = useDiscoveryStore((state) => state.discoveredPokemonList);
   const setDiscoveredPokemonList = useDiscoveryStore((state) => state.setDiscoveredPokemonList);
 

@@ -1,4 +1,3 @@
-import {isObjectEmpty} from '@/utils/data-helper';
 import {RegionMapType} from '@/types/region-map';
 import {PokemonType} from '@/types/pokemon';
 import {Dropdown} from 'semantic-ui-react';
@@ -13,13 +12,7 @@ interface FilterPokemonProps {
 }
 
 export default function FilterPokemon(props: FilterPokemonProps) {
-  const {
-    regionMap,
-    forceInitialize,
-    discoveredPokemonList,
-
-    setDiscoveredPokemonList,
-  } = props;
+  const {regionMap, forceInitialize, discoveredPokemonList, setDiscoveredPokemonList} = props;
   const options = [
     {key: 'all', text: 'All Regions', value: 'all'},
     ...Object.keys(regionMap).map((regionKey) => ({
@@ -37,12 +30,10 @@ export default function FilterPokemon(props: FilterPokemonProps) {
     }
   }, [forceInitialize]);
 
-  // if (!isObjectEmpty(regionMap)) {
-  //   console.log('check/regionPokemonIdsMap:', regionMap);
-  // }
+  // console.log('check/regionMap:', regionMap);
 
   const handleDropdownChange = (_: any, {value}: {value: string}) => {
-    console.log('check/discoveredPokemonList', discoveredPokemonList);
+    // console.log('check/discoveredPokemonList', discoveredPokemonList);
     setSelectedOption(value);
   };
 

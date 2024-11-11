@@ -13,6 +13,7 @@ export default function PokemonCardList(props: PokemonCardListProps) {
   const router = useRouter();  
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
+
   const saveScrollPosition = () => {
     if (scrollContainerRef.current) {
       sessionStorage.setItem('scrollPosition', scrollContainerRef.current.scrollTop.toString());

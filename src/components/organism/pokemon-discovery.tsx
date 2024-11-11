@@ -1,6 +1,7 @@
 import {SearchPokemon, SortPokemon, FilterPokemon} from '@/components/molecule';
 import {LoadingSlider, DiscoveredCount} from '@/components/atom';
 import {useDiscoveryStore} from '@/store/discovery-store';
+import {isObjectEmpty} from '@/utils/data-helper';
 import {RegionMapType} from '@/types/region-map';
 import {useEffect} from 'react';
 
@@ -50,23 +51,25 @@ export default function PokemonDiscovery(props: PokemonDiscoveryProps) {
           />
         </div>
 
-        <div className="flex items-center space-x-2 mb-4 md:mt-0">
-          <SortPokemon
-            {...{
-              setSortOption,
-              forceInitialize,
-            }}
-          />
+        {!isObjectEmpty(regionMap) && (
+          <div className="flex items-center space-x-2 ml-4 mb-4 md:mt-0">
+            <SortPokemon
+              {...{
+                setSortOption,
+                forceInitialize,
+              }}
+            />
 
-          <FilterPokemon
-            {...{
-              regionMap,
-              forceInitialize,
-              discoveredPokemonList,
-              setDiscoveredPokemonList,
-            }}
-          />
-        </div>
+            <FilterPokemon
+              {...{
+                regionMap,
+                forceInitialize,
+                discoveredPokemonList,
+                setDiscoveredPokemonList,
+              }}
+            />
+          </div>
+        )}
       </div>
 
       {disabled && <LoadingSlider />}

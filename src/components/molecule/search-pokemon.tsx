@@ -1,5 +1,4 @@
 import {useRouterCore} from '@/hooks/use-router-core';
-import {PokemonType} from '@/types/pokemon';
 
 interface SearchPokemonType {
   singleSearch: string;

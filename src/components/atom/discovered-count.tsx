@@ -14,7 +14,7 @@ export default function DiscoveredCount(props: DiscoveredCountType) {
     <>
       {isDisplayCount && (
         <label className="mb-3 text-lg " style={{marginLeft: '-7px'}}>
-          ( <label className="space-x-2">{discoveredCount}</label> )
+          [ <label className="space-x-2">{discoveredCount}</label> ]
         </label>
       )}
     </>
