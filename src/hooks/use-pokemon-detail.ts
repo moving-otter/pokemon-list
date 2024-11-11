@@ -1,16 +1,21 @@
 'use client';
 
-import {parsedId} from '@/utils/data-helper';
-import {useQuery} from '@tanstack/react-query';
-import {undefinedString} from '@/utils/constants';
 import {useEffect, useState, useMemo} from 'react';
+import {undefinedString} from '@/utils/constants';
+import {useQuery} from '@tanstack/react-query';
+import {parsedId} from '@/utils/data-helper';
 
 // 사용되는 API 목록 1. ~ 3. 단계로 호출됨
-import {pokemonQueryService} from '@/services/pokemon/query';
 import {pokemonSpeciesQueryService} from '@/services/pokemon-species/query';
 import {evolutionChainQueryService} from '@/services/evolution-chain/query';
+import {pokemonQueryService} from '@/services/pokemon/query';
 
 export function usePokemonDetail(pokemonId: string) {
+  // async () => {
+  //   if (process.env.MOCK_ENV === 'mock') {
+  //     return await import('@/__mocks__/pokemon-detail.json');
+  //   }
+  // };
   const [explanation, setExplanation] = useState('');
 
   // #API 1. 하나의 pokemon 상세정보 가져오기

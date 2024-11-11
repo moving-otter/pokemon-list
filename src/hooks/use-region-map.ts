@@ -9,7 +9,7 @@ import {useEffect, useState} from 'react';
 import {pokedexQueryService} from '@/services/pokedex/query';
 import {regionQueryService} from '@/services/region/query';
 
-export function useRegionMap() {  
+export function useRegionMap() {
   // HashMap을 생성하여 지역별 포켓몬 ID 저장
   const [regionPokemonIdsMap, setRegionPokemonIdsMap] = useState<Record<string, number[]>>({});
 
@@ -34,7 +34,7 @@ export function useRegionMap() {
     queries: pokedexIds.map((id) => pokedexQueryService.getById({id: id ?? undefinedString})) || [],
   });
 
-  // 2, 3번 useQueries 성공 여부 확인  
+  // 2, 3번 useQueries 성공 여부 확인
   const allRegionByIdQueriesSuccessful = regionByIdQueries.every((query) => query.isSuccess);
   const allPokedexByIdQueriesSuccessful = pokedexByIdQueries.every((query) => query.isSuccess);
 
@@ -59,7 +59,7 @@ export function useRegionMap() {
     }
   }, [
     regionsList,
-    pokedexByIdQueries,    
+    pokedexByIdQueries,
     allRegionByIdQueriesSuccessful,
     allPokedexByIdQueriesSuccessful,
   ]);
@@ -68,8 +68,8 @@ export function useRegionMap() {
     data: {
       regionMap: regionPokemonIdsMap,
     },
-    isPending:      
-      isPendingRegions ||      
+    isPending:
+      isPendingRegions ||
       !allRegionByIdQueriesSuccessful ||
       !allPokedexByIdQueriesSuccessful ||
       isObjectEmpty(regionPokemonIdsMap ?? {}),

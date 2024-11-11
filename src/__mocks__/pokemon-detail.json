@@ -1,0 +1,41 @@
+{
+  "data": {
+    "pokemonList": [
+      {
+        "name": "bulbasaur",
+        "number": 1,
+        "height": 7,
+        "weight": 69,
+        "types": ["grass", "poison"],
+        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+      }
+    ],
+    "explanation": "Hello World! Hello World! Hello World! Hello World! Hello World!",
+    "evolutionChain": {
+      "chain": {
+        "species": {
+          "name": "caterpie",
+          "url": "https://pokeapi.co/api/v2/pokemon-species/10/"
+        },
+        "evolves_to": [
+          {
+            "species": {
+              "name": "metapod",
+              "url": "https://pokeapi.co/api/v2/pokemon-species/11/"
+            },
+            "evolves_to": [
+              {
+                "species": {
+                  "name": "butterfree",
+                  "url": "https://pokeapi.co/api/v2/pokemon-species/12/"
+                },
+                "evolves_to": []
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "isPending": false
+}
