@@ -9,6 +9,7 @@ export const pokemonQueryService = {
     return queryOptions({
       queryKey: pokemonKeys.getList(params),
       queryFn: () => getPokemonsList(params),
+      enabled: params.enabled ?? true,
     });
   },
   getById: (params: PokemonByIdParams) => {

@@ -14,10 +14,11 @@ export const pokemonsListParamsSchema = z.object({
   enabled: z.boolean().optional(),
 });
 
-export const pokemonsIdListParamsSchema = z.object({
-  idList: z.array(z.number()),
-  enabled: z.boolean().optional(),
-});
+export const pokemonsUrlListParamsSchema = z.array(
+  z.object({
+    url: z.string(),
+  })
+);
 
 export const pokemonByIdSchema = z.object({
   name: z.string(),
@@ -38,6 +39,7 @@ export const pokemonByIdSchema = z.object({
 });
 export const pokemonByIdParamsSchema = z.object({
   id: z.string(),
+  enabled: z.boolean().optional(),
 });
 
 export const pokedexByIdSchema = z.object({
@@ -55,7 +57,7 @@ export const pokedexByIdParamsSchema = z.object({
 
 export type PokemonsListSchema = z.infer<typeof pokemonsListSchema>;
 export type PokemonsListParam = z.infer<typeof pokemonsListParamsSchema>;
-export type PokemonsIdListParamsSchema = z.infer<typeof pokemonsIdListParamsSchema>;
+export type PokemonsUrlListParamsSchema = z.infer<typeof pokemonsUrlListParamsSchema>;
 
 export type PokemonByIdSchema = z.infer<typeof pokemonByIdSchema>;
 export type PokemonByIdParams = z.infer<typeof pokemonByIdParamsSchema>;

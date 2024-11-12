@@ -1,6 +1,6 @@
 'use client';
 
-import {PokemonsListParam} from '@/services/pokemon/types';
+import {PokemonsUrlListParamsSchema} from '@/services/pokemon/types';
 import {useQuery, useQueries} from '@tanstack/react-query';
 import {parsedId, validatedId} from '@/utils/helper';
 import {PokemonType} from '@/types/pokemon';
@@ -9,16 +9,23 @@ import {useMemo} from 'react';
 // 사용되는 API 목록) 1. 2. 단계로 호출됨
 import {pokemonQueryService} from '@/services/pokemon/query';
 
-export function usePokemonList(listParams: PokemonsListParam) {
-  // #API 1. 여러개의 pokemon 목록 가져오기
-  const {data: pokemonsList, isPending: isPendingList} = useQuery(
-    pokemonQueryService.getList({...listParams})
-  );
+export function usePokemonDetails(listParams: PokemonsUrlListParamsSchema) {
+  const getPokemonList = () => {
+    const urlList = listParams as PokemonsUrlListParamsSchema;
+    return {
+      results: urlList,
+    };
+  };
+
+  const getIsPending = () => {
+    const urlList = listParams as PokemonsUrlListParamsSchema;
+    return urlList.length === 0 || !allPokemonByIdQueriesSuccessful;
+  };
 
   // #API 2. 여러개의 pokemon 상세 정보 가져오기
   const getPokemonByIdQueries = useQueries({
     queries:
-      pokemonsList?.results.map((pokemon) =>
+      getPokemonList().results.map((pokemon) =>
         pokemonQueryService.getById({id: validatedId(parsedId(pokemon.url))})
       ) || [],
   });
@@ -28,8 +35,8 @@ export function usePokemonList(listParams: PokemonsListParam) {
 
   // `pokmonByIdsList` 계산을 useMemo로 최적화
   const memoPokemonList = useMemo(() => {
-    return pokemonsList?.results
-      .map((_: any, index: number) => {
+    return getPokemonList()
+      ?.results.map((_: any, index: number) => {
         const {data: details, isPending: isPendingDetailList} = getPokemonByIdQueries[index] || {};
 
         if (isPendingDetailList || details === undefined) {
@@ -37,22 +44,21 @@ export function usePokemonList(listParams: PokemonsListParam) {
         }
 
         return <PokemonType>{
-          name: details?.name,
-          id: details?.id,
-          height: details?.height,
-          weight: details?.weight,
-          types: details?.types,
-          imageUrl: details?.imageUrl,
+          name: (details as PokemonType)?.name,
+          id: (details as PokemonType)?.id,
+          height: (details as PokemonType)?.height,
+          weight: (details as PokemonType)?.weight ?? 0,
+          types: (details as PokemonType)?.types,
+          imageUrl: (details as PokemonType)?.imageUrl,
         };
       })
       .filter(Boolean); // null 값 제거
-  }, [pokemonsList?.results, getPokemonByIdQueries]);
+  }, [getPokemonByIdQueries]);
 
   return {
     data: {
       pokemonList: memoPokemonList,
-      totalCount: pokemonsList?.count ?? 0,
     },
-    isPending: isPendingList || !allPokemonByIdQueriesSuccessful,
+    isPending: getIsPending() ?? true,
   };
 }

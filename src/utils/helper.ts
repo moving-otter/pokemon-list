@@ -26,3 +26,24 @@ export function isObjectEmpty(param: object) {
   return Object.keys(param).length === 0;
 }
 
+export function extractUrls(data: any): {url: string}[] {
+  let urls: {url: string}[] = [];
+
+  const traverse = (node: any) => {
+    if (node && typeof node === 'object') {
+      if (node.url && typeof node.url === 'string') {
+        urls.push({url: node.url});
+      }
+
+      for (const key in node) {
+        if (node.hasOwnProperty(key)) {
+          traverse(node[key]);
+        }
+      }
+    }
+  };
+
+  traverse(data);
+
+  return urls;
+}

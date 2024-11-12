@@ -39,7 +39,7 @@ export default function PokemonCardList(props: PokemonCardListProps) {
       ref={scrollContainerRef}
       data-testid="pokemon-card-list"
       className={clsx('flex-grow overflow-y-auto p-4', {
-        'opacity-60 cursor-default pointer-events-none': disabled,
+        'opacity-70 cursor-default pointer-events-none': disabled,
       })}
     >
       {pokemonList.length === 0 ? (

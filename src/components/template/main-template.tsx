@@ -4,9 +4,9 @@ import {PokemonsListParam} from '@/services/pokemon/types';
 import {Header, LoadingSpinner} from '@/components/atom';
 import {usePokemonStore} from '@/store/pokemon-store';
 import {ListParamsType} from '@/types/list-params';
-import {useEffect, useMemo, useState} from 'react';
 import {RegionMapType} from '@/types/region-map';
 import {PokemonType} from '@/types/pokemon';
+import {useEffect, useState} from 'react';
 
 interface MainTemplateProps {
   regionMap: RegionMapType;
@@ -48,7 +48,6 @@ export default function MainTemplate(props: MainTemplateProps) {
   const pokemonList = isDiscoveringPokemon ? pokemonListFromClient : pokemonListFromAPI;
   const disabled = isPendingRegionMap || isPendingAllPokemonList;
 
-  // 페이지네이션에 전달할 전체 페이지 개수 계산
   useEffect(() => {
     if (pokemonListFromAPI) {
       setTotalPages(Math.ceil(totalCountFromAPI / listParams.limit));

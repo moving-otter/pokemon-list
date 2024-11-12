@@ -33,7 +33,6 @@ export default function FilterPokemon(props: FilterPokemonProps) {
   // console.log('check/regionMap:', regionMap);
 
   const handleDropdownChange = (_: any, {value}: {value: string}) => {
-    // console.log('check/discoveredPokemonList', discoveredPokemonList);
     setSelectedOption(value);
   };
 
