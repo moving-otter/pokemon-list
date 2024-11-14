@@ -14,6 +14,8 @@ async function getMockData(filePath: string) {
 export async function getData(url: string) {
   let data: object;
 
+  // nextjs 자체에서도 mocking 테스트를 할 수 있음
+  // src/api에 데이터 정의 가능, proxy / mock server
   if (process.env.MOCK_ENV === 'mock') {
     const splitted = url?.split('/');
     let path = splitted[1] ?? '';

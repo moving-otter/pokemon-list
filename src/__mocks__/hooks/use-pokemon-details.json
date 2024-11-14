@@ -1,0 +1,44 @@
+{
+  "pokemonList": [
+    {
+      "name": "wurmple",
+      "id": 265,
+      "height": 3,
+      "weight": 36,
+      "types": ["bug"],
+      "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/265.png"
+    },
+    {
+      "name": "silcoon",
+      "id": 266,
+      "height": 6,
+      "weight": 100,
+      "types": ["bug"],
+      "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/266.png"
+    },
+    {
+      "name": "beautifly",
+      "id": 267,
+      "height": 10,
+      "weight": 284,
+      "types": ["bug", "flying"],
+      "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/267.png"
+    },
+    {
+      "name": "cascoon",
+      "id": 268,
+      "height": 7,
+      "weight": 115,
+      "types": ["bug"],
+      "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/268.png"
+    },
+    {
+      "name": "dustox",
+      "id": 269,
+      "height": 12,
+      "weight": 316,
+      "types": ["bug", "poison"],
+      "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/269.png"
+    }
+  ]
+}

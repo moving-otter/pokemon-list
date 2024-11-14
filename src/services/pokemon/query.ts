@@ -15,6 +15,9 @@ export const pokemonQueryService = {
   getById: (params: PokemonByIdParams) => {
     const {id} = params;
 
+    // skipToken: 특정 조건에 맞아야만 호출
+    // enabled와 비슷하지만 enabled는 refetch에서 실행될 수 있는 문제가 있음 
+    // useSuspense는 enabled, skipToken 둘 다 안됨 
     return queryOptions({
       queryKey: pokemonKeys.getById(id),
       queryFn: () => getPokemonById(params),

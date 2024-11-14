@@ -1,48 +1,32 @@
 {
   "data": {
-    "pokemonList": [
-      {
-        "name": "bulbasaur",
-        "number": 1,
-        "height": 7,
-        "weight": 69,
-        "types": ["grass", "poison"],
-        "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-      }
-    ],
-    "explanation": "This POKéMON has electricity-storing pouches on its cheeks. These appear to become electrically charged during the night while PIKACHU sleeps. It occasionally discharges electricity when it is dozy after waking up.",
+    "pokemon": {
+      "name": "venusaur",
+      "id": 3,
+      "height": 20,
+      "weight": 1000,
+      "types": ["grass", "poison"],
+      "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+      "speciesUrl": "https://pokeapi.co/api/v2/pokemon-species/3/"
+    },
+    "explanation": "There is a large flower on VENUSAUR’s\nback. The flower is said to take on vivid\ncolors if it gets plenty of nutrition\fand sunlight. The flower’s aroma\nsoothes the emotions of people.",
     "evolutionChain": {
       "chain": {
         "species": {
-          "name": "wurmple",
-          "url": "https://pokeapi.co/api/v2/pokemon-species/265/"
+          "name": "bulbasaur",
+          "url": "https://pokeapi.co/api/v2/pokemon-species/1/"
         },
         "evolves_to": [
           {
             "species": {
-              "name": "silcoon",
-              "url": "https://pokeapi.co/api/v2/pokemon-species/266/"
+              "name": "ivysaur",
+              "url": "https://pokeapi.co/api/v2/pokemon-species/2/"
             },
             "evolves_to": [
               {
                 "species": {
-                  "name": "beautifly",
-                  "url": "https://pokeapi.co/api/v2/pokemon-species/267/"
-                },
-                "evolves_to": []
-              }
-            ]
-          },
-          {
-            "species": {
-              "name": "cascoon",
-              "url": "https://pokeapi.co/api/v2/pokemon-species/268/"
-            },
-            "evolves_to": [
-              {
-                "species": {
-                  "name": "dustox",
-                  "url": "https://pokeapi.co/api/v2/pokemon-species/269/"
+                  "name": "venusaur",
+                  "url": "https://pokeapi.co/api/v2/pokemon-species/3/"
                 },
                 "evolves_to": []
               }

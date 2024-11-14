@@ -1,13 +1,13 @@
-interface Species {
+export interface SpeciesType {
   name: string;
   url: string;
 }
 
-interface EvolutionData {
-  species: Species;
-  evolves_to: EvolutionChainType[];
+export interface EvolutionDataType {
+  species: SpeciesType;
+  evolves_to?: EvolutionChainType[];
 }
 
 export interface EvolutionChainType {
-  chain?: EvolutionData;
+  chain?: EvolutionDataType;
 }
